@@ -1,0 +1,5 @@
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.pdb
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.csprojResolveAssemblyReference.cache
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.pdb

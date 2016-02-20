@@ -1,0 +1,11 @@
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.pdb
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.InternalDsl.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.InternalDsl.pdb
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.pdb
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.csprojResolveAssemblyReference.cache
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.dll
+C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.pdb
