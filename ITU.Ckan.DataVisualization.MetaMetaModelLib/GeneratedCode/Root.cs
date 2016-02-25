@@ -11,7 +11,7 @@ using System.Text;
 
 public class Root : ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Source> Sources
+	public virtual IEnumerable<Visualization> Visualizations
 	{
 		get;
 		set;

@@ -16,12 +16,12 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
             return this;
         }
 
-        public IRootFactory AddSource(string name)
+        public IRootFactory AddVisualization(string name)
         {
-            if (root.Sources == null)
-                root.Sources = new List<Source>();
+            if (root.Visualizations == null)
+                root.Visualizations = new List<Visualization>();
 
-            (root.Sources as List<Source>).Add(new Source() { Name = name });
+            (root.Visualizations as List<Visualization>).Add(new Visualization() { Name = name });
 
             return this;
         }

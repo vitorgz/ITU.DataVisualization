@@ -86,10 +86,10 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void TestRootFactory()
         {
             var r = new RootFactory().Initialize()
-                .AddSource("test").Create();
+                .AddVisualization("test").Create();
 
-            var s = r.GetSource("test");
-            var ss = r.GetSourceById(x => x.Name == "test");
+            var s = r.GetVisualization("test");
+            var ss = r.GetVisualizationById(x => x.Name == "test");
 
             var ta = ss.addAttributes(new List<Group>());
         }

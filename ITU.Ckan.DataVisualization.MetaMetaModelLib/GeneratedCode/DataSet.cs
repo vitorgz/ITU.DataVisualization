@@ -29,7 +29,7 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Record> Records
+	public virtual IEnumerable<Resource> Resources
 	{
 		get;
 		set;

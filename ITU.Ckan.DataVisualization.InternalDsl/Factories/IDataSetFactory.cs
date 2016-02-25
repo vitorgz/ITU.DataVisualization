@@ -13,7 +13,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         IDataSetFactory AddOrganization(List<Organization> organizations);
         IDataSetFactory AddTag(List<Tag> tags);
         IDataSetFactory AddField(List<Field> field);
-        IDataSetFactory AddRecord(List<Record> record);
+        IDataSetFactory AddResource(List<Resource> record);
         DataSet Create();
     }
 }

@@ -9,7 +9,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
     public interface IRootFactory
     {
         IRootFactory Initialize();
-        IRootFactory AddSource(string firstName);
+        IRootFactory AddVisualization(string firstName);
         Root Create();
     }
 }

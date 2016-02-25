@@ -9,9 +9,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Record : NamedElement, ICkanBuilder, IEntity
+public class Record : NamedElement, IEntity
 {
-	public virtual IEnumerable<Result> Results
+	public virtual object Value
+	{
+		get;
+		set;
+	}
+
+	public virtual Field Field
 	{
 		get;
 		set;

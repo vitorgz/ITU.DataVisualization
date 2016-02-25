@@ -28,12 +28,11 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             throw new NotImplementedException();
         }
 
-        public IDataSetFactory AddRecord(List<Record> record)
+        public IDataSetFactory AddTag(List<Tag> tags)
         {
             throw new NotImplementedException();
         }
-
-        public IDataSetFactory AddTag(List<Tag> tags)
+        public IDataSetFactory AddResource(List<Resource> record)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +41,5 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         {
             throw new NotImplementedException();
         }
-
-       
     }
 }

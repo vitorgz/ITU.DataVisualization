@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GeneratedCode\Column.cs" />
     <Compile Include="GeneratedCode\DataSet.cs" />
     <Compile Include="GeneratedCode\Field.cs" />
     <Compile Include="GeneratedCode\Group.cs" />
@@ -50,11 +51,16 @@
     <Compile Include="GeneratedCode\Organization.cs" />
     <Compile Include="GeneratedCode\Package.cs" />
     <Compile Include="GeneratedCode\Property.cs" />
+    <Compile Include="GeneratedCode\RawData.cs" />
     <Compile Include="GeneratedCode\Record.cs" />
+    <Compile Include="GeneratedCode\Resource.cs" />
     <Compile Include="GeneratedCode\Result.cs" />
     <Compile Include="GeneratedCode\Root.cs" />
+    <Compile Include="GeneratedCode\Row.cs" />
     <Compile Include="GeneratedCode\Source.cs" />
+    <Compile Include="GeneratedCode\Table.cs" />
     <Compile Include="GeneratedCode\Tag.cs" />
+    <Compile Include="GeneratedCode\Visualization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

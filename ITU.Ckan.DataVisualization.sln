@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cloud", "Cloud", "{4BD8EEEC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.MetaMetaModelTest", "ITU.Ckan.DataVisualization.MetaMetaModelTest\ITU.Ckan.DataVisualization.MetaMetaModelTest.csproj", "{3D173152-DBA5-4D3B-AE96-70FF2C6BB8B8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.Web", "ITU.Ckan.DataVisualization.Web\ITU.Ckan.DataVisualization.Web.csproj", "{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{3D173152-DBA5-4D3B-AE96-70FF2C6BB8B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D173152-DBA5-4D3B-AE96-70FF2C6BB8B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D173152-DBA5-4D3B-AE96-70FF2C6BB8B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,5 +58,6 @@ Global
 		{563B3CB5-6470-4D92-AB91-BE2D826614A8} = {E933AFC2-0682-4E1D-8CD4-CC0175E3E6DD}
 		{9DAAC619-ED06-4DA7-8204-06CB9E202CB2} = {E933AFC2-0682-4E1D-8CD4-CC0175E3E6DD}
 		{3D173152-DBA5-4D3B-AE96-70FF2C6BB8B8} = {DB3F2543-1B29-42AC-8FEA-8840C4D29143}
+		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E} = {F2D77AF5-575B-4EEA-970C-04BEF2BC0634}
 	EndGlobalSection
 EndGlobal

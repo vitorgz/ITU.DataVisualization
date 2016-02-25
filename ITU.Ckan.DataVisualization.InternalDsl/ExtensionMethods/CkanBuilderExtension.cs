@@ -43,13 +43,26 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
             return dataSet;
         }
 
-        public static Source GetSource(this Root root, string name)
+        public static Visualization GetVisualization(this Root root, string name)
+        {
+            var s = root.Visualizations.Where(x => x.Name == name).FirstOrDefault();
+            return s;
+        }
+
+        public static Visualization GetVisualizationById(this Root root, Expression<Func<Visualization, bool>> property)
+        {
+            Func<Visualization, bool> funcWhere = property.Compile();
+            var s = root.Visualizations.Where(funcWhere).FirstOrDefault();
+            return s;
+        }
+
+        public static Source GetSource(this Visualization root, string name)
         {
             var s = root.Sources.Where(x => x.Name == name).FirstOrDefault();
             return s;
         }
 
-        public static Source GetSourceById(this Root root, Expression<Func<Source, bool>> property)
+        public static Source GetSourceById(this Visualization root, Expression<Func<Source, bool>> property)
         {
             Func<Source, bool> funcWhere = property.Compile();
             var s = root.Sources.Where(funcWhere).FirstOrDefault();
