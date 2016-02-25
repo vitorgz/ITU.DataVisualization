@@ -60,6 +60,7 @@
     <Compile Include="GeneratedCode\Source.cs" />
     <Compile Include="GeneratedCode\Table.cs" />
     <Compile Include="GeneratedCode\Tag.cs" />
+    <Compile Include="GeneratedCode\User.cs" />
     <Compile Include="GeneratedCode\Visualization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

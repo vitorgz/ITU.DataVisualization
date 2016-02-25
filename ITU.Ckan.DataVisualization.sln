@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.Web", "ITU.Ckan.DataVisualization.Web\ITU.Ckan.DataVisualization.Web.csproj", "{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "ITU.Ckan.DataVisualization.CloudService", "ITU.Ckan.DataVisualization.CloudService\ITU.Ckan.DataVisualization.CloudService.ccproj", "{F0FDE839-B89C-4242-A4BF-F6EBE1362571}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.CloudApi", "ITU.Ckan.DataVisualization.CloudApi\ITU.Ckan.DataVisualization.CloudApi.csproj", "{469F4EEA-B25C-498C-834F-23A0DD263695}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,14 @@ Global
 		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F0FDE839-B89C-4242-A4BF-F6EBE1362571}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F0FDE839-B89C-4242-A4BF-F6EBE1362571}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F0FDE839-B89C-4242-A4BF-F6EBE1362571}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F0FDE839-B89C-4242-A4BF-F6EBE1362571}.Release|Any CPU.Build.0 = Release|Any CPU
+		{469F4EEA-B25C-498C-834F-23A0DD263695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{469F4EEA-B25C-498C-834F-23A0DD263695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{469F4EEA-B25C-498C-834F-23A0DD263695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{469F4EEA-B25C-498C-834F-23A0DD263695}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +71,7 @@ Global
 		{9DAAC619-ED06-4DA7-8204-06CB9E202CB2} = {E933AFC2-0682-4E1D-8CD4-CC0175E3E6DD}
 		{3D173152-DBA5-4D3B-AE96-70FF2C6BB8B8} = {DB3F2543-1B29-42AC-8FEA-8840C4D29143}
 		{0CF266F7-75A4-4197-B00C-6F1B50BAB89E} = {F2D77AF5-575B-4EEA-970C-04BEF2BC0634}
+		{F0FDE839-B89C-4242-A4BF-F6EBE1362571} = {4BD8EEEC-A7CC-453B-83B0-CA411C3C7C0D}
+		{469F4EEA-B25C-498C-834F-23A0DD263695} = {4BD8EEEC-A7CC-453B-83B0-CA411C3C7C0D}
 	EndGlobalSection
 EndGlobal

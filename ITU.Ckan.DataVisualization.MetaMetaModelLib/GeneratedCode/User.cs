@@ -9,21 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Organization : NamedElement, IPropertable, ICkanBuilder, IEntity
+public class User : NamedElement
 {
-	public virtual IEnumerable<Property> Properties
-	{
-		get;
-		set;
-	}
-
-	public virtual IEnumerable<User> Users
-	{
-		get;
-		set;
-	}
-
-	public virtual IEnumerable<DataSet> DataSet
+	public virtual IEnumerable<Organization> Organizations
 	{
 		get;
 		set;
