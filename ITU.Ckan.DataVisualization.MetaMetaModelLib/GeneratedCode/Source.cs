@@ -11,25 +11,25 @@ using System.Text;
 
 public class Source : NamedElement, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Group> Groups
+	public virtual IEnumerable<Group> groups
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Organization> Organizations
+	public virtual IEnumerable<Organization> organizations
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Tag> Tags
+	public virtual IEnumerable<Tag> tags
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Package> Packages
+	public virtual IEnumerable<Package> packages
 	{
 		get;
 		set;

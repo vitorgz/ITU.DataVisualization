@@ -11,7 +11,7 @@ using System.Text;
 
 public class NamedElement
 {
-	public virtual string Name
+	public virtual string name
 	{
 		get;
 		set;

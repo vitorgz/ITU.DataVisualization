@@ -9,15 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Table : NamedElement, ICkanBuilder
+public class Graph : NamedElement
 {
-	public virtual IEnumerable<Column> volumns
-	{
-		get;
-		set;
-	}
-
-	public virtual IEnumerable<Row> rows
+	public virtual object type
 	{
 		get;
 		set;

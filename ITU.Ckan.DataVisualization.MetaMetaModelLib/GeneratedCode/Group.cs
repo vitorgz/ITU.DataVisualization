@@ -11,7 +11,25 @@ using System.Text;
 
 public class Group : NamedElement, IPropertable, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> Properties
+	public virtual IEnumerable<Property> properties
+	{
+		get;
+		set;
+	}
+
+	public virtual string display_name
+	{
+		get;
+		set;
+	}
+
+	public virtual string description
+	{
+		get;
+		set;
+	}
+
+	public virtual string title
 	{
 		get;
 		set;

@@ -5,10 +5,10 @@ C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization
 C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.csprojResolveAssemblyReference.cache
 C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.dll
 C:\Users\riatec\Documents\Visual Studio 2015\Projects\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.pdb
+C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.csprojResolveAssemblyReference.cache
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\bin\Debug\ITU.Ckan.DataVisualization.InternalDsl.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\bin\Debug\ITU.Ckan.DataVisualization.InternalDsl.pdb
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.pdb
-C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.csprojResolveAssemblyReference.cache
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.InternalDsl\obj\Debug\ITU.Ckan.DataVisualization.InternalDsl.pdb

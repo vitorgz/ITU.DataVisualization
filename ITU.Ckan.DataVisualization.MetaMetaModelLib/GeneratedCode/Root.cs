@@ -11,7 +11,19 @@ using System.Text;
 
 public class Root : ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Visualization> Visualizations
+	public virtual IEnumerable<Visualization> visualizations
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<Graph> graphs
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<Source> Source
 	{
 		get;
 		set;

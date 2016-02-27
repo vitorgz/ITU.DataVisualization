@@ -11,7 +11,19 @@ using System.Text;
 
 public class Field : NamedElement, IEntity
 {
-	public virtual object Type
+	public virtual object type
+	{
+		get;
+		set;
+	}
+
+	public virtual object id
+	{
+		get;
+		set;
+	}
+
+	public virtual bool selected
 	{
 		get;
 		set;

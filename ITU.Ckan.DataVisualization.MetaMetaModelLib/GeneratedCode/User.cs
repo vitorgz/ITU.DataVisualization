@@ -11,7 +11,7 @@ using System.Text;
 
 public class User : NamedElement
 {
-	public virtual IEnumerable<Organization> Organizations
+	public virtual IEnumerable<Organization> organizations
 	{
 		get;
 		set;

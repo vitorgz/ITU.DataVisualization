@@ -11,7 +11,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
         public static TProperty WithProperties<TProperty>(this TProperty classWithProperties, string name)
             where TProperty : IPropertable
         {
-            classWithProperties.Properties = new List<Property>(); //foreach list
+            classWithProperties.properties = new List<Property>(); //foreach list
             return classWithProperties;
         }
     }

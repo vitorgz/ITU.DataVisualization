@@ -15,12 +15,12 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.Name, "blabla")
-            .AddPropertyValue(x => x.Groups, new List<Group>() { new Group() { Properties = new List<Property>() { new Property() { Name = "test" } } } })
+            .AddPropertyValue(x => x.name, "blabla")
+            .AddPropertyValue(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
             .Create();
 
-            Assert.IsNotNull(source.Groups);
-            Assert.IsTrue(source.Groups.Any());
+            Assert.IsNotNull(source.groups);
+            Assert.IsTrue(source.groups.Any());
         }
 
         [TestMethod]
@@ -28,14 +28,14 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.Name, "blabla")
-            .AddPropertyValue(x => x.Groups, new List<Group>() { new Group() { Properties = new List<Property>() { new Property() { Name = "test" } } } })
+            .AddPropertyValue(x => x.name, "blabla")
+            .AddPropertyValue(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
             .Create();
 
-            var prop = source.Groups.Select(x => x.Properties);
+            var prop = source.groups.Select(x => x.properties);
 
             Assert.IsNotNull(prop);
-            Assert.IsTrue(source.Groups.Any());
+            Assert.IsTrue(source.groups.Any());
         }
 
         [TestMethod]
@@ -47,16 +47,16 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
             //    .AddPropertyValue(x => x.Value, 123)
             //    .Create();
 
-            var prop = new Property() { Name = "TET", Value = 12 };
+            var prop = new Property() { name = "TET", value = 12 };
 
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.Name, "blabla")
-            .AddPropertyValue(x => x.Packages, new List<Package>() { new Package() { Properties = new List<Property>() { prop } } })
+            .AddPropertyValue(x => x.name, "blabla")
+            .AddPropertyValue(x => x.packages, new List<Package>() { new Package() { properties = new List<Property>() { prop } } })
             .Create();
 
-            Assert.IsNotNull(source.Groups);
-            Assert.IsTrue(source.Groups.Any());
+            Assert.IsNotNull(source.groups);
+            Assert.IsTrue(source.groups.Any());
         }
 
         [TestMethod]
@@ -89,7 +89,7 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
                 .AddVisualization("test").Create();
 
             var s = r.GetVisualization("test");
-            var ss = r.GetVisualizationById(x => x.Name == "test");
+            var ss = r.GetVisualizationById(x => x.name == "test");
 
             var ta = ss.addAttributes(new List<Group>());
         }

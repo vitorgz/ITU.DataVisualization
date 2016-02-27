@@ -11,13 +11,25 @@ using System.Text;
 
 public class Package : NamedElement, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> Properties
+	public virtual IEnumerable<Property> properties
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<DataSet> DataSets
+	public virtual string author
+	{
+		get;
+		set;
+	}
+
+	public virtual object state
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<DataSet> dataSets
 	{
 		get;
 		set;

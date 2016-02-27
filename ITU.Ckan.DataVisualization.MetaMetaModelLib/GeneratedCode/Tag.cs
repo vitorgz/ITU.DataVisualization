@@ -11,7 +11,19 @@ using System.Text;
 
 public class Tag : NamedElement, IPropertable, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> Properties
+	public virtual IEnumerable<Property> properties
+	{
+		get;
+		set;
+	}
+
+	public virtual string id
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<DataSet> DataSet
 	{
 		get;
 		set;

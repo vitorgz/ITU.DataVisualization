@@ -11,43 +11,61 @@ using System.Text;
 
 public class DataSet : NamedElement, ICkanBuilder, IEntity
 {
-	public virtual int Id
+	public virtual string id
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Property> Properties
+	public virtual IEnumerable<Property> properties
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Field> Fields
+	public virtual string format
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Resource> Resources
+	public virtual string package_id
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Group> Group
+	public virtual IEnumerable<Field> fields
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Organization> Organization
+	public virtual IEnumerable<Resource> resources
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Tag> Tag
+	public virtual IEnumerable<Group> groups
+	{
+		get;
+		set;
+	}
+
+	public virtual Organization organization
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<Tag> tags
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<Record> records
 	{
 		get;
 		set;

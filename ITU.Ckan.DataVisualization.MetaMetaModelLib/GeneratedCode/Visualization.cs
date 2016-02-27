@@ -11,13 +11,7 @@ using System.Text;
 
 public class Visualization : NamedElement, ICkanBuilder
 {
-	public virtual int Id
-	{
-		get;
-		set;
-	}
-
-	public virtual IEnumerable<Source> Sources
+	public virtual int id
 	{
 		get;
 		set;
@@ -29,7 +23,19 @@ public class Visualization : NamedElement, ICkanBuilder
 		set;
 	}
 
-	public virtual IEnumerable<Table> Tables
+	public virtual IEnumerable<Table> tables
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<Source> sources
+	{
+		get;
+		set;
+	}
+
+	public virtual Graph graph
 	{
 		get;
 		set;

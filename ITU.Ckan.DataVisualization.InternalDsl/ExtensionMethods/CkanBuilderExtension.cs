@@ -16,7 +16,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
 
             if (classWithProperties.GetType() == typeof(Group))
             {
-                (classWithProperties as Group).Properties = new List<Property>();
+                (classWithProperties as Group).properties = new List<Property>();
             }
 
             if (classWithProperties.GetType() == typeof(Source))
@@ -24,7 +24,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
                 var source = (classWithProperties as Source);
 
                 Type typeParameterType = typeof(T);
-                if (typeof(T) == typeof(Group)) source.Groups = (name as List<Group>);
+                if (typeof(T) == typeof(Group)) source.groups = (name as List<Group>);
             }
             
             return classWithProperties;
@@ -33,39 +33,39 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
 
         public static DataSet addFields(this DataSet dataSet, IEnumerable<Field> fieldsList)
         {
-            dataSet.Fields = fieldsList;
+            dataSet.fields = fieldsList;
             return dataSet;
         }
 
         public static DataSet addRecods(this DataSet dataSet, IEnumerable<Field> fieldsList)
         {
-            dataSet.Fields = fieldsList;
+            dataSet.fields = fieldsList;
             return dataSet;
         }
 
         public static Visualization GetVisualization(this Root root, string name)
         {
-            var s = root.Visualizations.Where(x => x.Name == name).FirstOrDefault();
+            var s = root.visualizations.Where(x => x.name == name).FirstOrDefault();
             return s;
         }
 
         public static Visualization GetVisualizationById(this Root root, Expression<Func<Visualization, bool>> property)
         {
             Func<Visualization, bool> funcWhere = property.Compile();
-            var s = root.Visualizations.Where(funcWhere).FirstOrDefault();
+            var s = root.visualizations.Where(funcWhere).FirstOrDefault();
             return s;
         }
 
         public static Source GetSource(this Visualization root, string name)
         {
-            var s = root.Sources.Where(x => x.Name == name).FirstOrDefault();
+            var s = root.sources.Where(x => x.name == name).FirstOrDefault();
             return s;
         }
 
         public static Source GetSourceById(this Visualization root, Expression<Func<Source, bool>> property)
         {
             Func<Source, bool> funcWhere = property.Compile();
-            var s = root.Sources.Where(funcWhere).FirstOrDefault();
+            var s = root.sources.Where(funcWhere).FirstOrDefault();
             return s;
         }
     }

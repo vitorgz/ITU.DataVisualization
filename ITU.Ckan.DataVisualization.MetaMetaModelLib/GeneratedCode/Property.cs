@@ -11,7 +11,7 @@ using System.Text;
 
 public class Property : NamedElement, IEntity
 {
-	public virtual object Value
+	public virtual object value
 	{
 		get;
 		set;

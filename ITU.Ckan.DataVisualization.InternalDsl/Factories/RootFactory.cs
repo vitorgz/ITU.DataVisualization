@@ -18,10 +18,10 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
 
         public IRootFactory AddVisualization(string name)
         {
-            if (root.Visualizations == null)
-                root.Visualizations = new List<Visualization>();
+            if (root.visualizations == null)
+                root.visualizations = new List<Visualization>();
 
-            (root.Visualizations as List<Visualization>).Add(new Visualization() { Name = name });
+            (root.visualizations as List<Visualization>).Add(new Visualization() { name = name });
 
             return this;
         }

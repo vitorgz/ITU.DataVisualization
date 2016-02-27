@@ -11,13 +11,13 @@ using System.Text;
 
 public class Organization : NamedElement, IPropertable, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> Properties
+	public virtual IEnumerable<Property> properties
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<User> Users
+	public virtual IEnumerable<User> users
 	{
 		get;
 		set;
