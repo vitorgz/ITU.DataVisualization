@@ -29,6 +29,12 @@ public class Package : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
+	public virtual bool selected
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<DataSet> dataSets
 	{
 		get;
