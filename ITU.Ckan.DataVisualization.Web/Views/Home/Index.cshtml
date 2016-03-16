@@ -1,6 +1,9 @@
-﻿<div class="jumbotron">
-   @Html.DropDownList("test", new List<SelectListItem>().Add(new SelectListItem()))
-</div>
-<div class="row">
-  
-</div>
+﻿@model DotNet.Highcharts.Highcharts
+
+<h2>Index</h2>
+
+@(Model)
+
+@section Scripts {
+    @Scripts.Render("~/bundles/HighChart")
+}
