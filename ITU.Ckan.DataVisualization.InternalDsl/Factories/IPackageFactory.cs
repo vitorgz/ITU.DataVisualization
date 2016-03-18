@@ -10,6 +10,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     {
         IPackageFactory Initialize();
         IPackageFactory AddDataSet(List<DataSet> dataSets);
+        IPackageFactory GetPackages(Source id);
         Package Create();
     }
 }

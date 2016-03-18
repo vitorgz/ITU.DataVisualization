@@ -23,6 +23,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             throw new NotImplementedException();
         }
 
-       
+        public IPackageFactory GetPackages(Source id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
