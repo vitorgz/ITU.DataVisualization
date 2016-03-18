@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
-    public interface IPackageFactory
+    public interface IVisualizationFactory
     {
-        IPackageFactory Initialize();
-        IPackageFactory AddDataSet(List<DataSet> dataSets);
-        Package Create();
+        IVisualizationFactory Initialize();
+        ISourceFactory AddSource(List<Source> source);
+        Visualization Create();
     }
 }

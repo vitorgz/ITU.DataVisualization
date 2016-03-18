@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDsl.Factories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -40,6 +41,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         // GET: DataSource
         public ActionResult Index()
         {
+            //new SourceFactory().GetSources();
             return SelectCategory();
         }
     }

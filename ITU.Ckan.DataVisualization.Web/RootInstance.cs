@@ -5,17 +5,17 @@ using System.Web;
 
 namespace ITU.Ckan.DataVisualization.Web
 {
-    public class VisualizationInstance
+    public class RootInstance
     {
-        private static Visualization current;
+        private static Root current;
 
-        public static Visualization Current
+        public static Root Current
         {
             get
             {
                 if (current == null)
                 {
-                    current = new Visualization() { id = 1};
+                    current = new Root();
                 }
                 return current;
             }

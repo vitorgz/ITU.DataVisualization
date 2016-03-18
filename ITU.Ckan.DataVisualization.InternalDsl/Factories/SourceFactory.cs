@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class SourceFactory : ISourceFactory
     {
+        Source source;
         public ISourceFactory Initialize()
         {
-            throw new NotImplementedException();
+            source = new Source();
+            return this;
         }
 
         public ISourceFactory AddGroup(List<Group> groups)
@@ -36,6 +39,16 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         public Source Create()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ISourceFactory> GetPackages(Source id)
+        {
+
+            var sources = await InternalClient.Get<List<Package>>(id.name);
+
+            this.source.packages = sources;
+
+            return this;
         }
 
         public ISourceFactory GetSources()

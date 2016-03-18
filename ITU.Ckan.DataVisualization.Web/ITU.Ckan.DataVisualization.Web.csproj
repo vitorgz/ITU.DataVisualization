@@ -251,7 +251,7 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="VisualizationInstance.cs" />
+    <Compile Include="RootInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -359,6 +359,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ITU.Ckan.DataVisualization.InternalDsl\ITU.Ckan.DataVisualization.InternalDsl.csproj">
+      <Project>{9daac619-ed06-4da7-8204-06cb9e202cb2}</Project>
+      <Name>ITU.Ckan.DataVisualization.InternalDsl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ITU.Ckan.DataVisualization.MetaMetaModelLib\ITU.Ckan.DataVisualization.MetaMetaModelLib.csproj">
       <Project>{563b3cb5-6470-4d92-ab91-be2d826614a8}</Project>
       <Name>ITU.Ckan.DataVisualization.MetaMetaModelLib</Name>

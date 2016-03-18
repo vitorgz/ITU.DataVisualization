@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class PackageFactory : IPackageFactory
     {
+        Package package; 
         public IPackageFactory Initialize()
         {
-            throw new NotImplementedException();
+            package = new Package();
+            return this;
         }
 
         public IPackageFactory AddDataSet(List<DataSet> dataSets)
@@ -23,9 +26,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             throw new NotImplementedException();
         }
 
-        public IPackageFactory GetPackages(Source id)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -16,6 +16,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
     public class CkanController : ApiController
     {
         [Route("api/GetPackages")]
+        [HttpPost]
         public async Task<HttpResponseMessage> GetPackages()
         {
             //http://data.kk.dk/api/action/package_list
