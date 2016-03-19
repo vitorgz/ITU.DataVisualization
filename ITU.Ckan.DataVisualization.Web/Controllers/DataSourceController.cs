@@ -10,46 +10,49 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 {
     public class DataSourceController : Controller
     {
-        [Route("DataSource/CategoryChosen")]
-        public void CategoryChosen(string MovieType)
-        {
 
-            GetPackages();
-
-           // return View("Information");
-
-        }
         public ActionResult Index()
         {
+            //TODO
+            RootInstance.Current.visualizations = new List<Visualization>() { new Visualization() { name = "test"} };
+            var vis = RootInstance.Current.visualizations.Where(x => x.name == "test").FirstOrDefault();
+            vis.sources = new List<Source>() { new Source() { name = "CPH" } };
 
             List<SelectListItem> items = new List<SelectListItem>();
-
             items.Add(new SelectListItem { Text = "CPH", Value = "0" });
-
             items.Add(new SelectListItem { Text = "GZ", Value = "1" });
-
             items.Add(new SelectListItem { Text = "BCN", Value = "2", Selected = true });
-
             items.Add(new SelectListItem { Text = "Other", Value = "3" });
 
-            ViewBag.CkanInstances = items;
-            ViewBag.Packages = new List<SelectListItem>();
+            ViewData["ckan"] = items;
 
             return View();
-
         }
 
 
         // GET: DataSource
-        public async Task<ActionResult> GetPackages()
+        public async Task<JsonResult> GetPackages(string id)
         {
             //new SourceFactory().GetSources();
-            //return SelectCategory();
-            var sd = await new SourceFactory().Initialize().GetPackages(new Source() { name = "s" });
+            
 
-            ViewBag.Packages = sd;
+            //we neeed to added to the current instance "RootInstance"
+            var pck = await new SourceFactory().Initialize().GetPackages(new Source() { name = "s" });
 
-            return View();
+            var vis = RootInstance.Current.visualizations.Where(x => x.name == "test").FirstOrDefault();
+            var source = vis.sources.Where(x => x.name == "CPH").FirstOrDefault();
+
+            source.packages = pck.Create().packages;
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var item in source.packages)
+            {
+                items.Add(new SelectListItem { Text = item.name});
+            }
+
+            //ViewBag.Packages = items;
+
+            return Json(new SelectList(items, "Value", "Text"));
         }
     }
 }

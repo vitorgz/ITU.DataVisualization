@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="8d2d6b55-ebf1-455d-9d98-4af4537d2f98" name="MetaMetaModel" linkedPackageId="de3af3bd-13f1-4bc7-8531-9048d1fc90c9" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="8d2d6b55-ebf1-455d-9d98-4af4537d2f98" name="MetaMetaModel" linkedPackageId="de3af3bd-13f1-4bc7-8531-9048d1fc90c9" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="81f6023a-212b-41d3-a945-680dad145499" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="f96d181e-60d5-40b3-a467-e65569201aa8" />
@@ -175,32 +175,6 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="80b0ab79-9b16-4f57-9c95-0682ea754d54" />
-          </association>
-          <association Id="70615bce-45f1-4328-95ea-13d040648dbb" isDerived="false" sourceEndRoleName="Root" targetEndRoleName="Source" isLeaf="false" isAbstract="false">
-            <classMoniker Id="0a6573aa-c6f1-425d-879c-7d0ebd278f8f" LastKnownName="Source" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd Id="6ba2b1a3-f4af-4cc7-b2ac-270e5720b5ae" name="Root" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                  <elementDefinition Id="a1803e1e-0965-4b45-96c8-9689a88c6753" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd Id="31815ce0-c3d8-452d-9531-ea1cec1aca3a" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <lowerValueInternal>
-                    <literalString Id="2f8546ba-edb3-49e3-8f21-21fca377cc4d" name="Lower" value="*">
-                      <elementDefinition Id="29c0d8ea-4322-4e90-a245-f90ed7ccf323" />
-                    </literalString>
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString Id="79a1e9d4-1858-44c0-8296-6731efd1906f" name="Upper" value="*">
-                      <elementDefinition Id="ab3f649c-18bb-44ac-8fdd-29ac2e04bb23" />
-                    </literalString>
-                  </upperValueInternal>
-                  <elementDefinition Id="332cfcd8-1c0c-45f2-beea-105867d49443" />
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-            <elementDefinition Id="59bfcc62-37b6-4118-8b46-7bc12da59bfc" />
           </association>
         </targetEnds>
       </class>

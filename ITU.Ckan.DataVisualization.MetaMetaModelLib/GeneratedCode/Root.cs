@@ -23,11 +23,5 @@ public class Root : ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Source> Source
-	{
-		get;
-		set;
-	}
-
 }
 
