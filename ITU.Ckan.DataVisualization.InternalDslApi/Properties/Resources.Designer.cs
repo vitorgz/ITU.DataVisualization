@@ -61,7 +61,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://localhost:81.
+        ///   Looks up a localized string similar to http://127.0.0.1:81.
         /// </summary>
         internal static string CloudURL {
             get {

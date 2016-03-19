@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,28 +11,29 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
     public class DataSourceController : Controller
     {
         [Route("DataSource/CategoryChosen")]
-        public ViewResult CategoryChosen(string MovieType)
+        public void CategoryChosen(string MovieType)
         {
 
-            ViewBag.messageString = MovieType;
+            GetPackages();
 
-            return View("Information");
+           // return View("Information");
 
         }
-        public ActionResult SelectCategory()
+        public ActionResult Index()
         {
 
             List<SelectListItem> items = new List<SelectListItem>();
 
-            items.Add(new SelectListItem { Text = "Action", Value = "0" });
+            items.Add(new SelectListItem { Text = "CPH", Value = "0" });
 
-            items.Add(new SelectListItem { Text = "Drama", Value = "1" });
+            items.Add(new SelectListItem { Text = "GZ", Value = "1" });
 
-            items.Add(new SelectListItem { Text = "Comedy", Value = "2", Selected = true });
+            items.Add(new SelectListItem { Text = "BCN", Value = "2", Selected = true });
 
-            items.Add(new SelectListItem { Text = "Science Fiction", Value = "3" });
+            items.Add(new SelectListItem { Text = "Other", Value = "3" });
 
-            ViewBag.MovieType = items;
+            ViewBag.CkanInstances = items;
+            ViewBag.Packages = new List<SelectListItem>();
 
             return View();
 
@@ -39,10 +41,15 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
 
         // GET: DataSource
-        public ActionResult Index()
+        public async Task<ActionResult> GetPackages()
         {
             //new SourceFactory().GetSources();
-            return SelectCategory();
+            //return SelectCategory();
+            var sd = await new SourceFactory().Initialize().GetPackages(new Source() { name = "s" });
+
+            ViewBag.Packages = sd;
+
+            return View();
         }
     }
 }

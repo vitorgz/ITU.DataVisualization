@@ -6,11 +6,21 @@
 <@using (Html.BeginForm("CategoryChosen", "DataSource", FormMethod.Get)) {
     <fieldset>
             Movie Type
-                    @Html.DropDownList("MovieType")
+                    @Html.DropDownList("CkanInstances")
         <p>
             <input type="submit" value="Submit" />
         </p>
     </fieldset>
 } 
 
+
+<@using (Html.BeginForm("CategoryChosen", "DataSource", FormMethod.Get)) {
+    <fieldset>
+            Movie Type
+                    @Html.DropDownList("Packages")
+        <p>
+            <input type="submit" value="Submit" />
+        </p>
+    </fieldset>
+}
 

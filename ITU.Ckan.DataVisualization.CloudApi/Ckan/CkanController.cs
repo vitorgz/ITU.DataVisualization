@@ -22,7 +22,10 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             //http://data.kk.dk/api/action/package_list
             var response = await GenericApi.GenericRestfulClient.Get<PackageListDTO>("http://data.kk.dk/", "api/action/package_list");
 
-            return Request.CreateResponse(HttpStatusCode.OK, response);
+            var pkgs = new List<Package>();
+            response.result.ForEach(x => pkgs.Add(new Package() { name = x}));
+
+            return Request.CreateResponse(HttpStatusCode.OK, pkgs);
         }
 
         [Route("api/GetPackagesById")]

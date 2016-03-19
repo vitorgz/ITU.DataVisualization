@@ -13,7 +13,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
     {
         public static async Task<T> Get<T>(string url)
         {
-            var api = "api/GetPackages";
+            var api = "/api/GetPackages";
             var content = new Source() { name = url };
             return await GetCkanAsync<T>(url, api, content);
         }
