@@ -38,7 +38,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public Source Create()
         {
-            throw new NotImplementedException();
+            return source;
         }
 
         public async Task<ISourceFactory> GetPackages(Source id)

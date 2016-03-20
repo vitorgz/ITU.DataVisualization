@@ -14,7 +14,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public ActionResult Index()
         {
             //TODO
-            RootInstance.Current.visualizations = new List<Visualization>() { new Visualization() { name = "test"} };
+            RootInstance.Current.visualizations = new List<Visualization>() { new Visualization() { name = "test" } };
             var vis = RootInstance.Current.visualizations.Where(x => x.name == "test").FirstOrDefault();
             vis.sources = new List<Source>() { new Source() { name = "CPH" } };
 
@@ -34,7 +34,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public async Task<JsonResult> GetPackages(string id)
         {
             //new SourceFactory().GetSources();
-            
+
 
             //we neeed to added to the current instance "RootInstance"
             var pck = await new SourceFactory().Initialize().GetPackages(new Source() { name = "s" });
@@ -47,12 +47,30 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in source.packages)
             {
-                items.Add(new SelectListItem { Text = item.name});
+                items.Add(new SelectListItem { Text = item.name });
             }
 
             //ViewBag.Packages = items;
 
             return Json(new SelectList(items, "Value", "Text"));
+        }
+
+        public async Task<JsonResult> VerifyDataStore(string id)
+        {
+            //get package
+            //var pck = await new SourceFactory().Initialize().GetPackages(new Source() { name = "s" });
+
+            //get datasets
+
+            //call for example
+
+
+            return Json(true);
+        }
+
+        public ActionResult ChartRedirect()
+        {
+            return RedirectToAction("Index", "Chart");
         }
     }
 }

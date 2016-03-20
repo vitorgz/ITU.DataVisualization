@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Source
+@{
     ViewBag.Title = "DataSourceView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -28,6 +29,26 @@
         })
     });
 </script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#Package").change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("VerifyDataStore")',
+                dataType: 'json',
+                data: { id: $("#DataStore").val() },
+                success: function (value) {
+                    $("#DataStore").append(value)
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve state.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
 @using (Html.BeginForm())
 {
     <div class="editor-label">
@@ -48,31 +69,18 @@
         <div class="editor-field">
             @Html.DropDownList("Package", new SelectList(string.Empty, "Value", "Text"), "Please select a Package", new { style = "width:250px", @class = "dropdown1" })
         </div>
+        <br/> 
+        <div style="color: Purple;">
+            @Html.Label("Is DataStore : ", new { style = "width:250px" })
+        </div>
+        <div class="editor-field">
+            @Html.DisplayText("DataStore")           
+        </div>
         <br />
-        <input id="Submit1" type="submit" value="submit" />
+
+         @Html.ActionLink("To Chart", "ChartRedirect", "DataSource", null, null)
+        
     </div>
 
 }
-
-
-@*@using (Html.BeginForm("CkanChosen", "DataSource", FormMethod.Get)) {
-    <fieldset>
-           Ckan Instance
-                    @Html.DropDownList("CkanInstances")
-        <p>
-            <input type="submit" value="Submit" />
-        </p>
-    </fieldset>
-} 
-
-
-@using (Html.BeginForm("PackageChosen", "DataSource", FormMethod.Get)) {
-    <fieldset>
-            Package
-                    @Html.DropDownList("Packages")
-        <p>
-            <input type="submit" value="Submit" />
-        </p>
-    </fieldset>
-}*@
 
