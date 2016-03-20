@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExtensionMethods\CkanBuilderExtension.cs" />
+    <Compile Include="ExtensionMethods\SourceExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\VisualizationExtensionMethods.cs" />
     <Compile Include="Factories\DataSetFactory.cs" />
     <Compile Include="Factories\IDataSetFactory.cs" />
     <Compile Include="Factories\IPackageFactory.cs" />

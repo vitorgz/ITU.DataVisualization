@@ -4,6 +4,7 @@ using ITU.Ckan.DataVisualization.InternalDsl;
 using System.Collections.Generic;
 using System.Linq;
 using ITU.Ckan.DataVisualization.InternalDsl.Factories;
+using ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods;
 
 namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
 {

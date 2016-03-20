@@ -41,11 +41,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return source;
         }
 
-        public async Task<ISourceFactory> GetPackages(Source id)
+        public async Task<ISourceFactory> GetPackages(string source)
         {
-
-            var sources = await InternalClient.Get<List<Package>>(id.name);
-
+            var sources = await InternalClient.Get<List<Package>>(source);
             this.source.packages = sources;
 
             return this;

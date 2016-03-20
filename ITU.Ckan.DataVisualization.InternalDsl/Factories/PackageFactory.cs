@@ -23,9 +23,15 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public Package Create()
         {
-            throw new NotImplementedException();
+            return package;
         }
 
-        
+        public async Task<IPackageFactory> GetDataSetsById(string dataSetUrl, string id)
+        {
+            var pck = await InternalClient.GetDataSet<Package>(dataSetUrl, id);
+            this.package = pck;
+
+            return this;
+        }
     }
 }

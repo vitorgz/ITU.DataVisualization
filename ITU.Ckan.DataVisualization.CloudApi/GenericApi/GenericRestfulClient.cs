@@ -43,7 +43,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
         public static async Task<T> Get<T>(string url, string api, string id, int limit)
         {
-            return await GetCkanAsync<T>(url, api + "?resource_id=" + "&limit=" + limit);
+            return await GetCkanAsync<T>(url, api + "?resource_id=" + id + "&limit=" + limit);
         }
 
         internal static async Task<T> GetCkanAsync<T>(string url, string api)

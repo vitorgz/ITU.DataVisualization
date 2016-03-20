@@ -15,7 +15,15 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
         {
             var api = "/api/GetPackages";
             var content = new Source() { name = url };
-            return await GetCkanAsync<T>(url, api, content);
+            return await GetCkanAsync<T>(api, content);
+        }
+
+        public static async Task<T> GetDataSet<T>(string url, string id)
+        {
+            var api = "/api/GetDataSet";
+            var content = new Source() { name = url };
+            content.packages = new List<Package>() { new Package() { name = id} };
+            return await GetCkanAsync<T>(api, content);
         }
 
         public static async Task<T> Get<T>(string url, Dictionary<string, List<string>> filters) {
@@ -33,7 +41,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return default(T);
         }
 
-        internal static async Task<T> GetCkanAsync<T>(string url, string api, object content)
+        internal static async Task<T> GetCkanAsync<T>(string api, object content)
         {
             T result = default(T);
             using (var client = new HttpClient())

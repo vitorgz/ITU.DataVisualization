@@ -17,10 +17,10 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
     {
         [Route("api/GetPackages")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetPackages()
+        public async Task<HttpResponseMessage> GetPackages(Source source)
         {
             //http://data.kk.dk/api/action/package_list
-            var response = await GenericApi.GenericRestfulClient.Get<PackageListDTO>("http://data.kk.dk/", "api/action/package_list");
+            var response = await GenericApi.GenericRestfulClient.Get<PackageListDTO>(source.name, "api/action/package_list");
 
             var pkgs = new List<Package>();
             response.result.ForEach(x => pkgs.Add(new Package() { name = x}));
@@ -28,21 +28,40 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             return Request.CreateResponse(HttpStatusCode.OK, pkgs);
         }
 
-        [Route("api/GetPackagesById")]
-        public async Task<HttpResponseMessage> GetPackagesById()
+        [Route("api/GetDataSet")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetDataSet(Source source)
         {
-            //http://data.kk.dk/api/action/package_show?id=aalegraes
-            var response = await GenericApi.GenericRestfulClient.Get<PackageDTO>("http://data.kk.dk/", "/api/action/package_show", "aalegraes");
+            var pkg = new Package();
+            pkg.name = source.packages.FirstOrDefault().name;
+            pkg.dataSets = new List<DataSet>();
 
-            //check if any of those is a CSV (or do it in the client)
-            return Request.CreateResponse(HttpStatusCode.OK, response);
+            //http://data.kk.dk/api/action/package_show?id=aalegraes
+            var response = await GenericApi.GenericRestfulClient.Get<PackageDTO>(source.name, "/api/action/package_show", source.packages.FirstOrDefault().name);
+
+            //find CSV datasets
+            var csvFiles = response.result.resources.Where(x => x.format == "CSV");
+            //check if it's a DataStore and if it's, get MetaData
+            if (csvFiles.Any())
+            {
+                var ds = csvFiles.FirstOrDefault();
+                //var resp = await GetMetaData(source.name, ds.id);
+                var resp = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search", ds.id, 1);
+                ds.fields = resp.result.fields;
+            }
+
+            //add data sets to package
+            response.result.resources.ForEach(x => (pkg.dataSets as List<DataSet>).Add(x));
+
+            return Request.CreateResponse(HttpStatusCode.OK, pkg);
         }
 
         [Route("api/GetMetaData")]
-        public async Task<HttpResponseMessage> GetMetaData(string id)
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetMetaData(string url, string id)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-            var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>("http://data.kk.dk/", "/api/action/datastore_search", id);
+            var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(url, "/api/action/datastore_search", id, 1);
 
             return Request.CreateResponse(HttpStatusCode.OK, response);
         }

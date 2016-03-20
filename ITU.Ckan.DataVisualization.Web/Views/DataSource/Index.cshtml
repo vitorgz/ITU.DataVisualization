@@ -28,6 +28,27 @@
             return false;
         })
     });
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#Package").change(function () {
+            $("#DataSet").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDataSets")', // we are calling json method
+                dataType: 'json',
+                data: { id: $("#Package").val() },
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#DataSet").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -68,6 +89,13 @@
         </div>
         <div class="editor-field">
             @Html.DropDownList("Package", new SelectList(string.Empty, "Value", "Text"), "Please select a Package", new { style = "width:250px", @class = "dropdown1" })
+        </div>
+        <br />
+        <div style="color: Purple;">
+            @Html.Label("Select Data Set", new { style = "width:250px" })
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DataSet", new SelectList(string.Empty, "Value", "Text"), "Please select a Data Set", new { style = "width:250px", @class = "dropdown1" })
         </div>
         <br/> 
         <div style="color: Purple;">
