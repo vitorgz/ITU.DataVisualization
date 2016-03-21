@@ -56,14 +56,17 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public async Task<JsonResult> GetDataSets(string id)
         {
             var vis = RootInstance.Current.GetVisualization("test");
-            var source = vis.GetSourceById(x => x.name == "http://data.kk.dk/");
-            var pkg = source.packages.Where(x => x.name == id).FirstOrDefault();
-            if (pkg != null) pkg.selected = true;            
+            var source = vis.GetSourceById(x => x.name == "http://data.kk.dk/");            
 
             var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, id);
-            pkg = ds.Create();
-            
+            var newPkg = ds.Create();
+
+            var pkg = source.packages.Where(x => x.name == id).FirstOrDefault();
+            pkg.selected = true;
+            pkg.dataSets = newPkg.dataSets;
+
             List<SelectListItem> items = new List<SelectListItem>();
+            if (pkg == null) return Json(items);
             foreach (var item in pkg.dataSets)
             {
                 items.Add(new SelectListItem { Text = item.name, Value = item.name });

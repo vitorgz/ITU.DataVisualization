@@ -12,7 +12,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
     {
         public ActionResult Index()
         {
-            var data = new Data(Enumerable.Range(1, 100).Cast<object>().ToArray());
+            var data = new Data(Enumerable.Range(1, 10).Cast<object>().ToArray());
 
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                 .InitChart(new Chart() { DefaultSeriesType = DotNet.Highcharts.Enums.ChartTypes.Pie })
