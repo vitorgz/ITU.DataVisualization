@@ -17,6 +17,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.DTO
     public class DataSetIn
     {
         public string resource_id { get; set; }
+        public string id { get; set; }
         public List<Field> fields { get; set; }
         //public List<object> records { get; set; }
     }

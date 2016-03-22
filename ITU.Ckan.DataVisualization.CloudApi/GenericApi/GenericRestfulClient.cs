@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -17,18 +18,32 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
         }
 
         public static async Task<T> Get<T>(string url, string api, Dictionary<string, List<string>> filters) {
-            if(filters.Count == 1) return await GetCkanAsync<T>(url, api+"/q="+filters.First());
+            //if(filters.Count == 1) return await GetCkanAsync<T>(url, api+"/q="+filters.First());
 
             StringBuilder s = new StringBuilder();
-            s.Append("SELECT");
+            s.Append("SELECT ");
             foreach (var item in filters.Values)
-            {
-                item.ForEach(x => s.Append(x));               
+            {              
+                s.Append(string.Join(",",item));
             }
-            s.Append("FROM");
-            s.Append(filters.Select(x => x.Key).ToList());
+            s.Append(" FROM ");
+            s.Append("\"" + filters.Select(x => x.Key).FirstOrDefault() + "\"");
 
-            return await GetCkanAsync<T>(url, api + "/datastore_search_sql=" + s);
+            var path = api + s;
+
+            return await GetCkanAsync<T>(url, path);
+            /*
+            //read anonnymous Json!
+            var dummyObject = new {
+                help = "",
+                sucess = true,
+                result = new { records = new[] { new { status = 0, bkrn = 0 } }},
+            };
+            JsonConvert.DeserializeAnonymousType(data, dummyObject);
+
+            //using Decode
+            dynamic data = Json.Decode(json);
+            */
         }
 
         public static async Task<T> Get<T>(string url, string api, string id)
@@ -60,7 +75,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
                     if (response.IsSuccessStatusCode)
                     {
                         var data = response.Content.ReadAsStreamAsync().Result;
-
+                        
                         var jsonSerializer = new DataContractJsonSerializer(typeof(T));
                         result = (T)jsonSerializer.ReadObject(data);
                     }

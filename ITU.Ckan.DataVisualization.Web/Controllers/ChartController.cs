@@ -32,6 +32,16 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
         public async Task<JsonResult> GetDataForChart(string idX, string idY)
         {
+            var visual = RootInstance.Current.GetVisualization("test");
+            var source = visual.GetSourceById(x => x.name == "http://data.kk.dk/");
+            var ds = source.packages.Where(x => x.selected).FirstOrDefault().dataSets;
+            var fields = ds.Where(x => x.format == "CSV").FirstOrDefault().fields;
+
+            var select = fields.Where(x => x.id.ToString() == idX || x.id.ToString() == idY).ToList();
+            select.ForEach(x => x.selected = true);
+
+            await visual.GetData();
+
             return Json(true);
         }
     }

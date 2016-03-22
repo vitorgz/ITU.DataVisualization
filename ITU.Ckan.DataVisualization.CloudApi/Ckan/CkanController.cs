@@ -67,6 +67,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         }
 
         [Route("api/GetData")]
+        [HttpPost]
         public async Task<HttpResponseMessage> GetData(Visualization visual)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702
@@ -76,17 +77,19 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             foreach (var source in visual.sources)
             {
                 //get only selected packages
-                var pckgs = source.packages.Where(x => x.author == "s");
+                var pckgs = source.packages.Where(x => x.selected == true);
 
                 //get which fields are selected for each data source
-                foreach (var dts in pckgs.SelectMany(x => x.dataSets))
+                foreach (var dts in pckgs.SelectMany(x => x.dataSets.Where(y=>y.format=="CSV")))
                 {
-                    var flds = dts.fields.Where(x => x.selected).Select(x => x.name).ToList();
+                    var flds = dts.fields.Where(x => x.selected).Select(x => x.id.ToString()).ToList();
                     dict.Add(dts.id, flds);
+
+                    //for each data source
+                    var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search_sql?sql=", dict);
+                    //dts.records = response;
                 }
 
-                //for each data source
-                var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search", dict);
             }
 
             //merge process!

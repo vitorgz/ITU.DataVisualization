@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -20,6 +21,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             Func<Visualization, bool> funcWhere = property.Compile();
             var s = root.visualizations.Where(funcWhere).FirstOrDefault();
             return s;
+        }
+
+        public static async Task<Visualization> GetData(this Visualization visual)
+        {
+            var data = await InternalClient.Get<Visualization>(visual);
+            
+            return data;
         }
     }
 }

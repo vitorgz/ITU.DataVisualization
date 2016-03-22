@@ -29,22 +29,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
             
             return classWithProperties;
 
-        }
-
-        public static DataSet addFields(this DataSet dataSet, IEnumerable<Field> fieldsList)
-        {
-            dataSet.fields = fieldsList;
-            return dataSet;
-        }
-
-        public static DataSet addRecods(this DataSet dataSet, IEnumerable<Field> fieldsList)
-        {
-            dataSet.fields = fieldsList;
-            return dataSet;
-        }
-
-       
-
-        
+        }        
     }
 }

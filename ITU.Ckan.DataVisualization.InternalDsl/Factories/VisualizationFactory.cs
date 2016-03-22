@@ -8,6 +8,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class VisualizationFactory : IVisualizationFactory
     {
+        Visualization visual;
         public ISourceFactory AddSource(List<Source> source)
         {
             throw new NotImplementedException();
@@ -15,12 +16,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public Visualization Create()
         {
-            throw new NotImplementedException();
+            return visual;
         }
 
-               public IVisualizationFactory Initialize()
+        public IVisualizationFactory Initialize()
         {
-            throw new NotImplementedException();
+            visual = new Visualization();
+            return this;
         }
     }
 }

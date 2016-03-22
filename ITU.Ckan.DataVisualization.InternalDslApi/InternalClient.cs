@@ -30,10 +30,10 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return default(T);  
         }
 
-        public static async Task<T> Get<T>(string url, string id)
+        public static async Task<T> Get<T>(Visualization visual)
         {
-            return default(T);
-
+            var api = "/api/GetData";
+            return await GetCkanAsync<T>(api, visual);
         }
 
         public static async Task<T> Get<T>(string url, string id, int limit)
