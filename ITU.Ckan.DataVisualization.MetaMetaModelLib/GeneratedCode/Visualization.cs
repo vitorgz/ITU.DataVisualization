@@ -17,13 +17,13 @@ public class Visualization : NamedElement, ICkanBuilder
 		set;
 	}
 
-	public virtual RawData RawData
+	public virtual RawData rawData
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Table> tables
+	public virtual Table table
 	{
 		get;
 		set;

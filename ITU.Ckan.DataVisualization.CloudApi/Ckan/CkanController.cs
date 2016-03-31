@@ -72,7 +72,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702
 
-            var dict = new Dictionary<string, List<string>>();
+           // var dict = new Dictionary<string, List<string>>();
 
             foreach (var source in visual.sources)
             {
@@ -83,18 +83,84 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 foreach (var dts in pckgs.SelectMany(x => x.dataSets.Where(y=>y.format=="CSV")))
                 {
                     var flds = dts.fields.Where(x => x.selected).Select(x => x.id.ToString()).ToList();
-                    dict.Add(dts.id, flds);
+                    var values = new Tuple<string, List<string>>(dts.id, flds);
 
                     //for each data source
-                    var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search_sql?sql=", dict);
-                    //dts.records = response;
-                }
+                    var response = await GenericApi.GenericRestfulClient.
+                        Get<object>(source.name, "/api/action/datastore_search_sql?sql=", values);
 
+                    processJsonResponse(response, dts);
+                }
             }
 
-            //merge process!
+            //Merge all Data in one DAtaTable
+            CreateDataTable(visual);
 
-            return Request.CreateResponse(HttpStatusCode.OK, new List<int>());
+
+            //create RowData
+            MergeData(visual);
+
+
+            return Request.CreateResponse(HttpStatusCode.OK, visual);
+        }
+
+        private void MergeData(Visualization visual)
+        {
+            
+        }
+
+        private void CreateDataTable(Visualization visual)
+        {
+            //select X-Axys
+            if (visual.table == null) visual.table = new Table();
+
+            var table = visual.table;
+
+            //map xAxys //TODO passe to the fluent
+            var ds = visual.sources?.SelectMany(x => x.packages.Where(d => d.selected))?.SelectMany(x => x.dataSets);
+            var field = ds.Where(x=>x.format=="CSV").SelectMany(x => x.fields).Where(y => y.xAxys);
+            var xField = field.FirstOrDefault();
+            var data = xField.record.value;
+            var dataType = xField.type;
+
+            if (table.column == null) table.column = new Column();
+            table.column.Value = data;
+            table.column.Type = dataType;
+            table.column.name = xField.name;
+
+            //map yAxys
+            var rows = new List<Row>();
+            var series = ds.Where(x => x.format == "CSV").SelectMany(x => x.fields.Where(y => y.selected && !y.xAxys));
+            foreach (var item in series)
+            {
+                var row = new Row() { name = item.name, Type = item.type, Value = item.record };
+                rows.Add(row);
+            }
+
+            //if (table.rows == null) //TODO perhaps Initilize() fluent api
+                table.rows = rows;
+
+        }
+
+        private void processJsonResponse(object response, DataSet dts)
+        {
+            JObject json = JObject.Parse(response.ToString());
+
+            foreach (var item in dts.fields.Where(x=>x.selected))
+            {
+                var jsonValues = from p in json["result"]["records"]
+                                 select (string)p[item.id.ToString()];
+
+
+                if (item.record == null) {
+                    item.record = new Record();     
+                }
+
+                item.record.name = item.id.ToString();
+                item.record.value = jsonValues.ToArray();
+            }           
+
+            //dts.records = json
         }
     }
 }

@@ -17,5 +17,11 @@ public class Column : NamedElement
 		set;
 	}
 
+	public virtual object Value
+	{
+		get;
+		set;
+	}
+
 }
 

@@ -11,7 +11,7 @@ using System.Text;
 
 public class Table : NamedElement, ICkanBuilder
 {
-	public virtual IEnumerable<Column> volumns
+	public virtual Column column
 	{
 		get;
 		set;

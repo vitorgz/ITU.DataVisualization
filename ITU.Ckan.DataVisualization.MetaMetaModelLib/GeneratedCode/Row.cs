@@ -17,5 +17,11 @@ public class Row : NamedElement
 		set;
 	}
 
+	public virtual object Type
+	{
+		get;
+		set;
+	}
+
 }
 

@@ -29,5 +29,17 @@ public class Field : NamedElement, IEntity
 		set;
 	}
 
+	public virtual bool xAxys
+	{
+		get;
+		set;
+	}
+
+	public virtual Record record
+	{
+		get;
+		set;
+	}
+
 }
 

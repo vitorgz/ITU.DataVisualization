@@ -2327,9 +2327,9 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="0b62b286-ad56-435d-ae14-deb3f8289b3e"
+            Id="1c4e7e07-1670-4691-ada8-affb78e41a1e"
             isDerived="false"
-            sourceEndRoleName="DataSet"
+            sourceEndRoleName="dataSet"
             targetEndRoleName="records"
             isLeaf="false"
             isAbstract="false">
@@ -2340,33 +2340,20 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="c838e9ed-889e-420f-b313-769a2541a712"
-                  name="DataSet"
+                  Id="ab403e41-43f2-4895-a3d4-bd11ee1f6534"
+                  name="dataSet"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
                   isDerived="false"
                   isDerivedUnion="false"
-                  aggregation="Composite"
+                  aggregation="None"
                   isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="71f4027e-1850-405f-a346-65e4639319a6"
-                      name="Lower"
-                      value="0" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="7c80409b-76c5-4c1b-85a3-a716ce7ff1dc"
-                      name="Upper"
-                      value="0" />
-                  </upperValueInternal>
-                </memberEnd>
+                  isNavigableOwned="false" />
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="600d1daf-798b-4a3b-9213-2f7c13b1fecd"
+                  Id="b39978b5-c661-4af7-99c8-2ea829d54ddb"
                   name="records"
                   isLeaf="false"
                   isStatic="false"
@@ -2374,16 +2361,16 @@
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
-                  isComposite="true">
+                  isComposite="false">
                   <lowerValueInternal>
                     <literalString
-                      Id="d972ab79-c68a-47b4-9988-a437f72e49c8"
+                      Id="484fbfdd-4d8d-466b-a032-65c9b1b70efa"
                       name="Lower"
                       value="*" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="27b64f4d-698e-4d54-9996-094475457ac4"
+                      Id="3598d25b-a159-424e-a269-b2438bac037c"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -2919,6 +2906,47 @@
               LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
           </generalization>
         </generalsInternal>
+        <targetEnds>
+          <association
+            Id="eda6257a-d7e9-415d-bde6-c6ed9e3f5792"
+            isDerived="false"
+            sourceEndRoleName="field"
+            targetEndRoleName="record"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="1f5e85c5-98bf-45b8-b37f-56781b0d19fa"
+              LastKnownName="Record"
+              LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="5c16401c-56dc-43bc-bf90-218ef1d40616"
+                  name="field"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="33204203-ce90-4e7b-aaea-c74d642b6276"
+                  name="record"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="070d180f-0239-4850-979f-98984284223a"
@@ -3120,6 +3148,81 @@
                     Id="3393579d-c826-473a-bc17-a61177d9899e">
                     <propertyInstance
                       Id="8cafbe63-7449-4315-baa2-0cebdf707730"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="cce8a282-d57d-46c2-bf63-ccac633b8073"
+            name="xAxys"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="a01ca624-2d3a-482d-98ab-ef89e5b6fdaa"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d3362745-2764-494e-9a09-d8a131a664d2">
+                    <propertyInstance
+                      Id="f85ac832-2f96-4c9a-914c-e652dd2f8dd8"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="aeef63a3-e647-4241-98a4-39a5c5f6cbc2">
+                    <propertyInstance
+                      Id="e42a0949-9dfc-4b9b-b8f3-30074df8a846"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33ffd02e-19b3-4bf8-857d-2abf9fe8842c">
+                    <propertyInstance
+                      Id="3f459872-b53d-4023-a2cf-5e70cb5baf3c"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="65dd99c1-5af1-440d-ae8d-aedf35de2eaa">
+                    <propertyInstance
+                      Id="a6e4008f-208e-4b34-b6cd-fb18094e75e1"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="13af303e-df67-4c8d-ab18-45a9cd8d286f">
+                    <propertyInstance
+                      Id="c577f692-06fa-4abf-b1f7-4d6ece935435"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1a8b0f6b-b403-4613-8a00-104a414e6cbd">
+                    <propertyInstance
+                      Id="84b784a5-83ef-4dd8-90c3-2457410a313e"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="06fa7479-90c7-4fc7-9d78-13dbf4a7a5f9">
+                    <propertyInstance
+                      Id="80368c2c-58be-4472-b8ae-c44f37f40d6d"
                       name="Set"
                       value="none" />
                   </stereotypeInstanceHasPropertyInstances>
@@ -3466,47 +3569,6 @@
               LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
           </generalization>
         </generalsInternal>
-        <targetEnds>
-          <association
-            Id="9a4728d4-0218-4e26-a01a-fa5e4ea42416"
-            isDerived="false"
-            sourceEndRoleName="Result"
-            targetEndRoleName="Field"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="f545c31a-e58a-4e4c-86b3-91fb3d873c3a"
-              LastKnownName="Field"
-              LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="f7db3c79-3725-455d-b8b2-314080627d0d"
-                  name="Result"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="1fc290e4-f105-4b9f-a51d-0983b03e5b10"
-                  name="Field"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="9a52e5ad-b7f3-4235-a547-3f31782e85f4"
@@ -3898,7 +3960,7 @@
             Id="a8070bc7-5337-4a86-9531-f4890fdf3f9f"
             isDerived="false"
             sourceEndRoleName="Visualization"
-            targetEndRoleName="RawData"
+            targetEndRoleName="rawData"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -3922,7 +3984,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="69e93e11-8fc4-4607-ac92-608c683120f6"
-                  name="RawData"
+                  name="rawData"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -3937,7 +3999,7 @@
             Id="1bdaeb1c-aec8-40e9-a1b1-415be27e5c7b"
             isDerived="false"
             sourceEndRoleName="Visualization"
-            targetEndRoleName="tables"
+            targetEndRoleName="table"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -3961,7 +4023,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="5809714d-1510-4754-aba5-d2d8439b29e7"
-                  name="tables"
+                  name="table"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -3973,13 +4035,13 @@
                     <literalString
                       Id="a4e274e5-72b6-4abc-9e5d-164c863f64d9"
                       name="Lower"
-                      value="*" />
+                      value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
                       Id="8d0b5771-8a17-4a40-bc95-5f18a4785591"
                       name="Upper"
-                      value="*" />
+                      value="1" />
                   </upperValueInternal>
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -4376,7 +4438,7 @@
             Id="0e74bd3f-0029-438b-85a0-772346ff3216"
             isDerived="false"
             sourceEndRoleName="Table"
-            targetEndRoleName="volumns"
+            targetEndRoleName="column"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -4400,7 +4462,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="a6b0007f-6186-4168-8aa4-da9ea8465382"
-                  name="volumns"
+                  name="column"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -4412,13 +4474,13 @@
                     <literalString
                       Id="0c46cb2b-15ae-4745-bc0b-933e5b207335"
                       name="Lower"
-                      value="*" />
+                      value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
                       Id="937cc6f4-168c-40fc-b597-0cb33e7e480d"
                       name="Upper"
-                      value="*" />
+                      value="1" />
                   </upperValueInternal>
                 </memberEnd>
               </associationHasOwnedEnds>

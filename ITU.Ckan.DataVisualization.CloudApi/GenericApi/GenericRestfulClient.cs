@@ -1,9 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using ITU.Ckan.DataVisualization.CloudApi.DTO;
+using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,33 +21,45 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             return await GetCkanAsync<T>(url, api);
         }
 
-        public static async Task<T> Get<T>(string url, string api, Dictionary<string, List<string>> filters) {
+        public static async Task<object> Get<T>(string url, string api, Tuple<string, List<string>> filters) {
             //if(filters.Count == 1) return await GetCkanAsync<T>(url, api+"/q="+filters.First());
 
             StringBuilder s = new StringBuilder();
             s.Append("SELECT ");
-            foreach (var item in filters.Values)
-            {              
-                s.Append(string.Join(",",item));
-            }
+
+            s.Append(string.Join(",", filters.Item2));
+
             s.Append(" FROM ");
-            s.Append("\"" + filters.Select(x => x.Key).FirstOrDefault() + "\"");
+            s.Append("\"" + filters.Item1 + "\"");
 
             var path = api + s;
+            
+            var results = await GetCkanAsyncJson(url, path);
 
-            return await GetCkanAsync<T>(url, path);
-            /*
-            //read anonnymous Json!
-            var dummyObject = new {
-                help = "",
-                sucess = true,
-                result = new { records = new[] { new { status = 0, bkrn = 0 } }},
-            };
-            JsonConvert.DeserializeAnonymousType(data, dummyObject);
+            //object schema = GetJsonSchema(filters.Item2);
+            //var results = await GetCkanAsync<T>(url, path);
 
-            //using Decode
-            dynamic data = Json.Decode(json);
-            */
+            return results;
+            
+
+        }
+
+        private static ResultsDTO GetJsonSchema(List<string> filters)
+        {
+
+            var dto = new ResultsDTO();
+            dto.result = new RecordsDTO();
+            dto.result.records = new List<RecordDTO>() { new RecordDTO() };
+            dynamic res = dto.result.records;
+            res = new ExpandoObject();
+
+            foreach (var item in filters)
+            {
+                ((IDictionary<string, object>)res)[item] = item.GetType().TypeInitializer;
+            }
+            
+
+            return dto;
         }
 
         public static async Task<T> Get<T>(string url, string api, string id)
@@ -61,7 +77,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             return await GetCkanAsync<T>(url, api + "?resource_id=" + id + "&limit=" + limit);
         }
 
-        internal static async Task<T> GetCkanAsync<T>(string url, string api)
+        public static async Task<T> GetCkanAsync<T>(string url, string api)
         {
             T result = default(T);
             using (var client = new HttpClient())
@@ -90,5 +106,32 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             }
         }
 
+        internal static async Task<object> GetCkanAsyncJson(string url, string api)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(url);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(api).ConfigureAwait(false);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var data = response.Content.ReadAsStringAsync().Result;
+
+                        var json = JsonConvert.DeserializeObject(data);
+                        return json;
+                    }
+                    return string.Empty;
+                }
+                catch (HttpRequestException e)
+                {
+                    // Handle exception.
+                    var s = e;
+                    return default(ResultsDTO);
+                }
+            }
+        }
     }
 }

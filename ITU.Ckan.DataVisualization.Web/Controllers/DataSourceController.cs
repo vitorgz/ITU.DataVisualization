@@ -21,7 +21,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "http://data.kk.dk/", Value = "http://data.kk.dk/" });
             items.Add(new SelectListItem { Text = "http://data.kk.dk/", Value = "http://data.kk.dk/" });
-            items.Add(new SelectListItem { Text = "BCN", Value = "2", Selected = true });
+            items.Add(new SelectListItem { Text = "http://datahub.io", Value = "http://datahub.io/" });
+            items.Add(new SelectListItem { Text = "http://data.amsterdam.nl/", Value = "http://data.amsterdam.nl/", Selected = true });
             items.Add(new SelectListItem { Text = "Other", Value = "3" });
 
             ViewData["ckan"] = items;

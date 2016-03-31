@@ -17,11 +17,5 @@ public class Record : NamedElement, IEntity
 		set;
 	}
 
-	public virtual Field Field
-	{
-		get;
-		set;
-	}
-
 }
 
