@@ -1,4 +1,5 @@
 ﻿using ITU.Ckan.DataVisualization.CloudApi.DTO;
+using ITU.Ckan.DataVisualization.CloudApi.Helpers;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -41,15 +42,14 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
             //find CSV datasets
             var csvFiles = response.result.resources.Where(x => x.format == "CSV");
-            //check if it's a DataStore and if it's, get MetaData
-            if (csvFiles.Any())
-            {
-                var ds = csvFiles.FirstOrDefault();
-                //var resp = await GetMetaData(source.name, ds.id);
-                var resp = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search", ds.id, 1);
-                ds.fields = resp.result.fields;
-            }
 
+            //check if it's a DataStore and if it's, get MetaData
+            foreach (var file in csvFiles)
+            {
+                var resp = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search", file.id, 1);
+                file.fields = resp.result.fields;
+            }
+            
             //add data sets to package
             response.result.resources.ForEach(x => (pkg.dataSets as List<DataSet>).Add(x));
 
@@ -120,8 +120,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             var ds = visual.sources?.SelectMany(x => x.packages.Where(d => d.selected))?.SelectMany(x => x.dataSets);
             var field = ds.Where(x=>x.format=="CSV").SelectMany(x => x.fields).Where(y => y.xAxys);
             var xField = field.FirstOrDefault();
-            var data = xField.record.value;
-            var dataType = xField.type;
+            var dataType = CloudApiHelpers.ResolveType(xField.type);
+            var data = CloudApiHelpers.ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
+;
 
             if (table.column == null) table.column = new Column();
             table.column.Value = data;
@@ -133,14 +134,16 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             var series = ds.Where(x => x.format == "CSV").SelectMany(x => x.fields.Where(y => y.selected && !y.xAxys));
             foreach (var item in series)
             {
-                var row = new Row() { name = item.name, Type = item.type, Value = item.record };
+                var row = new Row() { name = item.name, Type = CloudApiHelpers.ResolveType(item.type), Value = CloudApiHelpers.ConvertArrayToSpecificType(item.record.value, CloudApiHelpers.ResolveType(item.type)) };
                 rows.Add(row);
             }
 
             //if (table.rows == null) //TODO perhaps Initilize() fluent api
-                table.rows = rows;
+            table.rows = rows;
 
         }
+
+       
 
         private void processJsonResponse(object response, DataSet dts)
         {

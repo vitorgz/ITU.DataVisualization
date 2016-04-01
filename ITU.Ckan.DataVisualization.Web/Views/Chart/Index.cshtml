@@ -2,6 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <script type="text/javascript">
     $(document).ready(function () {
         //Dropdownlist Selectedchange event
@@ -48,8 +49,13 @@
                     @Html.DropDownList("Yaxis", ViewData["fields"] as List<SelectListItem>, new { style = "width:250px", @class = "dropdown1" })
                 }
             </div>
+
+            <div class="editor-field">
+
+                @Html.ActionLink("To Chart", "ChartRedirect", "Chart", null, null)
+
+            </div>
             <br />
         </div>
        </div>
 }
-

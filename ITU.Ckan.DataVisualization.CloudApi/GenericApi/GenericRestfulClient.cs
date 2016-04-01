@@ -22,7 +22,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
         }
 
         public static async Task<object> Get<T>(string url, string api, Tuple<string, List<string>> filters) {
-            //if(filters.Count == 1) return await GetCkanAsync<T>(url, api+"/q="+filters.First());
+
+            if (filters.Item2.Count == 1) return await GetCkanAsyncJson(url, api + "/q=" + filters.Item2);
 
             StringBuilder s = new StringBuilder();
             s.Append("SELECT ");

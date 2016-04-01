@@ -32,7 +32,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             return View();
         }
 
-        public async Task<ActionResult> GetDataForChart(string idX, string idY)
+        public void GetDataForChart(string idX, string idY)
         {
             var visual = RootInstance.Current.GetVisualization("test");
             var source = visual.GetSourceById(x => x.name == "http://data.kk.dk/");
@@ -40,28 +40,16 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var fields = ds.Where(x => x.format == "CSV").FirstOrDefault().fields;
 
             var select = fields.Where(x => x.id.ToString() == idX || x.id.ToString() == idY).ToList();
+            var nonSelect = fields.Where(x => x.id.ToString() != idX || x.id.ToString() != idY).ToList();
+            nonSelect.ForEach(x => x.selected = false);
             select.ForEach(x => x.selected = true);
             select.Where(x => x.id.ToString() == idX).FirstOrDefault().xAxys = true;
+            
+        }
 
-            var data = await visual.GetData();
-            var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().ToArray();
-
-            var arrayData = new Data(data.table.rows.Select(x=>x.Value as object[]).FirstOrDefault()); //not working
-
-            DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
-               .InitChart(new Chart() { DefaultSeriesType = DotNet.Highcharts.Enums.ChartTypes.Area })
-               .SetXAxis(new XAxis
-               {
-                   Categories = xAxisDAta
-               })
-               .SetSeries(new Series()
-               {
-                   Data = arrayData
-
-                   //Data = new Data(new object[] { 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4 })
-               });
-
-            return View(chart);
+        public ActionResult ChartRedirect()
+        {
+            return RedirectToAction("Index", "Draw");
         }
     }
 }

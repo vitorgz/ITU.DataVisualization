@@ -63,6 +63,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var newPkg = ds.Create();
 
             var pkg = source.packages.Where(x => x.name == id).FirstOrDefault();
+            source.packages.ToList().ForEach(x => x.selected = false);
             pkg.selected = true;
             pkg.dataSets = newPkg.dataSets;
 
