@@ -10,6 +10,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     {
         IVisualizationFactory Initialize();
         ISourceFactory AddSource(List<Source> source);
+        Task<IVisualizationFactory> GetSources();
         Visualization Create();
     }
 }

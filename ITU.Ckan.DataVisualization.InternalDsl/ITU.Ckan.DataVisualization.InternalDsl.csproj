@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="ExtensionMethods\CkanBuilderExtension.cs" />
     <Compile Include="ExtensionMethods\DataSetExtensionMethods.cs" />
+    <Compile Include="ExtensionMethods\PackageExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\VisualizationExtensionMethods.cs" />
     <Compile Include="Factories\DataSetFactory.cs" />

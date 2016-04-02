@@ -24,7 +24,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
 
             //var type = GetDataType(data.table.column.Type);
-            var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().Distinct().ToArray();
+            //var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().Distinct().ToArray();
+            var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().ToArray();
 
             var rows = from row in data.table.rows
                        select new { data = ConvertToType(row.Value, row.Type.GetType()) };

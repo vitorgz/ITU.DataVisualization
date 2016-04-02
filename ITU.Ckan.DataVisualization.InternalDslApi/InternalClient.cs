@@ -11,9 +11,30 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
 {
     public static class InternalClient
     {
-        public static async Task<T> Get<T>(string url)
+        public static async Task<T> GetPackages<T>(string url)
         {
             var api = "/api/GetPackages";
+            var content = new Source() { name = url };
+            return await GetCkanAsync<T>(api, content);
+        }
+
+        public static async Task<T> GetTags<T>(string url)
+        {
+            var api = "/api/action/tag_list";
+            var content = new Source() { name = url };
+            return await GetCkanAsync<T>(api, content);
+        }
+
+        public static async Task<T> GetOrganizations<T>(string url)
+        {
+            var api = "/api/action/organization_list";
+            var content = new Source() { name = url };
+            return await GetCkanAsync<T>(api, content);
+        }
+
+        public static async Task<T> GetGroups<T>(string url)
+        {
+            var api = "/api/action/group_list";
             var content = new Source() { name = url };
             return await GetCkanAsync<T>(api, content);
         }

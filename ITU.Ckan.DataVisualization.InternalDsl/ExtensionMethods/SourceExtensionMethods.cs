@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -20,6 +21,26 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             Func<Source, bool> funcWhere = property.Compile();
             var s = root.sources.Where(funcWhere).FirstOrDefault();
             return s;
+        }
+
+        public async static Task<List<Group>> GetGroupsAsync(this Source root, string source)
+        {
+            return await InternalClient.GetGroups<List<Group>>(source);
+        }
+
+        public async static Task<List<Tag>> GetTagsAsync(this Source root, string source)
+        {
+            return await InternalClient.GetTags<List<Tag>>(source);
+        }
+
+        public async static Task<List<Organization>> GetOrganizationsAsync(this Source root, string source)
+        {
+            return await InternalClient.GetOrganizations<List<Organization>>(source);
+        }
+
+        public static async Task<List<Package>> GetPackagesAsync(this Source root, string id)
+        {
+            return await InternalClient.GetPackages<List<Package>>(id);
         }
     }
 }

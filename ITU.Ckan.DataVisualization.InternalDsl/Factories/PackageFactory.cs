@@ -28,6 +28,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public async Task<IPackageFactory> GetDataSetsById(string dataSetUrl, string id)
         {
+            //todo change it to <List<DataSet>> make more sense
             var pck = await InternalClient.GetDataSet<Package>(dataSetUrl, id);
             this.package = pck;
 
