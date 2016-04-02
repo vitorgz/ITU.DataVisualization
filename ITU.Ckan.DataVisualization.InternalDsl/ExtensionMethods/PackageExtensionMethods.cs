@@ -14,5 +14,14 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return await InternalClient.GetDataSet<List<DataSet>>(dataSourceId, packageid);
         }
 
+        public static List<DataSet> GetSelecteDataSets(this Package pck)
+        {
+            return pck.dataSets.Where(x => x.selected).ToList();
+        }
+        public static List<DataSet> GetCVCFormatDataSets(this Package pck)
+        {
+            return pck.dataSets.Where(x => x.format == "CSV").ToList();
+        }
+
     }
 }

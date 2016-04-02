@@ -19,5 +19,15 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             dataSet.fields = fieldsList;
             return dataSet;
         }
+
+        public static Field GetXAxys(this DataSet dataSet)
+        {
+            return dataSet.fields.Where(x => x.xAxys).FirstOrDefault();
+        }
+
+        public static List<Field> GetYAxys(this DataSet dataSet)
+        {
+            return dataSet.fields.Where(x => x.selected && !x.xAxys).ToList();
+        }
     }
 }

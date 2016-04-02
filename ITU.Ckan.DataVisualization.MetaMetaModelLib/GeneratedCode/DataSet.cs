@@ -35,6 +35,12 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
+	public virtual bool selected
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<Field> fields
 	{
 		get;

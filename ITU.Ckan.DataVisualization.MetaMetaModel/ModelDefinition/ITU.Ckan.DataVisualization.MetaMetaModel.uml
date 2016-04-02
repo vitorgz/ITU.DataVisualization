@@ -2692,6 +2692,81 @@
                 LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
             </type_NamedElement>
           </property>
+          <property
+            Id="5b40b1bc-fdbd-4bbb-9104-fbf50136a78e"
+            name="selected"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="67e7dc27-da41-49da-953d-d56d368c1696"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="214ec511-98cc-469c-9ebf-1fab59937ab2">
+                    <propertyInstance
+                      Id="2815c312-9375-4ad3-afea-7f5b908bbf65"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="965a2c7c-9a29-433d-8975-6b72aac73a9b">
+                    <propertyInstance
+                      Id="6a939235-74ee-4f29-979a-59f415e6b204"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="560f741f-c1e9-4fdc-ac05-ba9a5a3ca900">
+                    <propertyInstance
+                      Id="d103007a-35e7-48e7-a078-bd81e2f45eaf"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="20ef14f4-4482-4af5-a639-3ee4b9c09fbd">
+                    <propertyInstance
+                      Id="c7ba4a2e-c940-4360-b952-2f7da7ac607d"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="25e463a6-08b9-41d0-81d5-c1e5ef2f6c37">
+                    <propertyInstance
+                      Id="6a68f8fd-c409-4c0a-97a4-c0dceb623390"
+                      name="Inheritance"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="55028ec8-a6d5-49a9-8bb0-faa8b9bf646f">
+                    <propertyInstance
+                      Id="605088fb-f19a-4fc2-984e-a2a0bdcf6629"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7140f4f8-3462-45b1-8a69-e310ef6029c0">
+                    <propertyInstance
+                      Id="a2faf461-21cd-4164-be4a-add157496baa"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="ITU.Ckan.DataVisualization.MetaMetaModel.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
       </class>
     </packageHasNamedElement>
