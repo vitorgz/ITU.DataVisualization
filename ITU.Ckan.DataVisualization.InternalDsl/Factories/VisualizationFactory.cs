@@ -10,9 +10,10 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     public class VisualizationFactory : IVisualizationFactory
     {
         Visualization visual;
-        public ISourceFactory AddSource(List<Source> source)
+        public IVisualizationFactory AddSource(List<Source> sources)
         {
-            throw new NotImplementedException();
+            visual.sources = new List<Source>(sources);
+            return this;
         }
 
         public Visualization Create()
@@ -27,9 +28,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public async Task<IVisualizationFactory> GetSources()
+        public List<Source> GetSources()
         {
-            throw new NotImplementedException();
+            return visual.sources.ToList();
         }
 
         public IVisualizationFactory Initialize()

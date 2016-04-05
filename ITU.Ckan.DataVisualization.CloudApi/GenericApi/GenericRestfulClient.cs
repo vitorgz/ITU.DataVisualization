@@ -40,14 +40,12 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             //object schema = GetJsonSchema(filters.Item2);
             //var results = await GetCkanAsync<T>(url, path);
 
-            return results;
-            
+            return results;            
 
         }
 
         private static ResultsDTO GetJsonSchema(List<string> filters)
         {
-
             var dto = new ResultsDTO();
             dto.result = new RecordsDTO();
             dto.result.records = new List<RecordDTO>() { new RecordDTO() };
@@ -57,8 +55,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             foreach (var item in filters)
             {
                 ((IDictionary<string, object>)res)[item] = item.GetType().TypeInitializer;
-            }
-            
+            }           
 
             return dto;
         }
@@ -76,6 +73,16 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
         public static async Task<T> Get<T>(string url, string api, string id, int limit)
         {
             return await GetCkanAsync<T>(url, api + "?resource_id=" + id + "&limit=" + limit);
+        }
+
+        public static async Task<object> Get(string url, string api, string id, int limit)
+        {
+            return await GetCkanAsyncJson(url, api + "?resource_id=" + id + "&limit=" + limit);            
+        }
+
+        public static async Task<object> Get(string url, string api, string id, int offtset, int limit)
+        {
+            return await GetCkanAsyncJson(url, api + "?resource_id=" + id + "&offset=" + offtset + "&limit=" + limit);
         }
 
         public static async Task<T> GetCkanAsync<T>(string url, string api)

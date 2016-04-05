@@ -10,10 +10,10 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     {
         IDataSetFactory Initialize();
         IDataSetFactory AddGroup(List<Group> groups);
-        IDataSetFactory AddOrganization(List<Organization> organizations);
+        IDataSetFactory AddOrganization(Organization organization);
         IDataSetFactory AddTag(List<Tag> tags);
         IDataSetFactory AddField(List<Field> field);
-        IDataSetFactory AddResource(List<Resource> record);
+        IDataSetFactory GetRecords();
         DataSet Create();
     }
 }

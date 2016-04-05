@@ -48,6 +48,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             {
                 var resp = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search", file.id, 1);
                 file.fields = resp.result.fields;
+                
             }
             
             //add data sets to package
@@ -58,10 +59,35 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
         [Route("api/GetMetaData")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetMetaData(string url, string id)
+        public async Task<HttpResponseMessage> GetMetaData(string url, string dataSourceId)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-            var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(url, "/api/action/datastore_search", id, 1);
+            var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(url, "/api/action/datastore_search", dataSourceId, 1);
+            var fields = response.result.fields;
+
+            return Request.CreateResponse(HttpStatusCode.OK, fields);
+        }
+
+        [Route("api/GetDataLimit")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetDataLimit(string url, string id, int limit)
+        {
+            //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
+            var response = await GenericApi.GenericRestfulClient.Get(url, "/api/action/datastore_search", id, limit);
+
+            //TODO parse response -> read first Fields, and them map to formatted object
+
+            return Request.CreateResponse(HttpStatusCode.OK, response);
+        }
+
+        [Route("api/GetDataLimitOffset")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetDataLimitOffset(string url, string id, int limit, int offset)
+        {
+            //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
+            var response = await GenericApi.GenericRestfulClient.Get(url, "/api/action/datastore_search", id, limit, offset);
+
+            //TODO parse response -> read first Fields, and them map to formatted object
 
             return Request.CreateResponse(HttpStatusCode.OK, response);
         }
@@ -142,8 +168,6 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             table.rows = rows;
 
         }
-
-       
 
         private void processJsonResponse(object response, DataSet dts)
         {

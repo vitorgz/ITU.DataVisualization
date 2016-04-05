@@ -18,22 +18,26 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public ISourceFactory AddGroup(List<Group> groups)
         {
-            throw new NotImplementedException();
+            source.groups = new List<Group>(groups);
+            return this;
         }
 
         public ISourceFactory AddOrganization(List<Organization> organizations)
         {
-            throw new NotImplementedException();
+            source.organizations = new List<Organization>(organizations);
+            return this;
         }
 
         public ISourceFactory AddPackage(List<Package> packages)
         {
-            throw new NotImplementedException();
+            source.packages = new List<Package>(packages);
+            return this;
         }
 
         public ISourceFactory AddTag(List<Tag> tags)
         {
-            throw new NotImplementedException();
+            source.tags = new List<Tag>(tags);
+            return this;
         }
 
         public Source Create()

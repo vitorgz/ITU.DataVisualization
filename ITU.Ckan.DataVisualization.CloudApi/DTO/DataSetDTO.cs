@@ -11,7 +11,6 @@ namespace ITU.Ckan.DataVisualization.CloudApi.DTO
         public string help { get; set; }
         public bool success { get; set; }
         public DataSet result { get; set; }
-        //public List<DataSet> result { get; set; }
     }
 
     public class DataSetIn
@@ -19,6 +18,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.DTO
         public string resource_id { get; set; }
         public string id { get; set; }
         public List<Field> fields { get; set; }
+        public int total { get; set;}
+        public int limit { get; set; }
+        //Records is dynamic
         //public List<object> records { get; set; }
     }
 }

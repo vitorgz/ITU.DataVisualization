@@ -18,7 +18,8 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public IPackageFactory AddDataSet(List<DataSet> dataSets)
         {
-            throw new NotImplementedException();
+            package.dataSets = new List<DataSet>(dataSets);
+            return this;
         }
 
         public Package Create()

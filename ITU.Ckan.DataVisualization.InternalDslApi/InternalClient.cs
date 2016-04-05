@@ -47,8 +47,15 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, content);
         }
 
+        public static async Task<T> GetMetaData<T>(string url, string dataSetId)
+        {
+            var api = "/api/GetMetaData";
+            var content = new DataSet() { resource_id = dataSetId }; //TODO url missing
+            return await GetCkanAsync<T>(api, content);
+        }
+
         public static async Task<T> Get<T>(string url, Dictionary<string, List<string>> filters) {
-            return default(T);  
+            return default(T);  //TODO 
         }
 
         public static async Task<T> Get<T>(Visualization visual)
@@ -57,7 +64,26 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, visual);
         }
 
+        public static async Task<T> Get<T>(Visualization visual, int limit)
+        {
+            //TODO
+            var api = "/api/GetDataLimitOffset";
+            return await GetCkanAsync<T>(api, visual);
+        }
+
+        public static async Task<T> Get<T>(Visualization visual, int limit, int offset)
+        {
+            //TODO
+            var api = "/api/GetDataLimit";
+            return await GetCkanAsync<T>(api, visual);
+        }
+
         public static async Task<T> Get<T>(string url, string id, int limit)
+        {
+            return default(T);
+        }
+
+        public static async Task<T> Get<T>(string url, string id, int offset, int limit)
         {
             return default(T);
         }

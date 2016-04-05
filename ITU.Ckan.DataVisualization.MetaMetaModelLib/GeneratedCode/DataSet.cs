@@ -11,13 +11,7 @@ using System.Text;
 
 public class DataSet : NamedElement, ICkanBuilder, IEntity
 {
-	public virtual string id
-	{
-		get;
-		set;
-	}
-
-	public virtual IEnumerable<Property> properties
+	public virtual int limit
 	{
 		get;
 		set;
@@ -41,13 +35,31 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Field> fields
+	public virtual IEnumerable<Property> properties
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Resource> resources
+	public virtual string id
+	{
+		get;
+		set;
+	}
+
+	public virtual int total
+	{
+		get;
+		set;
+	}
+
+	public virtual string resource_id
+	{
+		get;
+		set;
+	}
+
+	public virtual IEnumerable<Field> fields
 	{
 		get;
 		set;

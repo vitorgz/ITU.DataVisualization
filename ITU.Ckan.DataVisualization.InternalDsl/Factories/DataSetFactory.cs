@@ -8,38 +8,46 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
    public class DataSetFactory : IDataSetFactory
     {
+        private DataSet dataSet;
         public IDataSetFactory Initialize()
         {
-            throw new NotImplementedException();
+            dataSet = new DataSet();
+            return this;
         }
 
         public IDataSetFactory AddField(List<Field> field)
         {
-            throw new NotImplementedException();
+            dataSet.fields = new List<Field>(field);
+            return this;
         }
 
         public IDataSetFactory AddGroup(List<Group> groups)
         {
-            throw new NotImplementedException();
+            //TODO -> it is a relationship, not new entities, go the (group, organi., tag, records) table 
+            //var group = source.GetGroups.Where(x=>x.dataSet = id);
+            return this;
         }
 
-        public IDataSetFactory AddOrganization(List<Organization> organizations)
+        public IDataSetFactory AddOrganization(Organization organization)
         {
-            throw new NotImplementedException();
+            //Todo
+            return this;
         }
 
         public IDataSetFactory AddTag(List<Tag> tags)
         {
-            throw new NotImplementedException();
+            //todo
+            return this;
         }
-        public IDataSetFactory AddResource(List<Resource> record)
+        public IDataSetFactory GetRecords()
         {
-            throw new NotImplementedException();
+            //todo
+            return this;
         }
 
         public DataSet Create()
         {
-            throw new NotImplementedException();
+            return dataSet;
         }
     }
 }
