@@ -1,4 +1,5 @@
 ﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,32 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return s;
         }
 
-        public static async Task<Visualization> GetData(this Visualization visual)
+        public static async Task<Table> GetData(this Visualization visual, VisualDTO filters)
         {
-            var data = await InternalClient.Get<Visualization>(visual);
+            var data = await InternalClient.Get<Table>(filters);
             
             return data;
+        }
+        public static VisualDTO GetFilters(this Visualization visual)
+        {
+            var filters = new VisualDTO();
+            var sourceDTO = new List<SourceDTO>();
+
+            foreach (var source in visual.sources)
+            {
+                var dts = source.packages.Where(x=>x.selected).SelectMany(x => x.dataSets.Where(y => y.format == "CSV")).ToList();
+
+                dts.ForEach(x => sourceDTO.Add(new SourceDTO()
+                {
+                    dataSetId = x.id,
+                    fields = x.fields.Where(y => y.selected || y.xAxys).ToList(),
+                    sourceName = source.name
+                }));                
+            }
+
+
+            filters.sources = sourceDTO;
+            return filters;
         }
     }
 }

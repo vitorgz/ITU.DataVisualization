@@ -20,17 +20,17 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var visual = RootInstance.Current.GetVisualization("test");
 
-            var data = await visual.GetData();
-
+            var filters = visual.GetFilters();
+            var data = await visual.GetData(filters);
 
             //var type = GetDataType(data.table.column.Type);
             //var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().Distinct().ToArray();
-            var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().ToArray();
+            if (data == null)
+                return View();
+            var xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
 
-            var rows = from row in data.table.rows
+            var rows = from row in data.rows
                        select new { data = ConvertToType(row.Value, row.Type.GetType()) };
-
-
 
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                .InitChart(new Chart() { DefaultSeriesType = DotNet.Highcharts.Enums.ChartTypes.Line });

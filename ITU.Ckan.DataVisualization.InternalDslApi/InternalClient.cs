@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -54,28 +55,21 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, content);
         }
 
-        public static async Task<T> Get<T>(string url, Dictionary<string, List<string>> filters) {
-            return default(T);  //TODO 
-        }
-
-        public static async Task<T> Get<T>(Visualization visual)
+        public static async Task<T> Get<T>(VisualDTO filtersData)
         {
             var api = "/api/GetData";
-            return await GetCkanAsync<T>(api, visual);
+            return await GetCkanAsync<T>(api, filtersData);
         }
 
-        public static async Task<T> Get<T>(Visualization visual, int limit)
+        public static async Task<T> GetDataFromOneSourceLimit<T>(SourceDTO source)
         {
-            //TODO
-            var api = "/api/GetDataLimitOffset";
-            return await GetCkanAsync<T>(api, visual);
-        }
+            if (source.offset != 0)
+            {
+                return await GetCkanAsync<T>("/api/GetDataLimitOffset", source);
+            }
 
-        public static async Task<T> Get<T>(Visualization visual, int limit, int offset)
-        {
-            //TODO
             var api = "/api/GetDataLimit";
-            return await GetCkanAsync<T>(api, visual);
+            return await GetCkanAsync<T>(api, source);
         }
 
         public static async Task<T> Get<T>(string url, string id, int limit)

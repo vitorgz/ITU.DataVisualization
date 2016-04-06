@@ -1,4 +1,5 @@
 ﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,11 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return visual;
         }
 
-        public async Task<IVisualizationFactory> GetData()
+        public async Task<IVisualizationFactory> GetData(VisualDTO filters)
         {
-            //TODO this will override some values, take care!
-            visual = await InternalClient.Get<Visualization>(visual);
+            var table = await InternalClient.Get<Table>(filters);
+            visual.table = new Table();
+            visual.table = table;
             return this;
         }
 

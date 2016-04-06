@@ -1,14 +1,12 @@
 ﻿using ITU.Ckan.DataVisualization.CloudApi.DTO;
 using ITU.Ckan.DataVisualization.CloudApi.Helpers;
+using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -70,10 +68,14 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
         [Route("api/GetDataLimit")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetDataLimit(string url, string id, int limit)
+        public async Task<HttpResponseMessage> GetDataLimit(SourceDTO source)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-            var response = await GenericApi.GenericRestfulClient.Get(url, "/api/action/datastore_search", id, limit);
+            var response = await GenericApi.GenericRestfulClient.Get(
+                source.sourceName, 
+                "/api/action/datastore_search", 
+                source.dataSetId, 
+                source.limit);
 
             //TODO parse response -> read first Fields, and them map to formatted object
 
@@ -82,10 +84,15 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
         [Route("api/GetDataLimitOffset")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetDataLimitOffset(string url, string id, int limit, int offset)
+        public async Task<HttpResponseMessage> GetDataLimitOffset(SourceDTO source)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-            var response = await GenericApi.GenericRestfulClient.Get(url, "/api/action/datastore_search", id, limit, offset);
+            var response = await GenericApi.GenericRestfulClient.Get(
+                source.sourceName,
+                "/api/action/datastore_search",
+                source.dataSetId, 
+                source.limit, 
+                source.offset);
 
             //TODO parse response -> read first Fields, and them map to formatted object
 
@@ -94,58 +101,48 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
         [Route("api/GetData")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetData(Visualization visual)
+        public async Task<HttpResponseMessage> GetData(VisualDTO visual)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702
 
-           // var dict = new Dictionary<string, List<string>>();
+            // var dict = new Dictionary<string, List<string>>();
 
-            foreach (var source in visual.sources)
+            foreach (var item in visual.sources)
             {
-                //get only selected packages
-                var pckgs = source.packages.Where(x => x.selected == true);
-
-                //get which fields are selected for each data source
-                foreach (var dts in pckgs.SelectMany(x => x.dataSets.Where(y=>y.format=="CSV")))
-                {
-                    var flds = dts.fields.Where(x => x.selected).Select(x => x.id.ToString()).ToList();
-                    var values = new Tuple<string, List<string>>(dts.id, flds);
+                var flds = item.fields.Select(x => x.id.ToString()).ToList();
+                    var values = new Tuple<string, List<string>>(item.dataSetId, flds);
 
                     //for each data source
                     var response = await GenericApi.GenericRestfulClient.
-                        Get<object>(source.name, "/api/action/datastore_search_sql?sql=", values);
+                        Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values);
 
-                    processJsonResponse(response, dts);
-                }
+                    processJsonResponse(response, item.fields);
             }
 
             //Merge all Data in one DAtaTable
-            CreateDataTable(visual);
+            var table = CreateDataTable(visual);
 
 
             //create RowData
             MergeData(visual);
 
 
-            return Request.CreateResponse(HttpStatusCode.OK, visual);
+            return Request.CreateResponse(HttpStatusCode.OK, table);
         }
 
-        private void MergeData(Visualization visual)
+        private void MergeData(VisualDTO visual)
         {
             
         }
 
-        private void CreateDataTable(Visualization visual)
+        private Table CreateDataTable(VisualDTO visual)
         {
             //select X-Axys
-            if (visual.table == null) visual.table = new Table();
+           var table = new Table();
 
-            var table = visual.table;
-
-            //map xAxys //TODO passe to the fluent
-            var ds = visual.sources?.SelectMany(x => x.packages.Where(d => d.selected))?.SelectMany(x => x.dataSets);
-            var field = ds.Where(x=>x.format=="CSV").SelectMany(x => x.fields).Where(y => y.xAxys);
-            var xField = field.FirstOrDefault();
+            //map xAxys //TODO move to the fluent
+            var fields = visual.sources.SelectMany(x => x.fields);
+            var xField = fields.Where(y => y.xAxys).FirstOrDefault();
             var dataType = CloudApiHelpers.ResolveType(xField.type);
             var data = CloudApiHelpers.ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
 ;
@@ -157,7 +154,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
             //map yAxys
             var rows = new List<Row>();
-            var series = ds.Where(x => x.format == "CSV").SelectMany(x => x.fields.Where(y => y.selected && !y.xAxys));
+            var series = fields.Where(y => y.selected && !y.xAxys);
             foreach (var item in series)
             {
                 var row = new Row() { name = item.name, Type = CloudApiHelpers.ResolveType(item.type), Value = CloudApiHelpers.ConvertArrayToSpecificType(item.record.value, CloudApiHelpers.ResolveType(item.type)) };
@@ -167,13 +164,15 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             //if (table.rows == null) //TODO perhaps Initilize() fluent api
             table.rows = rows;
 
+            return table;
+
         }
 
-        private void processJsonResponse(object response, DataSet dts)
+        private void processJsonResponse(object response, List<Field> fields)
         {
             JObject json = JObject.Parse(response.ToString());
 
-            foreach (var item in dts.fields.Where(x=>x.selected))
+            foreach (var item in fields)
             {
                 var jsonValues = from p in json["result"]["records"]
                                  select (string)p[item.id.ToString()];

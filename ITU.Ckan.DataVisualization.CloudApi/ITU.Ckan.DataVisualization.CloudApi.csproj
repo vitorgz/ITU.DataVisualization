@@ -124,6 +124,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ITU.Ckan.DataVisualization.InternalDslApi\ITU.Ckan.DataVisualization.InternalDslApi.csproj">
+      <Project>{bce1d282-105b-400f-8be7-6556145dbe79}</Project>
+      <Name>ITU.Ckan.DataVisualization.InternalDslApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ITU.Ckan.DataVisualization.MetaMetaModelLib\ITU.Ckan.DataVisualization.MetaMetaModelLib.csproj">
       <Project>{563b3cb5-6470-4d92-ab91-be2d826614a8}</Project>
       <Name>ITU.Ckan.DataVisualization.MetaMetaModelLib</Name>
