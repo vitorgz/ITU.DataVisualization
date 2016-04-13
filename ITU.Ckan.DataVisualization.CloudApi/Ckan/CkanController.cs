@@ -130,6 +130,16 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             return Request.CreateResponse(HttpStatusCode.OK, table);
         }
 
+        [Route("api/SendCommand")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> SendCommand(SourceDTO source)
+        {
+            //TODO how to pass the command?
+            var response = await GenericApi.GenericRestfulClient.GetJson<object>(source.sourceName, source.command);
+
+            return Request.CreateResponse(HttpStatusCode.OK, response);
+        }
+
         private void MergeData(VisualDTO visual)
         {
             

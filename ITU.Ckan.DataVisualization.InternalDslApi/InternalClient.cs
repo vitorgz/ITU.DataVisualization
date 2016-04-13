@@ -61,7 +61,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, filtersData);
         }
 
-        public static async Task<T> GetDataFromOneSourceLimit<T>(SourceDTO source)
+        public static async Task<T> GetDataFromSource<T>(SourceDTO source)
         {
             if (source.offset != 0)
             {
@@ -74,12 +74,23 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
 
         public static async Task<T> Get<T>(string url, string id, int limit)
         {
-            return default(T);
+            var dto = new SourceDTO(){ sourceName = url, dataSetId = id, limit = limit };
+            var api = "/api/GetDataLimit";
+            return await GetCkanAsync<T>(api, dto);
         }
 
         public static async Task<T> Get<T>(string url, string id, int offset, int limit)
         {
-            return default(T);
+            var dto = new SourceDTO() { sourceName = url, dataSetId = id, limit = limit, offset = offset };
+            var api = "/api/GetDataLimit";
+            return await GetCkanAsync<T>(api, dto);
+        }
+
+        public static async Task<T> SendCommand<T>(string url, string command)
+        {
+            var dto = new SourceDTO() { sourceName = url, command = command };
+            var api = "/api/SendCommand";
+            return await GetCkanAsync<T>(api, dto);
         }
 
         internal static async Task<T> GetCkanAsync<T>(string api, object content)
@@ -107,9 +118,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
                 }
                 catch (HttpRequestException e)
                 {
-                    // Handle exception.
-                    var s = e;
-                    return default(T);
+                    throw new InvalidOperationException("An error has occurred while requesting data from CKAN");
                 }
             }
         }

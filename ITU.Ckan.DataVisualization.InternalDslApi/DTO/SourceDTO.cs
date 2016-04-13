@@ -14,5 +14,6 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi.DTO
 
         public int limit { get; set; }
         public int offset { get; set; }
+        public string command { get; set; }
     }
 }

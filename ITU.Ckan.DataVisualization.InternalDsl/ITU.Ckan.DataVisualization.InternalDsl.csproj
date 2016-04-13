@@ -57,6 +57,7 @@
     <Compile Include="GenericFactory\GenericFluentFactory.cs" />
     <Compile Include="GenericFactory\IGenericFactory.cs" />
     <Compile Include="Factories\IRootFactory.cs" />
+    <Compile Include="Helpers\DslConverterHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExtensionMethods\PropertyExtension.cs" />
     <Compile Include="Factories\RootFactory.cs" />

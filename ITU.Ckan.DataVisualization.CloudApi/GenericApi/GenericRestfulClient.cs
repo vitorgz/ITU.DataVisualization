@@ -21,6 +21,11 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             return await GetCkanAsync<T>(url, api);
         }
 
+        public static async Task<object> GetJson<T>(string url, string command)
+        {
+            return await GetCkanAsyncJson(url, command);
+        }
+
         public static async Task<object> Get<T>(string url, string api, Tuple<string, List<string>> filters) {
 
             if (filters.Item2.Count == 1) return await GetCkanAsyncJson(url, api + "/q=" + filters.Item2);
@@ -107,9 +112,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
                 }
                 catch (HttpRequestException e)
                 {
-                    // Handle exception.
-                    var s = e;
-                    return default(T);
+                    throw new InvalidOperationException("An error has occurred while requesting data from CKAN");
                 }
             }
         }
@@ -135,9 +138,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
                 }
                 catch (HttpRequestException e)
                 {
-                    // Handle exception.
-                    var s = e;
-                    return default(ResultsDTO);
+                    throw new InvalidOperationException("An error has occurred while requesting data from CKAN");
                 }
             }
         }

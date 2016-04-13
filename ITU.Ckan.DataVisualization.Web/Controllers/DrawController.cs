@@ -1,6 +1,7 @@
 ﻿using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
 using ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods;
+using ITU.Ckan.DataVisualization.InternalDsl.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,10 +28,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             //var xAxisDAta = (data.table.column.Value as object[]).OfType<string>().Distinct().ToArray();
             if (data == null)
                 return View();
-            var xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
+
+            //Convert
+            //var xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
+            var xAxisDAta = DslConverterHelpers.ConvertToStringArray(data.column.Value);
 
             var rows = from row in data.rows
-                       select new { data = ConvertToType(row.Value, row.Type.GetType()) };
+                       select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
 
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                .InitChart(new Chart() { DefaultSeriesType = DotNet.Highcharts.Enums.ChartTypes.Line });
@@ -61,26 +65,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             chart.SetSeries(series);
 
             return View(chart);
-        }
-
-        private Array ConvertToType(object value, Type type) //TODO, use helpers?
-        {
-            var objArr = (value as object[]);
-            var arr = Array.CreateInstance(type, objArr.Length);
-            //Array.Copy(objArr, arr, objArr.Length);
-            arr = Array.ConvertAll(objArr, elem => Convert.ChangeType(elem, type));
-
-            return arr;
-            /*
-            MethodInfo method = typeof(Queryable).GetMethod("OfType");
-            MethodInfo generic = method.MakeGenericMethod(new Type[] { type });
-            // Use .NET 4 covariance
-            var result = (IEnumerable<object>)generic.Invoke
-                  (null, new object[] { value });
-            object[] array = result.ToArray();
-
-            return array;
-            */
-        }
+        }        
     }
 }
