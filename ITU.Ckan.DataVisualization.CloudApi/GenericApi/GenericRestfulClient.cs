@@ -1,5 +1,4 @@
-﻿using ITU.Ckan.DataVisualization.CloudApi.DTO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -49,11 +48,12 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
         }
 
-        private static ResultsDTO GetJsonSchema(List<string> filters)
+        /*
+        private static ResultsDeserialize GetJsonSchema(List<string> filters)
         {
-            var dto = new ResultsDTO();
-            dto.result = new RecordsDTO();
-            dto.result.records = new List<RecordDTO>() { new RecordDTO() };
+            var dto = new ResultsDeserialize();
+            dto.result = new RecordsDeserialize();
+            dto.result.records = new List<RecordDeserialize>() { new RecordDeserialize() };
             dynamic res = dto.result.records;
             res = new ExpandoObject();
 
@@ -64,6 +64,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
             return dto;
         }
+        */
 
         public static async Task<T> Get<T>(string url, string api, string id)
         {

@@ -1,4 +1,4 @@
-﻿using ITU.Ckan.DataVisualization.CloudApi.DTO;
+﻿using ITU.Ckan.DataVisualization.CloudApi.Deserialize;
 using ITU.Ckan.DataVisualization.CloudApi.Helpers;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using Newtonsoft.Json.Linq;
@@ -19,7 +19,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         public async Task<HttpResponseMessage> GetPackages(Source source)
         {
             //http://data.kk.dk/api/action/package_list
-            var response = await GenericApi.GenericRestfulClient.Get<PackageListDTO>(source.name, "api/action/package_list");
+            var response = await GenericApi.GenericRestfulClient.Get<PackageListDeserialize>(source.name, "api/action/package_list");
 
             var pkgs = new List<Package>();
             response.result.ForEach(x => pkgs.Add(new Package() { name = x}));
@@ -36,7 +36,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             pkg.dataSets = new List<DataSet>();
 
             //http://data.kk.dk/api/action/package_show?id=aalegraes
-            var response = await GenericApi.GenericRestfulClient.Get<PackageDTO>(source.name, "/api/action/package_show", source.packages.FirstOrDefault().name);
+            var response = await GenericApi.GenericRestfulClient.Get<PackageDeserialize>(source.name, "/api/action/package_show", source.packages.FirstOrDefault().name);
 
             //find CSV datasets
             var csvFiles = response.result.resources.Where(x => x.format == "CSV");
@@ -44,7 +44,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             //check if it's a DataStore and if it's, get MetaData
             foreach (var file in csvFiles)
             {
-                var resp = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(source.name, "/api/action/datastore_search", file.id, 1);
+                var resp = await GenericApi.GenericRestfulClient.Get<DataSetDeserialize>(source.name, "/api/action/datastore_search", file.id, 1);
                 file.fields = resp.result.fields;
                 
             }
@@ -60,7 +60,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         public async Task<HttpResponseMessage> GetMetaData(string url, string dataSourceId)
         {
             //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-            var response = await GenericApi.GenericRestfulClient.Get<DataSetDTO>(url, "/api/action/datastore_search", dataSourceId, 1);
+            var response = await GenericApi.GenericRestfulClient.Get<DataSetDeserialize>(url, "/api/action/datastore_search", dataSourceId, 1);
             var fields = response.result.fields;
 
             return Request.CreateResponse(HttpStatusCode.OK, fields);
@@ -134,7 +134,6 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         [HttpPost]
         public async Task<HttpResponseMessage> SendCommand(SourceDTO source)
         {
-            //TODO how to pass the command?
             var response = await GenericApi.GenericRestfulClient.GetJson<object>(source.sourceName, source.command);
 
             return Request.CreateResponse(HttpStatusCode.OK, response);

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITU.Ckan.DataVisualization.CloudApi.DTO
+namespace ITU.Ckan.DataVisualization.CloudApi.Deserialize
 {
-    public class PackageDTO
+    public class PackageDeserialize
     {
         public string help { get; set; }
         public bool success { get; set; }

@@ -106,10 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ckan\CkanController.cs" />
-    <Compile Include="DTO\DataSetDTO.cs" />
-    <Compile Include="DTO\PackageListDTO.cs" />
-    <Compile Include="DTO\PackageDTO.cs" />
-    <Compile Include="DTO\ResultsDTO.cs" />
+    <Compile Include="Deserialize\DataSetDeserialize.cs" />
+    <Compile Include="Deserialize\PackageListDeserialize.cs" />
+    <Compile Include="Deserialize\PackageDeserialize.cs" />
     <Compile Include="GenericApi\GenericRestfulClient.cs" />
     <Compile Include="Helpers\CloudApiHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
