@@ -16,13 +16,12 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
     {
         [Route("api/GetPackages")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetPackages(Source source)
+        public async Task<HttpResponseMessage> GetPackages(SourceDTO source)
         {
             //http://data.kk.dk/api/action/package_list
-            var response = await GenericApi.GenericRestfulClient.Get<PackageListDeserialize>(source.name, "api/action/package_list");
+            var response = await GenericApi.GenericRestfulClient.Get<ListDeserialize>(source.sourceName, source.command);
 
-            var pkgs = new List<Package>();
-            response.result.ForEach(x => pkgs.Add(new Package() { name = x}));
+            var pkgs = CloudApiHelpers.ConvertToListOfType<Package>(response);
 
             return Request.CreateResponse(HttpStatusCode.OK, pkgs);
         }
@@ -116,18 +115,51 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                     var response = await GenericApi.GenericRestfulClient.
                         Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values);
 
-                    processJsonResponse(response, item.fields);
+                   CloudApiHelpers.ProcessJsonResponse(response, item.fields);
             }
 
             //Merge all Data in one DAtaTable
-            var table = CreateDataTable(visual);
+            var table = CloudApiHelpers.CreateDataTable(visual);
 
 
             //create RowData
-            MergeData(visual);
+            //CloudApiHelpers.MergeData(visual);
 
 
             return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+
+        [Route("api/GetTags")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetTags(SourceDTO source)
+        {
+            var response = await GenericApi.GenericRestfulClient.Get<ListDeserialize>(source.sourceName, source.command);
+
+            var tags = CloudApiHelpers.ConvertToListOfType<Tag>(response);
+
+            return Request.CreateResponse(HttpStatusCode.OK, tags);
+        }
+
+        [Route("api/GetGroups")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetGroups(SourceDTO source)
+        {
+            var response = await GenericApi.GenericRestfulClient.Get<ListDeserialize>(source.sourceName, source.command);
+
+            var groups = CloudApiHelpers.ConvertToListOfType<Group>(response);
+
+            return Request.CreateResponse(HttpStatusCode.OK, groups);
+        }
+
+        [Route("api/GetOrganizations")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetOrganizations(SourceDTO source)
+        {
+            var response = await GenericApi.GenericRestfulClient.Get<ListDeserialize>(source.sourceName, source.command);
+
+            var orgs = CloudApiHelpers.ConvertToListOfType<Organization>(response);
+
+            return Request.CreateResponse(HttpStatusCode.OK, orgs);
         }
 
         [Route("api/SendCommand")]
@@ -137,65 +169,6 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             var response = await GenericApi.GenericRestfulClient.GetJson<object>(source.sourceName, source.command);
 
             return Request.CreateResponse(HttpStatusCode.OK, response);
-        }
-
-        private void MergeData(VisualDTO visual)
-        {
-            
-        }
-
-        private Table CreateDataTable(VisualDTO visual)
-        {
-            //select X-Axys
-           var table = new Table();
-
-            //map xAxys //TODO move to the fluent
-            var fields = visual.sources.SelectMany(x => x.fields);
-            var xField = fields.Where(y => y.xAxys).FirstOrDefault();
-            var dataType = CloudApiHelpers.ResolveType(xField.type);
-            var data = CloudApiHelpers.ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
-;
-
-            if (table.column == null) table.column = new Column();
-            table.column.Value = data;
-            table.column.Type = dataType;
-            table.column.name = xField.name;
-
-            //map yAxys
-            var rows = new List<Row>();
-            var series = fields.Where(y => y.selected && !y.xAxys);
-            foreach (var item in series)
-            {
-                var row = new Row() { name = item.name, Type = CloudApiHelpers.ResolveType(item.type), Value = CloudApiHelpers.ConvertArrayToSpecificType(item.record.value, CloudApiHelpers.ResolveType(item.type)) };
-                rows.Add(row);
-            }
-
-            //if (table.rows == null) //TODO perhaps Initilize() fluent api
-            table.rows = rows;
-
-            return table;
-
-        }
-
-        private void processJsonResponse(object response, List<Field> fields)
-        {
-            JObject json = JObject.Parse(response.ToString());
-
-            foreach (var item in fields)
-            {
-                var jsonValues = from p in json["result"]["records"]
-                                 select (string)p[item.id.ToString()];
-
-
-                if (item.record == null) {
-                    item.record = new Record();     
-                }
-
-                item.record.name = item.id.ToString();
-                item.record.value = jsonValues.ToArray();
-            }           
-
-            //dts.records = json
-        }
+        }           
     }
 }

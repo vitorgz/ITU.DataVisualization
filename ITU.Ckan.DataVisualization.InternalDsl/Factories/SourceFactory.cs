@@ -55,7 +55,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public async Task<ISourceFactory> GetGroups(string source)
         {
-            var groups = await InternalClient.GetPackages<List<Group>>(source);
+            var groups = await InternalClient.GetGroups<List<Group>>(source);
             this.source.groups = groups;
 
             return this;
@@ -63,7 +63,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public async Task<ISourceFactory> GetOrganizations(string source)
         {
-            var orga = await InternalClient.GetPackages<List<Organization>>(source);
+            var orga = await InternalClient.GetOrganizations<List<Organization>>(source);
             this.source.organizations = orga;
 
             return this;
@@ -71,7 +71,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public async Task<ISourceFactory> GetTag(string source)
         {
-            var tags = await InternalClient.GetPackages<List<Tag>>(source);
+            var tags = await InternalClient.GetTags<List<Tag>>(source);
             this.source.tags = tags;
 
             return this;

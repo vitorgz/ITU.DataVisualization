@@ -8,13 +8,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
 {
     public static class DataSetExtensionMethods
     {
-        public static DataSet addFields(this DataSet dataSet, IEnumerable<Field> fieldsList)
+        public static DataSet AddFields(this DataSet dataSet, IEnumerable<Field> fieldsList)
         {
             dataSet.fields = fieldsList;
             return dataSet;
         }
 
-        public static DataSet addRecods(this DataSet dataSet, IEnumerable<Field> fieldsList)
+        public static DataSet AddRecods(this DataSet dataSet, IEnumerable<Field> fieldsList)
         {
             dataSet.fields = fieldsList;
             return dataSet;

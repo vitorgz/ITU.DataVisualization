@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     {
         IVisualizationFactory Initialize();
         IVisualizationFactory AddSource(List<Source> source);
-        List<Source> GetSources();
+        //List<Source> GetSources();
         Visualization Create();
+        Task<IVisualizationFactory> GetData(VisualDTO filters);
     }
 }

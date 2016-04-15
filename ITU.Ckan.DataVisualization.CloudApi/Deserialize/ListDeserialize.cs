@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITU.Ckan.DataVisualization.CloudApi.Deserialize
 {
-    public class PackageListDeserialize
+    public class ListDeserialize
     {
         public string help { get; set; }
         public bool success { get; set; }

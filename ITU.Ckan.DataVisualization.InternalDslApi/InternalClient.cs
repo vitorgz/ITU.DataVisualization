@@ -14,30 +14,34 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
     {
         public static async Task<T> GetPackages<T>(string url)
         {
-            var api = "/api/GetPackages";
-            var content = new Source() { name = url };
-            return await GetCkanAsync<T>(api, content);
+            var cloudApi = "/api/GetPackages";
+            var ckanApi = "api/action/package_list";
+            var content = new SourceDTO() { sourceName = url, command = ckanApi };
+            return await GetCkanAsync<T>(cloudApi, content);
         }
 
         public static async Task<T> GetTags<T>(string url)
         {
-            var api = "/api/action/tag_list";
-            var content = new Source() { name = url };
-            return await GetCkanAsync<T>(api, content);
+            var cloudApi = "/api/GetTags";
+            var ckanApi = "/api/action/tag_list";
+            var content = new SourceDTO() { sourceName = url, command = ckanApi };
+            return await GetCkanAsync<T>(cloudApi, content);
         }
 
         public static async Task<T> GetOrganizations<T>(string url)
         {
-            var api = "/api/action/organization_list";
-            var content = new Source() { name = url };
-            return await GetCkanAsync<T>(api, content);
+            var cloudApi = "/api/GetOrganizations";
+            var ckanApi = "/api/action/organization_list";
+            var content = new SourceDTO() { sourceName = url, command = ckanApi };
+            return await GetCkanAsync<T>(cloudApi, content);
         }
 
         public static async Task<T> GetGroups<T>(string url)
         {
-            var api = "/api/action/group_list";
-            var content = new Source() { name = url };
-            return await GetCkanAsync<T>(api, content);
+            var cloudApi = "/api/GetGroups";
+            var ckanApi = "/api/action/group_list";
+            var content = new SourceDTO() { sourceName = url, command = ckanApi };
+            return await GetCkanAsync<T>(cloudApi, content);
         }
 
         public static async Task<T> GetDataSet<T>(string url, string id)
