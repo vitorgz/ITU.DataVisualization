@@ -25,9 +25,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             return await GetCkanAsyncJson(url, command);
         }
 
-        public static async Task<object> Get<T>(string url, string api, Tuple<string, List<string>> filters) {
-
-            if (filters.Item2.Count == 1) return await GetCkanAsyncJson(url, api + "/q=" + filters.Item2);
+        public static async Task<object> Get<T>(string url, string api, Tuple<string, List<string>> filters)
+        {
+            //if (filters.Item2.Count == 1) return await GetCkanAsyncJson(url, api + "/q=" + filters.Item2.FirstOrDefault());
 
             StringBuilder s = new StringBuilder();
             s.Append("SELECT ");
@@ -38,14 +38,13 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             s.Append("\"" + filters.Item1 + "\"");
 
             var path = api + s;
-            
+
             var results = await GetCkanAsyncJson(url, path);
 
             //object schema = GetJsonSchema(filters.Item2);
             //var results = await GetCkanAsync<T>(url, path);
 
-            return results;            
-
+            return results;
         }
 
         /*

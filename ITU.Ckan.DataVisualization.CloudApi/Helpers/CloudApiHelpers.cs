@@ -1,4 +1,5 @@
 ﻿using ITU.Ckan.DataVisualization.CloudApi.Deserialize;
+using ITU.Ckan.DataVisualization.InternalDsl.Helpers;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using Newtonsoft.Json.Linq;
 using System;
@@ -121,6 +122,28 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
         public static void MergeData(VisualDTO visual)
         {
+
+        }
+
+        public static Table PieChartAnalizeAndCreateTable(Record record)
+        {
+            //TODO not working
+
+            //var rec = DslConverterHelpers.ConvertToStringArray(record.value).ToList();           
+            var rec = record.value as List<string>;
+
+            var total = rec.Count();
+
+            var dist = rec.Distinct();
+
+            var data = from r in rec
+                       group r by dist into g
+                       select new { name = g.Key, percentage = (g.Count() / total) * 100 };
+
+            var table = new Table();
+            table.column = new Column() {Value = data };
+
+            return table;
 
         }
     }

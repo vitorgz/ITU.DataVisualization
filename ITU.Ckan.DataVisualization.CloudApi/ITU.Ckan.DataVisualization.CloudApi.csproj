@@ -127,6 +127,10 @@
       <Project>{bce1d282-105b-400f-8be7-6556145dbe79}</Project>
       <Name>ITU.Ckan.DataVisualization.InternalDslApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ITU.Ckan.DataVisualization.InternalDsl\ITU.Ckan.DataVisualization.InternalDsl.csproj">
+      <Project>{9daac619-ed06-4da7-8204-06cb9e202cb2}</Project>
+      <Name>ITU.Ckan.DataVisualization.InternalDsl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ITU.Ckan.DataVisualization.MetaMetaModelLib\ITU.Ckan.DataVisualization.MetaMetaModelLib.csproj">
       <Project>{563b3cb5-6470-4d92-ab91-be2d826614a8}</Project>
       <Name>ITU.Ckan.DataVisualization.MetaMetaModelLib</Name>

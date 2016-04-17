@@ -65,6 +65,12 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, filtersData);
         }
 
+        public static async Task<T> GetPieChart<T>(VisualDTO filtersData)
+        {
+            var api = "/api/GetDataPieChart";
+            return await GetCkanAsync<T>(api, filtersData);
+        }
+
         public static async Task<T> GetDataFromSource<T>(SourceDTO source)
         {
             if (source.offset != 0)

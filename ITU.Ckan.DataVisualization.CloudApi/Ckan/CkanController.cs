@@ -129,6 +129,27 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             return Request.CreateResponse(HttpStatusCode.OK, table);
         }
 
+        [Route("api/GetDataPieChart")]
+        [HttpPost]
+        public async Task<HttpResponseMessage> GetDataPieChart(VisualDTO visual)
+        {
+            var source = visual.sources.FirstOrDefault();
+            var xAxys = source.fields.FirstOrDefault();
+
+            var values = new Tuple<string, List<string>>(source.dataSetId, new List<string>() { xAxys.name});
+
+            var response = await GenericApi.GenericRestfulClient.
+                        Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", xAxys.name);
+
+            var fieldsList = new List<Field>() { xAxys };
+            source.fields = fieldsList;
+            CloudApiHelpers.ProcessJsonResponse(response, fieldsList);
+
+            var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(source.fields.FirstOrDefault().record);
+
+            return Request.CreateResponse(HttpStatusCode.OK, table);
+        }
+
         [Route("api/GetTags")]
         [HttpPost]
         public async Task<HttpResponseMessage> GetTags(SourceDTO source)

@@ -29,5 +29,17 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
             
             Assert.IsTrue(list.Any());
         }
+
+        [TestMethod]
+        public void PieChartPercentageDataTest()
+        {
+            var rec = new Record();
+            var data = new List<string>() { "test", "test1", "test", "test", "test", "test", "test", "test1", "test", "test" };
+            rec.value = data;
+
+            var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(rec);
+
+            Assert.IsNotNull(table);
+        }
     }
 }
