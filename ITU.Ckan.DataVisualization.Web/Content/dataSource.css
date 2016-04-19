@@ -1,0 +1,9 @@
+﻿.selector {
+  width: 100%;
+  text-align:left;
+}
+
+.control {
+    margin: 15px;
+  display: inline-block; 
+}

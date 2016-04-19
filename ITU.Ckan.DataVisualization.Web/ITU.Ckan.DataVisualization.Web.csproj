@@ -332,6 +332,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Content\dataSource.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -350,6 +351,9 @@
     <Content Include="Views\DataSource\Index.cshtml" />
     <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Draw\Index.cshtml" />
+    <Content Include="Views\DataSource\_xAxisView.cshtml" />
+    <Content Include="Views\DataSource\_serie1View.cshtml" />
+    <Content Include="Views\DataSource\_serie2View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

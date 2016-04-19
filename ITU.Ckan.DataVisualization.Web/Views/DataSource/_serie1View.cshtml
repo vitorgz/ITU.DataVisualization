@@ -1,0 +1,124 @@
+﻿<script type="text/javascript">
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#Ckan1").change(function () {
+            $("#Package1").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetPackages")', // we are calling json method
+                dataType: 'json',
+                data: { id: $("#Ckan1").val() },
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+                    $.each(states, function (i, state) {
+                        $("#Package1").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve packages.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#Package1").change(function () {
+            $("#DataSet1").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetDataSets")', // we are calling json method
+                dataType: 'json',
+                data: {  src: $("#Ckan1").val(), pck: $("#Package1").val() },
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#DataSet1").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve datasets.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#DataSet1").change(function () {
+            $("#Field1").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetFields")', // we are calling json method
+                dataType: 'json',
+                data: { src: $("#Ckan1").val(), pck: $("#Package1").val(), dts: $("#DataSet1").val() },
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#Field1").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    }); // here we are adding option for States
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve fields.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+    $(document).ready(function () {
+        //Dropdownlist Selectedchange event
+        $("#Package1").change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("VerifyDataStore")',
+                dataType: 'json',
+                data: { id: $("#DataStore1").val() },
+                success: function (value) {
+                    $("#DataStore1").append(value)
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve state.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+@using (Html.BeginForm())
+{
+    <div class="editor-label">
+        <br />
+        <div style="color: Purple;">
+            @Html.Label("Select Ckan")
+        </div>
+        <div class="editor-field">
+            @if (ViewData.ContainsKey("Ckan"))
+            {
+                @Html.DropDownList("Ckan1", ViewData["ckan"] as List<SelectListItem>, "Please select source", new { style = "width:250px", @class = "dropdown1" })
+            }
+        </div>
+        <br />
+        <div style="color: Purple;">
+            @Html.Label("Select Package", new { style = "width:250px" })
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Package1", new SelectList(string.Empty, "Value", "Text"), "Please select a Package", new { style = "width:250px", @class = "dropdown1" })
+        </div>
+        <br />
+        <div style="color: Purple;">
+            @Html.Label("Select Data Set", new { style = "width:250px" })
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("DataSet1", new SelectList(string.Empty, "Value", "Text"), "Please select a Data Set", new { style = "width:250px", @class = "dropdown1" })
+        </div>
+        <br />
+        <div style="color: Purple;">
+            @Html.Label("Select Field", new { style = "width:250px" })
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Field1", new SelectList(string.Empty, "Value", "Text"), "Please select a Field", new { style = "width:250px", @class = "dropdown1" })
+        </div>
+        <br />
+        <br />
+    </div>
+
+}
