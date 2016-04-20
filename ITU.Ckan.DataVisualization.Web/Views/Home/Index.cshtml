@@ -1,9 +1,20 @@
-﻿@model DotNet.Highcharts.Highcharts
+﻿@model Visualization
 
-<h2>Index</h2>
+<h2>Visualization project</h2>
 
-@(Model)
+<div>
+    
+    @using (Html.BeginForm())
+    {
+        <fieldset>
+            <legend>Create New Visualization</legend>
+            <div class="editor-label">
+                @Html.TextBoxFor(model => model.name);
+            </div>
+            <div>
+                <input type="submit" value="New Visualization" />
+            </div>
+        </fieldset>
+    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/HighChart")
-}
+</div>

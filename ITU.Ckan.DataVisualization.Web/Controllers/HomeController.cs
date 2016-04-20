@@ -11,23 +11,28 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
+        {            
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(Visualization visual)
         {
-            var data = new Data(Enumerable.Range(1, 10).Cast<object>().ToArray());
+            var visualInstance = new Visualization() { name = visual.name };
+            
+            if (visualInstance.sources == null)
+            {
+                visualInstance.sources = new List<Source>() {
+                new Source() { name = "http://data.kk.dk/" },
+                new Source() { name = "http://datahub.io/" },
+                new Source() { name = "http://data.amsterdam.nl/" },
+               };
+            }
 
-            DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
-                .InitChart(new Chart() { DefaultSeriesType = DotNet.Highcharts.Enums.ChartTypes.Pie })
-                //.SetXAxis(new XAxis
-                //{
-                //    Categories = new[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" }
-                //})
-                .SetSeries(new Series()
-                {
-                    Data = data
-                    
-                    //Data = new Data(new object[] { 29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4 })
-                });
+            RootInstance.CurrentVisualization = visualInstance;
+            RootInstance.Current.visualizations.Concat(new List<Visualization>() { visualInstance });
 
-            return View(chart);
+            return RedirectToAction("Index", "DataSource");
         }
     }
 }

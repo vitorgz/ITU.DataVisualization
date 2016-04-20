@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
         {
             //todo can be moved to List<DataSet>
             return await InternalClient.GetDataSet<Package>(dataSourceId, packageid);
+        }
+
+        public static Package GetPackageByName(this Source root, Expression<Func<Package, bool>> property)
+        {
+            Func<Package, bool> funcWhere = property.Compile();
+            var s = root.packages.Where(funcWhere).FirstOrDefault();
+            return s;
         }
 
         public static List<DataSet> GetSelecteDataSets(this Package pck)

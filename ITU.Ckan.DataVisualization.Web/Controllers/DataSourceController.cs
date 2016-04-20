@@ -14,13 +14,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public ActionResult Index()
         {
             //TODO
-            RootInstance.Current.visualizations = new List<Visualization>() { new Visualization() { name = "test" } };
-            var visual = RootInstance.Current.GetVisualization("test");
-            visual.sources = new List<Source>() { new Source() { name = "http://data.kk.dk/" } };
+            //var visualInstance = new Visualization() { name = "test" };
+            //RootInstance.Current.visualizations = new List<Visualization>() { visualInstance };
+            //RootInstance.CurrentVisualization = visualInstance;
 
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "http://data.kk.dk/", Value = "http://data.kk.dk/" });
-            items.Add(new SelectListItem { Text = "http://datahub.io", Value = "http://datahub.io/" });
+            items.Add(new SelectListItem { Text = "http://datahub.io/", Value = "http://datahub.io/" });
             items.Add(new SelectListItem { Text = "http://data.amsterdam.nl/", Value = "http://data.amsterdam.nl/", Selected = true });
             items.Add(new SelectListItem { Text = "Other", Value = "3" });
 
@@ -33,12 +33,11 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         // POST: DataSource
         public async Task<JsonResult> GetPackages(string id)
         {
-            //new SourceFactory().GetSources();
 
             //we neeed to added to the current instance "RootInstance"
             var pck = await new SourceFactory().Initialize().GetPackages(id);
 
-            var vis = RootInstance.Current.GetVisualization("test");
+            var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == id);
             source.packages = pck.Create().packages;
 
@@ -55,13 +54,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
         public async Task<JsonResult> GetDataSets(string src, string pck)
         {
-            var vis = RootInstance.Current.GetVisualization("test");
+            var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == src);            
 
             var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
             var newPkg = ds.Create();
 
-            var pkg = source.packages.Where(x => x.name == pck).FirstOrDefault();
+            var pkg = source.GetPackageByName(x => x.name == pck);
             source.packages.ToList().ForEach(x => x.selected = false);
             pkg.selected = true;
             pkg.dataSets = newPkg.dataSets;
@@ -78,10 +77,10 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
         public async Task<JsonResult> GetFields(string src, string pck, string dts)
         {
-            var visual = RootInstance.Current.GetVisualization("test");
+            var visual = RootInstance.CurrentVisualization;
             var source = visual.GetSourceById(x => x.name == src);
-            var ds = source.packages.Where(x => x.name == pck).FirstOrDefault().dataSets;
-            var fields = ds.Where(x=>x.name == dts).Where(x => x.format == "CSV").FirstOrDefault().fields;
+            var ds = source.GetPackageByName(x => x.name == pck).dataSets;
+            var fields = ds.Where(x=>x.name == dts && x.format == "CSV").FirstOrDefault().fields;
 
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in fields)
@@ -108,19 +107,23 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         }
 
         //TODO set select flag!
-        public void GetDataForChart(string idX, string idY)
+        [HttpPost]
+        public void SelectField(string src, string pck, string dts, string fld)
         {
-            var visual = RootInstance.Current.GetVisualization("test");
-            var source = visual.GetSourceById(x => x.name == "http://data.kk.dk/");
-            var ds = source.packages.Where(x => x.selected).FirstOrDefault().dataSets;
-            var fields = ds.Where(x => x.format == "CSV").FirstOrDefault().fields;
+            var visual = RootInstance.CurrentVisualization;
+            var source = visual.GetSourceById(x => x.name == src);
+            var ds = source.GetPackageByName(x=>x.name == pck).dataSets;
+            var fields = ds.Where(x => x.format == "CSV" && x.name == dts).FirstOrDefault().fields;
 
-            var select = fields.Where(x => x.id.ToString() == idX || x.id.ToString() == idY).ToList();
-            var nonSelect = fields.Where(x => x.id.ToString() != idX || x.id.ToString() != idY).ToList();
+            var select = fields.Where(x => x.id.ToString() == fld).ToList();
+            var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
             nonSelect.ForEach(x => x.selected = false);
             select.ForEach(x => x.selected = true);
-            select.Where(x => x.id.ToString() == idX).FirstOrDefault().xAxys = true;
+            
+            //only XAxys
+            select.Where(x => x.id.ToString() == fld).FirstOrDefault().xAxys = true;
 
+            //return Json(new object());
         }
 
 

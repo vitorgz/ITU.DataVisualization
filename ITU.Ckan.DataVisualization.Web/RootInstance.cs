@@ -16,9 +16,12 @@ namespace ITU.Ckan.DataVisualization.Web
                 if (current == null)
                 {
                     current = new Root();
+                    current.visualizations = new List<Visualization>();
                 }
                 return current;
             }
         }
+
+        public static Visualization CurrentVisualization {get;set;}
     }
 }
