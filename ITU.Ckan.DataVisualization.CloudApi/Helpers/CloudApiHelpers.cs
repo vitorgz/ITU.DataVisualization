@@ -127,18 +127,19 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
         public static Table PieChartAnalizeAndCreateTable(Record record)
         {
-            //TODO not working
-
-            //var rec = DslConverterHelpers.ConvertToStringArray(record.value).ToList();           
-            var rec = record.value as List<string>;
+            //TODO problems converting lists
+            var rec = DslConverterHelpers.ConvertToStringArray(record.value).ToList();           
+            // var rec= record.value as List<string>;
+            //if(rec ==null)
+            //    rec = record.value as List<double>;
 
             var total = rec.Count();
 
             var dist = rec.Distinct();
 
-            var data = from r in rec
-                       group r by dist into g
-                       select new { name = g.Key, percentage = (g.Count() / total) * 100 };
+            var data = rec
+                .GroupBy(s => s)
+                .Select(g => new PieChartDTO { Name = g.Key, Percentage = ((double)g.Count() / (double)total) * 100.0 }).ToList();
 
             var table = new Table();
             table.column = new Column() {Value = data };

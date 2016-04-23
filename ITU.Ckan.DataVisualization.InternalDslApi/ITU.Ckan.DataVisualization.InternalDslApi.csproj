@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\PieChartDTO.cs" />
     <Compile Include="DTO\SourceDTO.cs" />
     <Compile Include="DTO\VisualDTO.cs" />
     <Compile Include="InternalClient.cs" />

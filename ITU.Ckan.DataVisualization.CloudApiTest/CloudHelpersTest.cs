@@ -34,7 +34,8 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
         public void PieChartPercentageDataTest()
         {
             var rec = new Record();
-            var data = new List<string>() { "test", "test1", "test", "test", "test", "test", "test", "test1", "test", "test" };
+            //var data = new List<string>() { "test", "test1", "test", "test", "test", "test", "test", "test1", "test", "test" };
+            var data = new List<int>() { 0,0,0,0,0,0,0,0,1,1 };
             rec.value = data;
 
             var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(rec);
