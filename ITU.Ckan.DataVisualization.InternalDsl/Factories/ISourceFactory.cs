@@ -8,7 +8,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public interface ISourceFactory
     {
-        ISourceFactory Initialize();
+        //ISourceFactory Initialize();
         ISourceFactory AddGroup(List<Group> groups);
         ISourceFactory AddOrganization(List<Organization> organizations);
         ISourceFactory AddTag(List<Tag> tags);
@@ -16,7 +16,8 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         Task<ISourceFactory> GetOrganizations(string source);
         Task<ISourceFactory> GetTag(string source);
         ISourceFactory AddPackage(List<Package> packages);
-        Task<ISourceFactory> GetPackages(string source);
+        ISourceFactory GetPackages(string source);
+        ISourceFactory AddIn(Action<ISourceFactory> action);
         Source Create();
     }
 }

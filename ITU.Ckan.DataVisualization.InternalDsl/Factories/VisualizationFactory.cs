@@ -10,7 +10,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class VisualizationFactory : IVisualizationFactory
     {
-        Visualization visual;
+        static Visualization visual;
         public IVisualizationFactory AddSource(List<Source> sources)
         {
             visual.sources = new List<Source>(sources);
@@ -35,10 +35,20 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return visual.sources.ToList();
         }
 
-        public IVisualizationFactory Initialize()
+        static VisualizationFactory visualf;
+
+        public static IVisualizationFactory Initialize
         {
-            visual = new Visualization();
-            return this;
+            get
+            {
+                if (visual == null)
+                    visual = new Visualization();
+                if (visualf == null)
+                    visualf = new VisualizationFactory();
+
+                return visualf;
+            }
         }
     }
 }
+

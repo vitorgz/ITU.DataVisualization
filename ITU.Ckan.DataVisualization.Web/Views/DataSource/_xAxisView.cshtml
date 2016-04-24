@@ -80,11 +80,11 @@
         $("#Field").change(function () {
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("SelectField")',
+                url: '@Url.Action("SelectXAxys")',
                 dataType: 'json',
-                data: { src: $("#Ckan").val(), pck: $("#Package").val(), dts: $("#DataSet").val(), fld: $("Field") },
+                data: { src: $("#Ckan").val(), pck: $("#Package").val(), dts: $("#DataSet").val(), fld: $("#Field").val() },
                 success: function (value) {
-                    alert('done');
+                    //alert('done');
                 },
                 error: function (ex) {
                     alert('Failed to calculate fields.' + ex);

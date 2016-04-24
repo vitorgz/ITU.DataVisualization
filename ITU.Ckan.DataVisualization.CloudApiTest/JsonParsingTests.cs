@@ -12,6 +12,7 @@ using System.IO;
 using System.Reflection;
 using Microsoft.CodeAnalysis.Emit;
 using System.Collections;
+using ITU.Ckan.DataVisualization.CloudApi.Helpers;
 
 namespace ITU.Ckan.DataVisualization.CloudApiTest
 {
@@ -274,6 +275,18 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
             //    "/api/action/datastore_search_sql?sql=SELECT _id,beslutnings_pjece FROM" + @" ""2401bae1-b4c7-4c8a-9bcc-6b5fb9c1dcbc"" ", 
             //    element);
             */
+        }
+
+        [TestMethod]
+        public void ProcessJson()
+        {
+            string json = "{ help:'', success: true, result: { records: [{ status: 'Vedtaget byfornyelsesbeslutning',  bknr: 1164}, {status: 'Vedtaget byfornyelsesbeslutning', bknr: 1167}]}}";
+
+            var fields = new List<Field>() { new Field() { id = "status", type= typeof(string) }, new Field() { id = "bknr", type = typeof(int) } };
+            CloudApiHelpers.ProcessJsonResponse(json, fields);
+
+            Assert.IsNotNull(fields);
+
         }
 
     }

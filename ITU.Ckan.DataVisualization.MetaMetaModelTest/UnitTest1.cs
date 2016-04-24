@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ITU.Ckan.DataVisualization.InternalDsl.Factories;
 using ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods;
+using System.Linq.Expressions;
 
 namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
 {
@@ -23,6 +24,20 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
             Assert.IsNotNull(source.groups);
             Assert.IsTrue(source.groups.Any());
         }
+
+        [TestMethod]
+        public void AddNameAndGroupToSource()
+        {
+            var source = GenericFluentFactory<Source>
+            .Init(new Source())
+            .AddPropertyValue(x => x.name, "blabla")
+            .AddPropertyValue(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
+            .Create();
+
+            Assert.IsNotNull(source.groups);
+            Assert.IsTrue(source.groups.Any());
+        }
+
 
         [TestMethod]
         public void CheckLinqisWorking()
@@ -95,6 +110,7 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
             var ta = ss.addAttributes(new List<Group>());
         }
 
+        [TestMethod]
         public void TestDataSetFactory()
         {
             var ds = new DataSetFactory().Initialize()
@@ -102,7 +118,60 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
                 .AddGroup(null)
                 .AddOrganization(null)
                 .Create();
-            
+
         }
+
+        [TestMethod]
+        public void TestAddInDSL()
+        {
+            var mySource =
+              SourceFactory.Initialize.AddIn(
+               x =>
+               {
+                   x.AddGroup(new List<Group>() { new Group() { name = "test" } }); 
+                   x.AddTag(new List<Tag>() { new Tag() { name = "testTAg" } });
+
+                   //or
+                   //x.AddGroup(new List<Group>() { new Group() { name = "test" } }).AddTag(new List<Tag>() { new Tag() { name = "testTAg" } });
+               }
+               ).Create();
+
+            Assert.IsNotNull(mySource);
+        }
+
+        [TestMethod]
+        public void CheckVisualizationDSLMethods()
+        {
+            var sdf = new Visualization();
+            sdf = sdf.AddIn(x => {
+                x.AddSource(new List<Source>() { new Source() { name = "test" } });
+            });
+
+            Assert.IsNotNull(sdf);
+        }
+
+        [TestMethod]
+        public void TestAddInDSL2()
+        {
+            var mySource =
+              SourceFactory.Initialize.AddIn(
+               x =>
+               {
+                   x.GetGroups("http://data.kk.dk");
+                   x.GetTag("http://data.kk.dk");
+               }
+               ).Create();
+
+            Assert.IsNotNull(mySource);
+        }
+
+        //[TestMethod]
+        //public void TestExpressionTree()
+        //{
+        //    Action<string, string> combine = (a, b) => sou + b.ToUpper();
+        //    var one = "One";
+        //    var two = "Two";
+        //    var combined = combine(one, two);
+        //}
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using TB.ComponentModel;
 
 namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 {
@@ -15,7 +16,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
     {
         public static object ConvertArrayToSpecificType(object data, Type dataType)
         {
-            var objArr = (data as object[]);
+            
+            var objArr = (data as string[]);
             var arr = Array.CreateInstance(dataType, objArr.Length);
 
             if (dataType == typeof(int)) //TODO change by 0, not remove values
@@ -24,6 +26,15 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             arr = Array.ConvertAll(objArr, elem => Convert.ChangeType(elem, dataType));
 
             return arr;
+        }
+
+        public static object ConvertToType(object sourceValues, Type dataType)
+        {
+
+            var src = sourceValues as List<string>;
+            var convertedValues = src.ConvertToEnumerable(dataType.GetTypeInfo()).ToList();
+
+            return convertedValues;
         }
 
         public static Type ResolveType(object type)
@@ -52,8 +63,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
             foreach (var item in fields)
             {
+                var type =  item.type;
                 var jsonValues = from p in json["result"]["records"]
-                                 select (string)p[item.id.ToString()];
+                                 select p[item.id.ToString()].Convert(type as Type);
 
 
                 if (item.record == null)
@@ -62,7 +74,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
                 }
 
                 item.record.name = item.id.ToString();
-                item.record.value = jsonValues.ToArray();
+                item.record.value = jsonValues.ToList();
             }
 
             //dts.records = json
@@ -76,12 +88,13 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             //map xAxys //TODO move to the fluent
             var fields = visual.sources.SelectMany(x => x.fields);
             var xField = fields.Where(y => y.xAxys).FirstOrDefault();
-            var dataType = CloudApiHelpers.ResolveType(xField.type);
-            var data = CloudApiHelpers.ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
-            ;
-
+            var dataType = ResolveType(xField.type);
+            
+            //TODO REVIEW
+            //var data = ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
+            
             if (table.column == null) table.column = new Column();
-            table.column.Value = data;
+            table.column.Value = xField.record.value; //data;
             table.column.Type = dataType;
             table.column.name = xField.name;
 
@@ -90,7 +103,12 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             var series = fields.Where(y => y.selected && !y.xAxys);
             foreach (var item in series)
             {
-                var row = new Row() { name = item.name, Type = CloudApiHelpers.ResolveType(item.type), Value = CloudApiHelpers.ConvertArrayToSpecificType(item.record.value, CloudApiHelpers.ResolveType(item.type)) };
+                var row = new Row()
+                {
+                    name = item.id.ToString(),
+                    Type = ResolveType(item.type),
+                    Value = item.record.value //ConvertArrayToSpecificType(item.record.value, ResolveType(item.type))
+                };
                 rows.Add(row);
             }
 
@@ -126,18 +144,16 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
         }
 
         public static Table PieChartAnalizeAndCreateTable(Record record)
-        {
-            //TODO problems converting lists
-            var rec = DslConverterHelpers.ConvertToStringArray(record.value).ToList();           
-            // var rec= record.value as List<string>;
-            //if(rec ==null)
-            //    rec = record.value as List<double>;
+        {         
+            var rec = ConvertToType(record.value, typeof(string)) as List<object>;
 
-            var total = rec.Count();
+            var stringRec = rec.OfType<string>();
 
-            var dist = rec.Distinct();
+            var total = stringRec.Count();
 
-            var data = rec
+            var dist = stringRec.Distinct();
+
+            var data = stringRec
                 .GroupBy(s => s)
                 .Select(g => new PieChartDTO { Name = g.Key, Percentage = ((double)g.Count() / (double)total) * 100.0 }).ToList();
 

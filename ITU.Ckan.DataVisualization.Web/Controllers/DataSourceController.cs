@@ -35,7 +35,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         {
 
             //we neeed to added to the current instance "RootInstance"
-            var pck = await new SourceFactory().Initialize().GetPackages(id);
+            var pck = SourceFactory.Initialize.GetPackages(id);
 
             var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == id);
@@ -108,22 +108,33 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
         //TODO set select flag!
         [HttpPost]
-        public void SelectField(string src, string pck, string dts, string fld)
+        public void SelectXAxys(string src, string pck, string dts, string fld)
         {
             var visual = RootInstance.CurrentVisualization;
             var source = visual.GetSourceById(x => x.name == src);
             var ds = source.GetPackageByName(x=>x.name == pck).dataSets;
             var fields = ds.Where(x => x.format == "CSV" && x.name == dts).FirstOrDefault().fields;
 
-            var select = fields.Where(x => x.id.ToString() == fld).ToList();
-            var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
-            nonSelect.ForEach(x => x.selected = false);
-            select.ForEach(x => x.selected = true);
-            
-            //only XAxys
-            select.Where(x => x.id.ToString() == fld).FirstOrDefault().xAxys = true;
+            var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
+            //var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
+            fields.ToList().ForEach(x => x.selected = false);
+            select.xAxys = true;
 
             //return Json(new object());
+        }
+
+        [HttpPost]
+        public void SelectField(string src, string pck, string dts, string fld)
+        {
+            var visual = RootInstance.CurrentVisualization;
+            var source = visual.GetSourceById(x => x.name == src);
+            var ds = source.GetPackageByName(x => x.name == pck).dataSets;
+            var fields = ds.Where(x => x.format == "CSV" && x.name == dts).FirstOrDefault().fields;
+
+            var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
+            var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
+            nonSelect.ForEach(x => x.selected = false);
+            select.selected = true;
         }
 
 

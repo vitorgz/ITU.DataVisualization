@@ -9,11 +9,27 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class SourceFactory : ISourceFactory
     {
-        Source source;
-        public ISourceFactory Initialize()
+        static Source source;
+        //public static Source Initialize
+        //{
+        //    get{
+        //        if(source == null) 
+        //            source = new Source();
+        //        return source;
+        //    }
+        //}
+
+        static SourceFactory sourcef;
+        public static ISourceFactory Initialize
         {
-            source = new Source();
-            return this;
+            get
+            {
+                if (sourcef == null)
+                    sourcef = new SourceFactory();
+                if (source == null)
+                    source = new Source();
+                return sourcef as ISourceFactory;
+            }
         }
 
         public ISourceFactory AddGroup(List<Group> groups)
@@ -45,36 +61,59 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return source;
         }
 
-        public async Task<ISourceFactory> GetPackages(string source)
+        public ISourceFactory GetPackages(string src)
         {
-            var sources = await InternalClient.GetPackages<List<Package>>(source);
-            this.source.packages = sources;
+            //CHECK!
+            //todo change it to <List<DataSet>> make more sense
+            Task.Factory.StartNew(() =>
+            {
+                var tas = InternalClient.GetPackages<List<Package>>(src);
+                source.packages = tas.Result;
+            }).Wait();
+
+            return this;
+            //var sources = await InternalClient.GetPackages<List<Package>>(source);
+            //this.source.packages = sources;
+
+            //return this;
+        }
+
+        public async Task<ISourceFactory> GetGroups(string scr)
+        {
+            var groups = await InternalClient.GetGroups<List<Group>>(scr);
+            source.groups = groups;
 
             return this;
         }
 
-        public async Task<ISourceFactory> GetGroups(string source)
+        public async Task<ISourceFactory> GetOrganizations(string scr)
         {
-            var groups = await InternalClient.GetGroups<List<Group>>(source);
-            this.source.groups = groups;
+            var orga = await InternalClient.GetOrganizations<List<Organization>>(scr);
+            source.organizations = orga;
 
             return this;
         }
 
-        public async Task<ISourceFactory> GetOrganizations(string source)
+        public async Task<ISourceFactory> GetTag(string scr)
         {
-            var orga = await InternalClient.GetOrganizations<List<Organization>>(source);
-            this.source.organizations = orga;
+            var tags = await InternalClient.GetTags<List<Tag>>(scr);
+            source.tags = tags;
 
             return this;
         }
 
-        public async Task<ISourceFactory> GetTag(string source)
+        public ISourceFactory AddIn(Action<ISourceFactory> action)
         {
-            var tags = await InternalClient.GetTags<List<Tag>>(source);
-            this.source.tags = tags;
+            var expression = SourceFactory.Initialize;
+            action.Invoke(expression);
 
             return this;
+        }
+
+        public Source getSource
+        {
+            get { return source; }
         }
     }
+    
 }

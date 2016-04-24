@@ -19,7 +19,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var visual = RootInstance.Current.GetVisualization("test");
+            var visual = RootInstance.CurrentVisualization;
 
             var filters = visual.GetFilters();
             var data = await visual.GetData(filters);
@@ -30,11 +30,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 return View();
 
             //Convert
-            //var xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
-            var xAxisDAta = DslConverterHelpers.ConvertToStringArray(data.column.Value);
+            var xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
+            //var xAxisDAta = DslConverterHelpers.ConvertToStringArray(data.column.Value);
+            //var xAxisDAta = (data.column.Value as List<string>).ToArray();
 
             var rows = from row in data.rows
-                       select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
+                       //select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
+                       select new { data = row.Value };
 
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                .InitChart(new Chart() { DefaultSeriesType = DotNet.Highcharts.Enums.ChartTypes.Line });

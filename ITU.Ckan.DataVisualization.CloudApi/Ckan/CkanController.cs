@@ -115,6 +115,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                     var response = await GenericApi.GenericRestfulClient.
                         Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values);
 
+                    //TODO convert fileds.Types to our types???
+                    item.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
                    CloudApiHelpers.ProcessJsonResponse(response, item.fields);
             }
 

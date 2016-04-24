@@ -42,8 +42,7 @@
             });
             return false;
         })
-    });
-    $(document).ready(function () {
+
         //Dropdownlist Selectedchange event
         $("#DataSet2").change(function () {
             $("#Field2").empty();
@@ -63,8 +62,7 @@
             });
             return false;
         })
-    });
-    $(document).ready(function () {
+
         //Dropdownlist Selectedchange event
         $("#Package2").change(function () {
             $.ajax({
@@ -77,6 +75,22 @@
                 },
                 error: function (ex) {
                     alert('Failed to retrieve state.' + ex);
+                }
+            });
+            return false;
+        })
+
+        $("#Field2").change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SelectField")',
+                dataType: 'json',
+                data: { src: $("#Ckan2").val(), pck: $("#Package2").val(), dts: $("#DataSet2").val(), fld: $("#Field2").val() },
+                success: function (value) {
+                    //alert('done');
+                },
+                error: function (ex) {
+                    alert('Failed to calculate fields.' + ex);
                 }
             });
             return false;

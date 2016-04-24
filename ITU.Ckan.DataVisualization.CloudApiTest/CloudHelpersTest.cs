@@ -13,10 +13,22 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
         [TestMethod]
         public void ConcertionTests()
         {
-            var data = new[] { "12", "13", null };
+            //var data = new[] { "12", "13", null };
+            var data = new[] { 12, 13, 14 };
             var arr = CloudApiHelpers.ConvertArrayToSpecificType(data, typeof(int));
 
             Assert.IsNotNull(arr);
+        }
+
+        [TestMethod]
+        public void ListConvertionTests()
+        {
+            var sourceValues = new[] { "12,2", "23,3", "118", "132" }.ToList();
+            var convertedValues = CloudApiHelpers.ConvertToType(sourceValues, typeof(double));
+
+            var val = (convertedValues as List<object>).OfType<double>();
+
+            Assert.IsNotNull(val);
         }
 
         [TestMethod]

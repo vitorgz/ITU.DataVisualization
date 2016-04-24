@@ -1,4 +1,5 @@
-﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+﻿using ITU.Ckan.DataVisualization.InternalDsl.Factories;
+using ITU.Ckan.DataVisualization.InternalDslApi;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
 
             foreach (var source in visual.sources)
             {
+                if (source.packages == null) continue;
                 var dts = source.packages.Where(x=>x.selected).SelectMany(x => x.dataSets.Where(y => y.format == "CSV")).ToList();
 
                 dts.ForEach(x => sourceDTO.Add(new SourceDTO()
@@ -50,6 +52,15 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
 
             filters.sources = sourceDTO;
             return filters;
+        }
+
+        public static Visualization AddIn(this Visualization visual, Action<IVisualizationFactory> action)
+        {
+            var expression = VisualizationFactory.Initialize;
+            action.Invoke(expression);
+
+            visual = expression.Create();
+            return visual;
         }
     }
 }
