@@ -39,7 +39,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             foreach (var source in visual.sources)
             {
                 if (source.packages == null) continue;
-                var dts = source.packages.Where(x=>x.selected).SelectMany(x => x.dataSets.Where(y => y.format == "CSV")).ToList();
+                var dts = source.packages
+                    .Where(x => x.dataSets != null)
+                    .SelectMany(x => x.dataSets.Where(y => y.format == "CSV")).ToList();
 
                 dts.ForEach(x => sourceDTO.Add(new SourceDTO()
                 {

@@ -13,11 +13,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
     {
         public ActionResult Index()
         {
-            //TODO
-            //var visualInstance = new Visualization() { name = "test" };
-            //RootInstance.Current.visualizations = new List<Visualization>() { visualInstance };
-            //RootInstance.CurrentVisualization = visualInstance;
-
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "http://data.kk.dk/", Value = "http://data.kk.dk/" });
             items.Add(new SelectListItem { Text = "http://datahub.io/", Value = "http://datahub.io/" });
@@ -26,9 +21,26 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             ViewData["ckan"] = items;
 
+            List<SelectListItem> chartItems = new List<SelectListItem>();
+            chartItems.Add(new SelectListItem { Text = "PieChart", Value = "PieChart" });
+            chartItems.Add(new SelectListItem { Text = "LineChart", Value = "LineChart" });
+            chartItems.Add(new SelectListItem { Text = "ColumnChart", Value = "ColumnChart", Selected = true });
+            chartItems.Add(new SelectListItem { Text = "BarChart", Value = "BarChart" });
+
+            ViewData["chart"] = chartItems;
+
             return View();
         }
 
+        [HttpPost]
+        public void SelectChart(string chart)
+        {
+            var visual = RootInstance.CurrentVisualization;
+            if(visual.graph == null)
+                visual.graph = new Graph();
+
+            visual.graph = RootInstance.Current.graphs.Where(x => x.name == chart).FirstOrDefault();   
+        }
 
         // POST: DataSource
         public async Task<JsonResult> GetPackages(string id)

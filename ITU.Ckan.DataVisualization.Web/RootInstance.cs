@@ -17,6 +17,12 @@ namespace ITU.Ckan.DataVisualization.Web
                 {
                     current = new Root();
                     current.visualizations = new List<Visualization>();
+                    current.graphs = new List<Graph>() {
+                        new Graph() { name = "PieChart"},
+                        new Graph() { name = "LineChart"},
+                        new Graph() { name = "ColumnChart"},
+                        new Graph() { name = "BarChart"}
+                    };
                 }
                 return current;
             }

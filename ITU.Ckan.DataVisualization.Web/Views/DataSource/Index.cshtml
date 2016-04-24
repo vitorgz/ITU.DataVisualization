@@ -4,27 +4,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="selector">
-    <div class="control">
-        <h4>Select x Ayxs </h4>
-        @Html.Partial("_xAxisView")
-    </div>
-    <div class="control">
-        <h4>Serie 1</h4>
-        @Html.Partial("_serie1View")
-    </div>
-    <div class="control">
-        <h4>Serie 2</h4>
-        @Html.Partial("_serie2View")
-    </div>
-</div>
+<script>
+    $(document).ready(function () {
+        $("#Chart").change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SelectChart")',
+                dataType: 'json',
+                data: { chart: $("#Chart").val() },
+                success: function (value) {
+                    //alert('done');
+                },
+                error: function (ex) {
+                    alert('Failed get charts.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
 
-<div class="editor-field">
-    @Html.DisplayText("DataStore")
+@using (Html.BeginForm())
+{
+<div class="selector">
+    <br />
+    <div style="color: Purple;" class="control">
+        @Html.Label("Select chart")
+    </div>
+    <div class="control">
+        @if (ViewData.ContainsKey("chart"))
+        {
+            @Html.DropDownList("Chart", ViewData["chart"] as List<SelectListItem>, "Please select chart", new { style = "width:250px", @class = "dropdown1" })
+        }
+    </div>
+    <br />
 </div>
-<div>
-    @Html.ActionLink("To Chart", "ChartRedirect", "DataSource", null, null)
-</div>
+}
+    <div class="selector">
+        <div class="control">
+            <h4>Select x Ayxs </h4>
+            @Html.Partial("_xAxisView")
+        </div>
+        <div class="control">
+            <h4>Serie 1</h4>
+            @Html.Partial("_serie1View")
+        </div>
+        <div class="control">
+            <h4>Serie 2</h4>
+            @Html.Partial("_serie2View")
+        </div>
+    </div>
+
+    <div class="editor-field">
+        @Html.DisplayText("DataStore")
+    </div>
+    <div>
+        @Html.ActionLink("To Chart", "ChartRedirect", "DataSource", null, null)
+    </div>
 
 
 
