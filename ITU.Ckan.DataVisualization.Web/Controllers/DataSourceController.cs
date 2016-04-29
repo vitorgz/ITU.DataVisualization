@@ -45,13 +45,12 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         // POST: DataSource
         public async Task<JsonResult> GetPackages(string id)
         {
-
             //we neeed to added to the current instance "RootInstance"
             var pck = SourceFactory.Initialize.GetPackages(id);
 
             var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == id);
-            source.packages = pck.Create().packages;
+            source.packages = pck.Result.Create().packages; //TODO remove "Result" for non async
 
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in source.packages)

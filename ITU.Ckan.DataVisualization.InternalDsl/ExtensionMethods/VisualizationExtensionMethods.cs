@@ -2,6 +2,7 @@
 using ITU.Ckan.DataVisualization.InternalDslApi;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -31,6 +32,14 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             
             return data;
         }
+
+        public static async Task<Table> GetPieChartData(this Visualization visual, VisualDTO filters)
+        {
+            var data = await InternalClient.GetPieChart<Table>(filters);            
+
+            return data;
+        }
+
         public static VisualDTO GetFilters(this Visualization visual)
         {
             var filters = new VisualDTO();

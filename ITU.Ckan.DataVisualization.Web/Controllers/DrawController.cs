@@ -2,6 +2,7 @@
 using DotNet.Highcharts.Options;
 using ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods;
 using ITU.Ckan.DataVisualization.InternalDsl.Helpers;
+using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,22 +22,30 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var visual = RootInstance.CurrentVisualization;
 
             var filters = visual.GetFilters();
-            var data = await visual.GetData(filters);
-            
+            Table data;
+            if (visual.graph.name != "PieChart")
+                data = await visual.GetData(filters);
+            else
+                data = await visual.GetPieChartData(filters);           
+
+
             if (data == null)
                 return View();
 
-            //Convert
-            var xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
-            if(xAxisDAta == null) xAxisDAta = (data.column.Value as object[]).Cast<string>().ToArray();
-            //var xAxisDAta = DslConverterHelpers.ConvertToStringArray(data.column.Value);
+            string[] xAxisDAta = null;
+            if (data.column != null)
+            {
+                xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
+                if (xAxisDAta == null) xAxisDAta = (data.column.Value as object[]).Cast<string>().ToArray();
+                //var xAxisDAta = DslConverterHelpers.ConvertToStringArray(data.column.Value);
+            }
 
             var rows = from row in data.rows
-                       //select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
+                           //select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
                        select new { data = row.Value };
 
             var chartType = getChartType(visual.graph);
-
+        
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                .InitChart(new Chart() { DefaultSeriesType = chartType });
 
@@ -50,8 +59,14 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             for (int i = 0; i < rows.Count(); i++)
             {
                 series[i] = new Series();
-                series[i].Data = new Data(rows.ElementAt(i).data as object[]);
+                //series[i].Name = 
+                //series[i].Data = new Data(rows.ElementAt(i).data as object[]);
+
+                //series[i].Data = new Data(new object[] { rows.ElementAt(i).data }.ToArray() );
+                object[] dataTo = rows.ElementAt(i).data as object[];
+                series[i].Data = new Data( dataTo.ToArray() );                
             }
+
             chart.SetSeries(series);
 
             return View(chart);

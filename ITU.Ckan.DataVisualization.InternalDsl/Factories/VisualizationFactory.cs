@@ -30,6 +30,12 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
+        public async Task<IVisualizationFactory> GetPieChartData(VisualDTO filters)
+        {
+            //TODO
+            return this;
+        }
+
         public List<Source> GetSources()
         {
             return visual.sources.ToList();

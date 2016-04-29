@@ -16,7 +16,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         Task<ISourceFactory> GetOrganizations(string source);
         Task<ISourceFactory> GetTag(string source);
         ISourceFactory AddPackage(List<Package> packages);
-        ISourceFactory GetPackages(string source);
+        Task<ISourceFactory> GetPackages(string source);
         ISourceFactory AddIn(Action<ISourceFactory> action);
         Source Create();
     }

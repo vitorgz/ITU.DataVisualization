@@ -61,21 +61,29 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return source;
         }
 
-        public ISourceFactory GetPackages(string src)
+        public async Task<ISourceFactory> GetPackages(string src)
         {
-            //CHECK!
-            //todo change it to <List<DataSet>> make more sense
-            Task.Factory.StartNew(() =>
-            {
-                var tas = InternalClient.GetPackages<List<Package>>(src);
-                source.packages = tas.Result;
-            }).Wait();
+            //it blocks the thread until the task is done
+            //Task.Factory.StartNew(() =>
+            //{
+            //    var tas = InternalClient.GetPackages<List<Package>>(src);
+            //    source.packages = tas.Result;
+            //}).Wait();
 
-            return this;
-            //var sources = await InternalClient.GetPackages<List<Package>>(source);
-            //this.source.packages = sources;
+            //same options, also block!
+            //var task = Task.Run(async () => {
+            //        var tas = await InternalClient.GetPackages<List<Package>>(src);
+            //        source.packages = tas;
+
+            //     });
+            //task.Wait();
 
             //return this;
+
+            var sources = await InternalClient.GetPackages<List<Package>>(src);
+            source.packages = sources;
+
+            return this;
         }
 
         public async Task<ISourceFactory> GetGroups(string scr)

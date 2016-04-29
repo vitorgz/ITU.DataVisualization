@@ -3,6 +3,7 @@ using ITU.Ckan.DataVisualization.InternalDsl.Helpers;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -144,24 +145,24 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
         }
 
         public static Table PieChartAnalizeAndCreateTable(Record record)
-        {         
-            var rec = ConvertToType(record.value, typeof(string)) as List<object>;
+        {
+            //var rec = ConvertToType(record.value, typeof(string)) as List<object>;
+            //var stringRec = rec.OfType<string
 
-            var stringRec = rec.OfType<string>();
+            var stringRec = ((IList)record.value).Cast<string>().ToList();
+            //if (stringRec == null) stringRec = ((List<int>)(record.value)).Cast<string>().ToList();
 
             var total = stringRec.Count();
-
             var dist = stringRec.Distinct();
 
-            var data = stringRec
+            var analyisData = stringRec
                 .GroupBy(s => s)
-                .Select(g => new PieChartDTO { Name = g.Key, Percentage = ((double)g.Count() / (double)total) * 100.0 }).ToList();
+                .Select(g => new object[] { g.Key, ((double)g.Count() / (double)total) * 100.0 }).ToArray();
 
-            var table = new Table();
-            table.column = new Column() {Value = data };
+            var data = new Table();
+            data.rows = new List<Row>() { new Row() { Value = analyisData } };            
 
-            return table;
-
+            return data;
         }
     }
 }

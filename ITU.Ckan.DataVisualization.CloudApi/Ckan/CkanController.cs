@@ -181,13 +181,14 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 var source = visual.sources.FirstOrDefault();
                 var xAxys = source.fields.FirstOrDefault();
 
-                var values = new Tuple<string, List<string>>(source.dataSetId, new List<string>() { xAxys.name });
+                var values = new Tuple<string, List<string>>(source.dataSetId, new List<string>() { xAxys.id.ToString() });
 
                 var response = await GenericApi.GenericRestfulClient.
-                            Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", xAxys.name);
+                            Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values);
 
                 var fieldsList = new List<Field>() { xAxys };
                 source.fields = fieldsList;
+                source.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
                 CloudApiHelpers.ProcessJsonResponse(response, fieldsList);
 
                 var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(source.fields.FirstOrDefault().record);
