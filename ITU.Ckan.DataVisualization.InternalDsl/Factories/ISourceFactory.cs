@@ -12,12 +12,20 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         ISourceFactory AddGroup(List<Group> groups);
         ISourceFactory AddOrganization(List<Organization> organizations);
         ISourceFactory AddTag(List<Tag> tags);
-        Task<ISourceFactory> GetGroups(string source);
-        Task<ISourceFactory> GetOrganizations(string source);
-        Task<ISourceFactory> GetTag(string source);
         ISourceFactory AddPackage(List<Package> packages);
-        Task<ISourceFactory> GetPackages(string source);
         ISourceFactory AddIn(Action<ISourceFactory> action);
+
+        Task<ISourceFactory> GetGroupsAsync(string source);
+        Task<ISourceFactory> GetOrganizationsAsync(string source);
+        Task<ISourceFactory> GetTagAsync(string source);
+        Task<ISourceFactory> GetPackagesAsync(string source);
+
+        ISourceFactory GetGroups(string source);
+        ISourceFactory GetOrganizations(string source);
+        ISourceFactory GetTag(string source);
+        ISourceFactory GetPackages(string source);
+
+
         Source Create();
     }
 }

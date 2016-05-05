@@ -40,12 +40,14 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
         public static Type ResolveType(object type)
         {
-            switch (type.ToString())
+            switch (type.ToString().ToLower())
             {
                 case "int": return typeof(int);
                 case "int2": return typeof(int);
                 case "int4": return typeof(int);
                 case "int8": return typeof(long);
+                case "int16": return typeof(int);
+                case "int32": return typeof(int);
                 case "timestamp": return typeof(DateTime);
                 case "float4": return typeof(float);
                 case "time": return typeof(TimeSpan);
@@ -60,7 +62,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
         public static void ProcessJsonResponse(object response, List<Field> fields)
         {
-            JObject json = JObject.Parse(response.ToString());
+            JObject json = null;
+            if (!string.IsNullOrEmpty(response.ToString()))
+                json = JObject.Parse(response.ToString());
 
             foreach (var item in fields)
             {
@@ -95,7 +99,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             //var data = ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
             
             if (table.column == null) table.column = new Column();
-            table.column.Value = xField.record.value; //data;
+            table.column.Value = (xField.record.value as IEnumerable).ConvertToEnumerable<string>(); //x axys data
             table.column.Type = dataType;
             table.column.name = xField.name;
 

@@ -42,7 +42,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var rows = from row in data.rows
                            //select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
-                       select new { data = row.Value };
+                       select new { data = row.Value, name = row.name };
 
             var chartType = getChartType(visual.graph);
         
@@ -52,19 +52,17 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             chart.SetXAxis(new XAxis
             {
                 Categories = xAxisDAta
-                //Categories = new[] { "Jan", "Feb", "Mar", "Apr" }
             });
 
             var series = new Series[rows.Count()];
             for (int i = 0; i < rows.Count(); i++)
             {
                 series[i] = new Series();
-                //series[i].Name = 
-                //series[i].Data = new Data(rows.ElementAt(i).data as object[]);
 
                 //series[i].Data = new Data(new object[] { rows.ElementAt(i).data }.ToArray() );
                 object[] dataTo = rows.ElementAt(i).data as object[];
-                series[i].Data = new Data( dataTo.ToArray() );                
+                series[i].Data = new Data(dataTo.ToArray());                
+                series[i].Name = rows.ElementAt(i).name;
             }
 
             chart.SetSeries(series);

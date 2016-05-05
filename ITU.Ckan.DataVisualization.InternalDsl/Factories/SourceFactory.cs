@@ -61,32 +61,15 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return source;
         }
 
-        public async Task<ISourceFactory> GetPackages(string src)
+        public async Task<ISourceFactory> GetPackagesAsync(string src)
         {
-            //it blocks the thread until the task is done
-            //Task.Factory.StartNew(() =>
-            //{
-            //    var tas = InternalClient.GetPackages<List<Package>>(src);
-            //    source.packages = tas.Result;
-            //}).Wait();
-
-            //same options, also block!
-            //var task = Task.Run(async () => {
-            //        var tas = await InternalClient.GetPackages<List<Package>>(src);
-            //        source.packages = tas;
-
-            //     });
-            //task.Wait();
-
-            //return this;
-
             var sources = await InternalClient.GetPackages<List<Package>>(src);
             source.packages = sources;
 
             return this;
         }
 
-        public async Task<ISourceFactory> GetGroups(string scr)
+        public async Task<ISourceFactory> GetGroupsAsync(string scr)
         {
             var groups = await InternalClient.GetGroups<List<Group>>(scr);
             source.groups = groups;
@@ -94,7 +77,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public async Task<ISourceFactory> GetOrganizations(string scr)
+        public async Task<ISourceFactory> GetOrganizationsAsync(string scr)
         {
             var orga = await InternalClient.GetOrganizations<List<Organization>>(scr);
             source.organizations = orga;
@@ -102,7 +85,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public async Task<ISourceFactory> GetTag(string scr)
+        public async Task<ISourceFactory> GetTagAsync(string scr)
         {
             var tags = await InternalClient.GetTags<List<Tag>>(scr);
             source.tags = tags;
@@ -114,6 +97,55 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         {
             var expression = SourceFactory.Initialize;
             action.Invoke(expression);
+
+            return this;
+        }
+
+        public ISourceFactory GetPackages(string src)
+        {
+            //same options, also block!
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetPackages<List<Package>>(src);
+                source.packages = tas;
+            });
+            task.Wait();
+
+            return this;
+        }
+
+        public ISourceFactory GetGroups(string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetGroups<List<Group>>(src);
+                source.groups = tas;
+            });
+            task.Wait();
+
+            return this;
+        }
+
+        public ISourceFactory GetOrganizations(string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetOrganizations<List<Organization>>(src);
+                source.organizations = tas;
+            });
+            task.Wait();
+
+            return this;
+        }
+
+        public ISourceFactory GetTag(string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetTags<List<Tag>>(src);
+                source.tags = tas;
+            });
+            task.Wait();
 
             return this;
         }

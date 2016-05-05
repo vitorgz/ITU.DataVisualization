@@ -50,7 +50,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == id);
-            source.packages = pck.Result.Create().packages; //TODO remove "Result" for non async
+            source.packages = pck.Create().packages; //TODO remove "Result" for non async
 
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in source.packages)
@@ -127,8 +127,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var fields = ds.Where(x => x.format == "CSV" && x.name == dts).FirstOrDefault().fields;
 
             var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
-            //var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
-            fields.ToList().ForEach(x => x.selected = false);
+            var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
+            nonSelect.ForEach(x => x.selected = false);
             select.xAxys = true;
 
             //return Json(new object());
