@@ -16,11 +16,25 @@
                     //alert('done');
                 },
                 error: function (ex) {
-                    alert('Failed get charts.' + ex);
+                    //alert('Failed get charts.' + ex);
                 }
             });
             return false;
         })
+    });
+    $(function () {
+        $('#Chart').change(function () {
+            var value = $(this).val();
+            if (value == 'PieChart') {
+                $('#xaxys').show();
+                $('#serie1').hide();
+                $('#serie2').hide();
+            } else {
+                $('#xaxys').show();
+                $('#serie1').show();
+                $('#serie2').show();
+            }
+        });
     });
 </script>
 
@@ -41,15 +55,15 @@
 </div>
 }
     <div class="selector">
-        <div class="control">
+        <div class="control" id="xaxys">
             <h4>Select x Ayxs </h4>
             @Html.Partial("_xAxisView")
         </div>
-        <div class="control">
+        <div class="control" id="serie1">
             <h4>Serie 1</h4>
             @Html.Partial("_serie1View")
         </div>
-        <div class="control">
+        <div class="control" id="serie2">
             <h4>Serie 2</h4>
             @Html.Partial("_serie2View")
         </div>

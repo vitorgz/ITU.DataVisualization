@@ -16,7 +16,7 @@
                     }); // here we are adding option for States
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve states.' + ex);
+                    //alert('Failed to retrieve states.' + ex);
                 }
             });
             return false;
@@ -35,7 +35,7 @@
                     }); // here we are adding option for States
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve states.' + ex);
+                    //alert('Failed to retrieve states.' + ex);
                 }
             });
             return false;
@@ -49,12 +49,17 @@
                 dataType: 'json',
                 data: { src: $("#Ckan").val(), pck: $("#Package").val(), dts: $("#DataSet").val() },
                 success: function (states) {
-                    $.each(states, function (i, state) {
-                        $("#Field").append('<option value="' + state.Value + '">' + state.Text + '</option>');
-                    }); // here we are adding option for States
+                    if (!$.trim(value)) {
+                        alert("Cannot analyze this " + data);
+                    }
+                    else {
+                        $.each(states, function (i, state) {
+                            $("#Field").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                        }); // here we are adding option for States
+                    }
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve states.' + ex);
+                    //alert('Failed to retrieve states.' + ex);
                 }
             });
             return false;
@@ -71,7 +76,7 @@
                     $("#DataStore").append(value)
                 },
                 error: function (ex) {
-                    alert('Failed to retrieve state.' + ex);
+                    //alert('Failed to retrieve state.' + ex);
                 }
             });
             return false;
@@ -84,10 +89,10 @@
                 dataType: 'json',
                 data: { src: $("#Ckan").val(), pck: $("#Package").val(), dts: $("#DataSet").val(), fld: $("#Field").val() },
                 success: function (value) {
-                    //alert('done');
+                    
                 },
                 error: function (ex) {
-                    alert('Failed to calculate fields.' + ex);
+                    //alert('Failed to calculate fields.' + ex);
                 }
             });
             return false;

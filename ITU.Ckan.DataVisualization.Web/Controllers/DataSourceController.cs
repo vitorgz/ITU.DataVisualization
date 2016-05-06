@@ -1,5 +1,6 @@
 ﻿using ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods;
 using ITU.Ckan.DataVisualization.InternalDsl.Factories;
+using ITU.Ckan.DataVisualization.InternalDsl.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,6 +135,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             //return Json(new object());
         }
 
+        [HandleError()]
         [HttpPost]
         public void SelectField(string src, string pck, string dts, string fld)
         {
@@ -146,6 +148,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
             nonSelect.ForEach(x => x.selected = false);
             select.selected = true;
+
+            if (DslConverterHelpers.ResolveType(select.type) != typeof(int) ||
+                DslConverterHelpers.ResolveType(select.type) != typeof(double) ||
+                DslConverterHelpers.ResolveType(select.type) != typeof(decimal) ||
+                DslConverterHelpers.ResolveType(select.type) != typeof(float) ||
+                DslConverterHelpers.ResolveType(select.type) != typeof(long))
+                throw new Exception("non numeric type");
         }
 
 
