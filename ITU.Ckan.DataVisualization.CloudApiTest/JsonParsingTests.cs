@@ -13,6 +13,7 @@ using System.Reflection;
 using Microsoft.CodeAnalysis.Emit;
 using System.Collections;
 using ITU.Ckan.DataVisualization.CloudApi.Helpers;
+using System.Drawing;
 
 namespace ITU.Ckan.DataVisualization.CloudApiTest
 {
@@ -283,6 +284,20 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
             string json = "{ help:'', success: true, result: { records: [{ status: 'Vedtaget byfornyelsesbeslutning',  bknr: 1164}, {status: 'Vedtaget byfornyelsesbeslutning', bknr: 1167}]}}";
 
             var fields = new List<Field>() { new Field() { id = "status", type= typeof(string) }, new Field() { id = "bknr", type = typeof(int) } };
+            CloudApiHelpers.ProcessJsonResponse(json, fields);
+
+            Assert.IsNotNull(fields);
+
+        }
+
+        [TestMethod]
+        public void ProcessPointsJson()
+        {
+            string json = "{ help:'', success: true, result: { records: [{ status: 'Vedtaget byfornyelsesbeslutning',  wkb_geometry: 'POINT(12.572665592562222 55.67900255632159)'}, {status: 'Vedtaget byfornyelsesbeslutning', wkb_geometry: 'POINT(12.555178540169926 55.681753235913526)'}]}}";
+
+            var fields = new List<Field>() {
+                new Field() { id = "status", type = typeof(string) },
+                new Field() { id = "wkb_geometry", type = typeof(Point) } };
             CloudApiHelpers.ProcessJsonResponse(json, fields);
 
             Assert.IsNotNull(fields);

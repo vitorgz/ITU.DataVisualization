@@ -238,7 +238,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\DataSourceController.cs" />
     <Compile Include="Controllers\DrawController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -349,7 +348,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\DataSource\Index.cshtml" />
-    <Content Include="Views\Chart\Index.cshtml" />
     <Content Include="Views\Draw\Index.cshtml" />
     <Content Include="Views\DataSource\_xAxisView.cshtml" />
     <Content Include="Views\DataSource\_serie1View.cshtml" />
