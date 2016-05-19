@@ -22,12 +22,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
 
         public static Field GetXAxys(this DataSet dataSet)
         {
-            return dataSet.fields.Where(x => x.xAxys).FirstOrDefault();
+            return dataSet?.fields?.Where(x => x.xAxys).FirstOrDefault();
         }
 
         public static List<Field> GetYAxys(this DataSet dataSet)
         {
-            return dataSet.fields.Where(x => x.selected && !x.xAxys).ToList();
+            var yAxys = dataSet?.fields?.Where(x => x.selected && !x.xAxys).ToList();
+            return yAxys ?? new List<Field>();
         }
     }
 }

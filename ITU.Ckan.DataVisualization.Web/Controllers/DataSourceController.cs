@@ -16,8 +16,12 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         {
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "http://data.kk.dk/", Value = "http://data.kk.dk/" });
-            items.Add(new SelectListItem { Text = "http://datahub.io/", Value = "http://datahub.io/" });
-            items.Add(new SelectListItem { Text = "http://data.amsterdam.nl/", Value = "http://data.amsterdam.nl/", Selected = true });
+            items.Add(new SelectListItem { Text = "http://datahub.io/", Value = "http://datahub.io/" }); 
+            items.Add(new SelectListItem { Text = "http://opendatadc.org/", Value = "http://opendatadc.org/" });
+            items.Add(new SelectListItem { Text = "http://data.opendataportal.at/", Value = "http://data.opendataportal.at/" });
+            items.Add(new SelectListItem { Text = "http://dati.openexpo2015.it/", Value = "http://dati.openexpo2015.it/" });
+            items.Add(new SelectListItem { Text = "http://data.london.gov.uk/", Value = "http://data.london.gov.uk/" });
+            items.Add(new SelectListItem { Text = "http://www.civicdata.io/", Value = "http://www.civicdata.io/", Selected = true });
             items.Add(new SelectListItem { Text = "Other", Value = "3" });
 
             ViewData["ckan"] = items;
@@ -40,18 +44,52 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if(visual.graph == null)
                 visual.graph = new Graph();
 
+            if (chart == "PieChart")
+                restartSeries(visual);
+
             visual.graph = RootInstance.Current.graphs.Where(x => x.name == chart).FirstOrDefault();   
+        }
+
+        private void restartSeries(Visualization visual)
+        {
+            var yList = visual.sources.Where(x=>x.packages!=null)
+                .SelectMany(x => x.packages.Where(e => e != null && e.dataSets != null)
+                .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
+                .SelectMany(z => z.GetYAxys())));
+
+            //var yList = new List<Field>();
+
+            //foreach (var source in visual.sources)
+            //{
+            //    if (source.packages != null)
+            //        foreach (var package in source.packages)
+            //        {
+            //            if (package != null && package.dataSets != null)
+            //                foreach (var dataset in package.dataSets)
+            //                {
+            //                    if (dataset != null)
+            //                        yList.(dataset.GetYAxys());
+            //                }
+            //        }
+            //}
+
+            yList.ToList().ForEach(x => x.selected = false);
         }
 
         // POST: DataSource
         public async Task<JsonResult> GetPackages(string id)
         {
-            //we neeed to added to the current instance "RootInstance"
-            var pck = SourceFactory.Initialize.GetPackages(id);
-
             var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == id);
-            source.packages = pck.Create().packages; //TODO remove "Result" for non async
+            
+            var pck = SourceFactory.Initialize.AddIn(x =>
+            {
+                x.GetPackages(id);
+                //x.GetGroups(id);
+                //x.GetTag(id);
+            }).Create();
+                        
+            source.packages = pck.packages; //TODO remove "Result" for non async
 
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in source.packages)
@@ -79,6 +117,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             List<SelectListItem> items = new List<SelectListItem>();
             if (pkg == null) return Json(items);
+            items.Add(new SelectListItem { Text = "Select Data Set", Value = "Select Data Set" });
             foreach (var item in pkg.dataSets)
             {
                 items.Add(new SelectListItem { Text = item.name, Value = item.name });
@@ -129,10 +168,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
             var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
-            nonSelect.ForEach(x => x.selected = false);
-            select.xAxys = true;
-
-            //return Json(new object());
+            nonSelect.ForEach(x => x.xAxys = false);
+            select.xAxys = true;            
         }
 
         [HandleError()]
@@ -149,10 +186,10 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             nonSelect.ForEach(x => x.selected = false);
             select.selected = true;
 
-            if (DslConverterHelpers.ResolveType(select.type) != typeof(int) ||
-                DslConverterHelpers.ResolveType(select.type) != typeof(double) ||
-                DslConverterHelpers.ResolveType(select.type) != typeof(decimal) ||
-                DslConverterHelpers.ResolveType(select.type) != typeof(float) ||
+            if (DslConverterHelpers.ResolveType(select.type) != typeof(int) &&
+                DslConverterHelpers.ResolveType(select.type) != typeof(double) &&
+                DslConverterHelpers.ResolveType(select.type) != typeof(decimal) &&
+                DslConverterHelpers.ResolveType(select.type) != typeof(float) &&
                 DslConverterHelpers.ResolveType(select.type) != typeof(long))
                 throw new Exception("non numeric type");
         }

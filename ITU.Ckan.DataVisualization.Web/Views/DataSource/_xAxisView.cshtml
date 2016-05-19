@@ -49,14 +49,17 @@
                 dataType: 'json',
                 data: { src: $("#Ckan").val(), pck: $("#Package").val(), dts: $("#DataSet").val() },
                 success: function (states) {
-                    if (!$.trim(value)) {
-                        alert("Cannot analyze this " + data);
-                    }
-                    else {
-                        $.each(states, function (i, state) {
-                            $("#Field").append('<option value="' + state.Value + '">' + state.Text + '</option>');
-                        }); // here we are adding option for States
-                    }
+                    $.each(states, function (i, state) {
+                        $("#Field").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    });
+                    //if (!$.trim(value)) {
+                    //    alert("Cannot analyze this " + data);
+                    //}
+                    //else {
+                    //    $.each(states, function (i, state) {
+                    //        $("#Field").append('<option value="' + state.Value + '">' + state.Text + '</option>');
+                    //    }); // here we are adding option for States
+                    //}
                 },
                 error: function (ex) {
                     //alert('Failed to retrieve states.' + ex);

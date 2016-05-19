@@ -115,6 +115,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         {
             try
             {
+                //it only works with one Source! make it sense?
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
                 var response = await GenericApi.GenericRestfulClient.Get(
                     source.sourceName,

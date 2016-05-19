@@ -17,8 +17,12 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.name, "blabla")
-            .AddPropertyValue(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
+                .AddPropertyValue(x => x.name, "TestSource")
+                .AddPropertyValue(x => x.groups, new List<Group>() {
+                    new Group() { properties = 
+                    new List<Property>() {
+                        new Property() { name = "GroupTest" }
+                    } } })
             .Create();
 
             Assert.IsNotNull(source.groups);
@@ -134,6 +138,22 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
                    //or
                    //x.AddGroup(new List<Group>() { new Group() { name = "test" } }).AddTag(new List<Tag>() { new Tag() { name = "testTAg" } });
                }
+               ).Create();
+
+            Assert.IsNotNull(mySource);
+        }
+
+        [TestMethod]
+        public void TestAddInGetsDSL()
+        {
+            var mySource =
+              SourceFactory.Initialize.AddIn(
+               x =>
+               {
+                   x.GetGroupsAsync("tets");
+                   x.GetOrganizationsAsync("test");
+                   x.GetPackagesAsync("test");
+                 }
                ).Create();
 
             Assert.IsNotNull(mySource);

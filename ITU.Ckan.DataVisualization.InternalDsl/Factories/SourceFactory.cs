@@ -31,6 +31,21 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
                 return sourcef as ISourceFactory;
             }
         }
+        
+        public ISourceFactory AddIn(Action<ISourceFactory> action)
+        {
+            var expression = SourceFactory.Initialize;
+            action.Invoke(expression);
+
+            return this;
+        }
+
+        public Source Create()
+        {
+            return source;
+        }
+
+        #region adds
 
         public ISourceFactory AddGroup(List<Group> groups)
         {
@@ -56,10 +71,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public Source Create()
-        {
-            return source;
-        }
+        #endregion
+
+        #region async methods
 
         public async Task<ISourceFactory> GetPackagesAsync(string src)
         {
@@ -93,13 +107,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public ISourceFactory AddIn(Action<ISourceFactory> action)
-        {
-            var expression = SourceFactory.Initialize;
-            action.Invoke(expression);
+        #endregion
 
-            return this;
-        }
+        #region sync methods
 
         public ISourceFactory GetPackages(string src)
         {
@@ -154,6 +164,8 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         {
             get { return source; }
         }
+
+        #endregion
     }
-    
+
 }
