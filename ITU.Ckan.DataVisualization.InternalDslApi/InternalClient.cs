@@ -71,14 +71,15 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, filtersData);
         }
 
-        public static async Task<T> GetDataFromSource<T>(SourceDTO source)
+        //TODO review!
+        public static async Task<T> GetDataFromOneSource<T>(SourceDTO source)
         {
             if (source.offset != 0)
             {
-                return await GetCkanAsync<T>("/api/GetDataLimitOffset", source);
+                return await GetCkanAsync<T>("/api/GetDataResourceLimitOffset", source);
             }
 
-            var api = "/api/GetDataLimit";
+            var api = "/api/GetDataResourceLimit";
             return await GetCkanAsync<T>(api, source);
         }
 

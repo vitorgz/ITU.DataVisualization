@@ -86,12 +86,14 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             }
         }
 
-        [Route("api/GetDataLimit")]
+        [Route("api/GetDataResourceLimit")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetDataLimit(SourceDTO source)
+        public async Task<HttpResponseMessage> GetDataResourceLimit(SourceDTO source)
         {
            try
             {
+                //TODO
+                //ONly one source
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
                 var response = await GenericApi.GenericRestfulClient.Get(
                     source.sourceName,
@@ -109,13 +111,15 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             }
 }
 
-        [Route("api/GetDataLimitOffset")]
+        [Route("api/GetDataResourceLimitOffset")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetDataLimitOffset(SourceDTO source)
+        public async Task<HttpResponseMessage> GetDataResourceLimitOffset(SourceDTO source)
         {
             try
             {
-                //it only works with one Source! make it sense?
+                //TODO it only works with one Source! make it sense?
+
+                //returns JSON
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
                 var response = await GenericApi.GenericRestfulClient.Get(
                     source.sourceName,
@@ -124,7 +128,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                     source.limit,
                     source.offset);
 
-                //TODO parse response -> read first Fields, and them map to formatted object
+                //TODO parse response -> read first Fields, and them map to formatted object (not easy)
 
                 return Request.CreateResponse(HttpStatusCode.OK, response);
             }
@@ -141,9 +145,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             try
             {
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702
-
-                // var dict = new Dictionary<string, List<string>>();
-
+                
                 foreach (var item in visual.sources)
                 {
                     var flds = item.fields.Select(x => x.id.ToString()).ToList();
@@ -151,7 +153,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
                     //for each data source
                     var response = await GenericApi.GenericRestfulClient.
-                        Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values);
+                        Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
 
                     //TODO convert fileds.Types to our types???
                     item.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
@@ -185,7 +187,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 var values = new Tuple<string, List<string>>(source.dataSetId, new List<string>() { xAxys.id.ToString() });
 
                 var response = await GenericApi.GenericRestfulClient.
-                            Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values);
+                            Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
 
                 var fieldsList = new List<Field>() { xAxys };
                 source.fields = fieldsList;
