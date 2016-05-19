@@ -23,6 +23,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var filters = visual.GetFilters();
             Table data;
+            if(visual.graph==null) throw new Exception("Chart was not selected");
             if (visual.graph.name != "PieChart")
                 data = await visual.GetData(filters);
             else

@@ -34,6 +34,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             ViewData["chart"] = chartItems;
 
+            restartSeries(RootInstance.CurrentVisualization);
+
             return View();
         }
 
@@ -81,15 +83,18 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         {
             var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == id);
-            
-            var pck = SourceFactory.Initialize.AddIn(x =>
+
+            if (source.packages == null)
             {
-                x.GetPackages(id);
-                //x.GetGroups(id);
-                //x.GetTag(id);
-            }).Create();
-                        
-            source.packages = pck.packages; //TODO remove "Result" for non async
+                var pck = SourceFactory.Initialize.AddIn(x =>
+                            {
+                                x.GetPackages(id);
+                                //x.GetGroups(id);
+                                //x.GetTag(id);
+                            }).Create();
+
+                source.packages = pck.packages; //TODO remove "Result" for non async
+            }
 
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in source.packages)
@@ -107,13 +112,16 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var vis = RootInstance.CurrentVisualization;
             var source = vis.GetSourceById(x => x.name == src);            
 
-            var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
-            var newPkg = ds.Create();
-
             var pkg = source.GetPackageByName(x => x.name == pck);
             source.packages.ToList().ForEach(x => x.selected = false);
             pkg.selected = true;
-            pkg.dataSets = newPkg.dataSets;
+
+            if (pkg.dataSets == null)
+            {
+                var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
+                var newPkg = ds.Create();
+                pkg.dataSets = newPkg.dataSets;
+            }
 
             List<SelectListItem> items = new List<SelectListItem>();
             if (pkg == null) return Json(items);
@@ -169,7 +177,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
             var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
             nonSelect.ForEach(x => x.xAxys = false);
-            select.xAxys = true;            
+            select.xAxys = true;
         }
 
         [HandleError()]
