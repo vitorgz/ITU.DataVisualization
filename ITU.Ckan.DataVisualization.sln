@@ -37,6 +37,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.CloudApiTest", "ITU.Ckan.DataVisualization.CloudApiTest\ITU.Ckan.DataVisualization.CloudApiTest.csproj", "{FDF674C9-7558-4727-863D-31A3302CD54F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITU.Ckan.DataVisualization.EFDataBase", "ITU.Ckan.DataVisualization.EFDataBase\ITU.Ckan.DataVisualization.EFDataBase.csproj", "{3CE56587-4CB1-4A79-9196-3F7200F18390}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{FDF674C9-7558-4727-863D-31A3302CD54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDF674C9-7558-4727-863D-31A3302CD54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDF674C9-7558-4727-863D-31A3302CD54F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CE56587-4CB1-4A79-9196-3F7200F18390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CE56587-4CB1-4A79-9196-3F7200F18390}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CE56587-4CB1-4A79-9196-3F7200F18390}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CE56587-4CB1-4A79-9196-3F7200F18390}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{DC295D19-FBE6-4D95-ABD9-6E64C14FAAC8} = {D86F4BD7-29D2-477E-BED1-120BF4365C80}
 		{BCE1D282-105B-400F-8BE7-6556145DBE79} = {DF4765B8-F5CA-4312-8E09-8FA6BCF61879}
 		{FDF674C9-7558-4727-863D-31A3302CD54F} = {DB3F2543-1B29-42AC-8FEA-8840C4D29143}
+		{3CE56587-4CB1-4A79-9196-3F7200F18390} = {4BD8EEEC-A7CC-453B-83B0-CA411C3C7C0D}
 	EndGlobalSection
 EndGlobal
