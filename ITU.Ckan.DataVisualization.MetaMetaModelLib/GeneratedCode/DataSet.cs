@@ -23,12 +23,6 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual string package_id
-	{
-		get;
-		set;
-	}
-
 	public virtual bool selected
 	{
 		get;
@@ -41,7 +35,7 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual string id
+	public virtual int DataSetId
 	{
 		get;
 		set;
@@ -54,6 +48,12 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 	}
 
 	public virtual string resource_id
+	{
+		get;
+		set;
+	}
+
+	public virtual string id
 	{
 		get;
 		set;

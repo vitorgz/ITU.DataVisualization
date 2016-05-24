@@ -35,6 +35,12 @@ public class Group : NamedElement, IPropertable, ICkanBuilder, IEntity
 		set;
 	}
 
+	public virtual int GroupId
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<DataSet> DataSet
 	{
 		get;

@@ -17,6 +17,12 @@ public class Organization : NamedElement, IPropertable, ICkanBuilder, IEntity
 		set;
 	}
 
+	public virtual int OrganizationId
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<User> users
 	{
 		get;

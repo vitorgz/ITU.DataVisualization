@@ -23,5 +23,11 @@ public class Row : NamedElement
 		set;
 	}
 
+	public virtual int RowId
+	{
+		get;
+		set;
+	}
+
 }
 

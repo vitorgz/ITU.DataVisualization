@@ -11,6 +11,12 @@ using System.Text;
 
 public class Source : NamedElement, ICkanBuilder, IEntity
 {
+	public virtual int SourceId
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<Group> groups
 	{
 		get;

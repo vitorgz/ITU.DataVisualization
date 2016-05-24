@@ -11,6 +11,12 @@ using System.Text;
 
 public class User : NamedElement
 {
+	public virtual int UserId
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<Organization> organizations
 	{
 		get;

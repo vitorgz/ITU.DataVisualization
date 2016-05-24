@@ -17,5 +17,11 @@ public class Graph : NamedElement
 		set;
 	}
 
+	public virtual int GraphId
+	{
+		get;
+		set;
+	}
+
 }
 

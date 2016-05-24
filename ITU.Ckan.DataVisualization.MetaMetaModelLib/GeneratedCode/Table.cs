@@ -11,6 +11,12 @@ using System.Text;
 
 public class Table : NamedElement, ICkanBuilder
 {
+	public virtual int TableId
+	{
+		get;
+		set;
+	}
+
 	public virtual Column column
 	{
 		get;

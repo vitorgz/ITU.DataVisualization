@@ -23,5 +23,11 @@ public class Column : NamedElement
 		set;
 	}
 
+	public virtual int ColumnId
+	{
+		get;
+		set;
+	}
+
 }
 

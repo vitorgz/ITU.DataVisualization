@@ -35,6 +35,12 @@ public class Package : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
+	public virtual int PackageId
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<DataSet> dataSets
 	{
 		get;

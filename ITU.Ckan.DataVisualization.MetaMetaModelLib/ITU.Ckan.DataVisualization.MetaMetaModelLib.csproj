@@ -52,9 +52,7 @@
     <Compile Include="GeneratedCode\Organization.cs" />
     <Compile Include="GeneratedCode\Package.cs" />
     <Compile Include="GeneratedCode\Property.cs" />
-    <Compile Include="GeneratedCode\RawData.cs" />
     <Compile Include="GeneratedCode\Record.cs" />
-    <Compile Include="GeneratedCode\Result.cs" />
     <Compile Include="GeneratedCode\Root.cs" />
     <Compile Include="GeneratedCode\Row.cs" />
     <Compile Include="GeneratedCode\Source.cs" />

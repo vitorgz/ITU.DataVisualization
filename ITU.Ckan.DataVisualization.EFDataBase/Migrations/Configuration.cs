@@ -9,7 +9,7 @@ namespace ITU.Ckan.DataVisualization.EFDataBase.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ITU.Ckan.DataVisualization.EFDataBase.VisualizationDBContext context)

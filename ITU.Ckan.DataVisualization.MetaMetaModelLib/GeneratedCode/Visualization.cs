@@ -11,13 +11,7 @@ using System.Text;
 
 public class Visualization : NamedElement, ICkanBuilder
 {
-	public virtual int id
-	{
-		get;
-		set;
-	}
-
-	public virtual RawData rawData
+	public virtual int VisualizationId
 	{
 		get;
 		set;

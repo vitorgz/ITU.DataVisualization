@@ -17,7 +17,7 @@ public class Field : NamedElement, IEntity
 		set;
 	}
 
-	public virtual object id
+	public virtual int FieldId
 	{
 		get;
 		set;
@@ -30,6 +30,12 @@ public class Field : NamedElement, IEntity
 	}
 
 	public virtual bool xAxys
+	{
+		get;
+		set;
+	}
+
+	public virtual string id
 	{
 		get;
 		set;

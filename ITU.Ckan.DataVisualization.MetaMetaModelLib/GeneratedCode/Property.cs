@@ -17,5 +17,11 @@ public class Property : NamedElement, IEntity
 		set;
 	}
 
+	public virtual int PropertyId
+	{
+		get;
+		set;
+	}
+
 }
 

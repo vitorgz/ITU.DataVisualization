@@ -17,5 +17,11 @@ public class Record : NamedElement, IEntity
 		set;
 	}
 
+	public virtual int RecordId
+	{
+		get;
+		set;
+	}
+
 }
 

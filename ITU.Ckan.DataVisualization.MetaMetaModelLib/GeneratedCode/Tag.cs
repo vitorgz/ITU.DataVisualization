@@ -23,6 +23,12 @@ public class Tag : NamedElement, IPropertable, ICkanBuilder, IEntity
 		set;
 	}
 
+	public virtual int TagId
+	{
+		get;
+		set;
+	}
+
 	public virtual IEnumerable<DataSet> DataSet
 	{
 		get;

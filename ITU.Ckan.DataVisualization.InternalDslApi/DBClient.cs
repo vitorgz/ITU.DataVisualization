@@ -13,7 +13,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
 
         public static void CreateVisualization(string name)
         {
-            context.Visualizations.Add(new VisualizationEF() { Visualization = new Visualization() { name = name } });
+            context.Visualizations.Add(new Visualization() { name = name } );
             context.SaveChanges();                        
             //return default(T);
         }
