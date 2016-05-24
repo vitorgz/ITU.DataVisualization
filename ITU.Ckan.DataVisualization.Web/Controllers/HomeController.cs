@@ -19,9 +19,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         [HttpPost]
         public ActionResult Index(Visualization visual)
         {
-            var visualInstance = new Visualization() { name = visual.name };
-            //DBClient.CreateVisualization(visual.name);
-
+            var visualInstance = new Visualization() { name = visual.name };    
 
             if (visualInstance.sources == null)
             {

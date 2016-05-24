@@ -14,8 +14,13 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
         public static void CreateVisualization(string name)
         {
             context.Visualizations.Add(new Visualization() { name = name } );
-            context.SaveChanges();                        
-            //return default(T);
+            context.SaveChanges();    
+        }
+
+        public static void SaveVisualization(Visualization vs)
+        {
+            context.Visualizations.Add(vs);
+            context.SaveChanges();
         }
     }
 }

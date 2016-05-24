@@ -23,7 +23,7 @@ public class Visualization : NamedElement, ICkanBuilder
 		set;
 	}
 
-	public virtual IEnumerable<Source> sources
+	public virtual ICollection<Source> sources
 	{
 		get;
 		set;

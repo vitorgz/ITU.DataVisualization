@@ -11,7 +11,7 @@ using System.Text;
 
 public interface IPropertable 
 {
-	IEnumerable<Property> properties { get;set; }
+	ICollection<Property> properties { get;set; }
 
 }
 

@@ -29,7 +29,7 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Property> properties
+	public virtual ICollection<Property> properties
 	{
 		get;
 		set;
@@ -59,13 +59,13 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Field> fields
+	public virtual ICollection<Field> fields
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Group> groups
+	public virtual ICollection<Group> groups
 	{
 		get;
 		set;
@@ -77,13 +77,13 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Tag> tags
+	public virtual ICollection<Tag> tags
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Record> records
+	public virtual ICollection<Record> records
 	{
 		get;
 		set;

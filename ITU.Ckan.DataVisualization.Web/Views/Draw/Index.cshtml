@@ -1,9 +1,11 @@
 ﻿
 @model DotNet.Highcharts.Highcharts
 
-<h2>Chart</h2>
+<h2>Visulization</h2>
 
 @(Model)
+
+<input width="200" height="40" type="button" value="Save Visualization" onclick="location.href='@Url.Action("Save", "Draw")'" />
 
 @section Scripts {
     @Scripts.Render("~/bundles/HighChart")

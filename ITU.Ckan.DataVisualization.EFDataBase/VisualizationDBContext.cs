@@ -49,6 +49,12 @@ namespace ITU.Ckan.DataVisualization.EFDataBase
             //Disable one-to-many cascade delete.
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<Visualization>().HasKey(x=>x.VisualizationId)
+                .HasMany<Source>(s => (ICollection<Source>)s.sources);
+            modelBuilder.Entity<DataSet>().HasKey(x => x.DataSetId);
+            modelBuilder.Entity<Field>().HasKey(x => x.FieldId);
+
+
             base.OnModelCreating(modelBuilder);
         }
 

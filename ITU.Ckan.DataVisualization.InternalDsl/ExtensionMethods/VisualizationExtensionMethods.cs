@@ -65,6 +65,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return filters;
         }
 
+        //TODO it creates a new instance!!
         public static Visualization AddIn(this Visualization visual, Action<IVisualizationFactory> action)
         {
             var expression = VisualizationFactory.Initialize;

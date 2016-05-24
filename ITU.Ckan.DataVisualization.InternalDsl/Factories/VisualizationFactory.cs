@@ -17,6 +17,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
+        public IVisualizationFactory addTable(Table data)
+        {
+            visual.table = data;
+            return this;
+        }
+
+
         public Visualization Create()
         {
             return visual;

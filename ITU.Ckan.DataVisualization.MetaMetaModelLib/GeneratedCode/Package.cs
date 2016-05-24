@@ -11,7 +11,7 @@ using System.Text;
 
 public class Package : NamedElement, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> properties
+	public virtual ICollection<Property> properties
 	{
 		get;
 		set;
@@ -41,7 +41,7 @@ public class Package : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<DataSet> dataSets
+	public virtual ICollection<DataSet> dataSets
 	{
 		get;
 		set;

@@ -17,25 +17,25 @@ public class Source : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<Group> groups
+	public virtual ICollection<Group> groups
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Organization> organizations
+	public virtual ICollection<Organization> organizations
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Tag> tags
+	public virtual ICollection<Tag> tags
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<Package> packages
+	public virtual ICollection<Package> packages
 	{
 		get;
 		set;

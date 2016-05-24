@@ -11,8 +11,10 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     {
        //IVisualizationFactory Initialize();
         IVisualizationFactory AddSource(List<Source> source);
+        IVisualizationFactory addTable(Table data);
         //List<Source> GetSources();
         Visualization Create();
         Task<IVisualizationFactory> GetData(VisualDTO filters);
+        
     }
 }

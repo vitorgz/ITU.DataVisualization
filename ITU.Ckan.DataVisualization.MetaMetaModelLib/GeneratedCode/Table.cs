@@ -23,7 +23,7 @@ public class Table : NamedElement, ICkanBuilder
 		set;
 	}
 
-	public virtual IEnumerable<Row> rows
+	public virtual ICollection<Row> rows
 	{
 		get;
 		set;

@@ -2,6 +2,7 @@
 using DotNet.Highcharts.Options;
 using ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods;
 using ITU.Ckan.DataVisualization.InternalDsl.Helpers;
+using ITU.Ckan.DataVisualization.InternalDslApi;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections;
@@ -32,6 +33,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             if (data == null)
                 return View();
+
+            RootInstance.CurrentVisualization.table = data;
 
             string[] xAxisDAta = null;
             if (data.column != null)
@@ -69,6 +72,11 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             chart.SetSeries(series);
 
             return View(chart);
+        }
+
+        public void Save()
+        {
+            DBClient.SaveVisualization(RootInstance.CurrentVisualization);
         }
 
         private DotNet.Highcharts.Enums.ChartTypes getChartType(Graph graph)

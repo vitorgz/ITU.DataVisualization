@@ -17,7 +17,7 @@ public class User : NamedElement
 		set;
 	}
 
-	public virtual IEnumerable<Organization> organizations
+	public virtual ICollection<Organization> organizations
 	{
 		get;
 		set;

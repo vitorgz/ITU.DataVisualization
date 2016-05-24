@@ -11,7 +11,7 @@ using System.Text;
 
 public class Organization : NamedElement, IPropertable, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> properties
+	public virtual ICollection<Property> properties
 	{
 		get;
 		set;
@@ -23,13 +23,13 @@ public class Organization : NamedElement, IPropertable, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<User> users
+	public virtual ICollection<User> users
 	{
 		get;
 		set;
 	}
 
-	public virtual IEnumerable<DataSet> DataSet
+	public virtual ICollection<DataSet> DataSet
 	{
 		get;
 		set;

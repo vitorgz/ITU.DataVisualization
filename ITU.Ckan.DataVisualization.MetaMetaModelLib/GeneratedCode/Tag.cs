@@ -11,13 +11,7 @@ using System.Text;
 
 public class Tag : NamedElement, IPropertable, ICkanBuilder, IEntity
 {
-	public virtual IEnumerable<Property> properties
-	{
-		get;
-		set;
-	}
-
-	public virtual string id
+	public virtual ICollection<Property> properties
 	{
 		get;
 		set;
@@ -29,7 +23,7 @@ public class Tag : NamedElement, IPropertable, ICkanBuilder, IEntity
 		set;
 	}
 
-	public virtual IEnumerable<DataSet> DataSet
+	public virtual ICollection<DataSet> DataSet
 	{
 		get;
 		set;
