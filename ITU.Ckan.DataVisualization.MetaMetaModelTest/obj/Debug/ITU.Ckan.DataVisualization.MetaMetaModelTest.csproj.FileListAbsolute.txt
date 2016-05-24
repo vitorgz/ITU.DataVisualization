@@ -33,3 +33,7 @@ C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\b
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.csprojResolveAssemblyReference.cache
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.pdb
+C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.EFDataBase.dll
+C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\EntityFramework.dll
+C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.EFDataBase.pdb
+C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\EntityFramework.xml

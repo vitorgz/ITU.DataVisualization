@@ -30,7 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http">
@@ -61,6 +70,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBClient.cs" />
     <Compile Include="DTO\PieChartDTO.cs" />
     <Compile Include="DTO\SourceDTO.cs" />
     <Compile Include="DTO\VisualDTO.cs" />
@@ -79,13 +89,21 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ITU.Ckan.DataVisualization.EFDataBase\ITU.Ckan.DataVisualization.EFDataBase.csproj">
+      <Project>{3ce56587-4cb1-4a79-9196-3f7200f18390}</Project>
+      <Name>ITU.Ckan.DataVisualization.EFDataBase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ITU.Ckan.DataVisualization.MetaMetaModelLib\ITU.Ckan.DataVisualization.MetaMetaModelLib.csproj">
       <Project>{563b3cb5-6470-4d92-ab91-be2d826614a8}</Project>
       <Name>ITU.Ckan.DataVisualization.MetaMetaModelLib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
