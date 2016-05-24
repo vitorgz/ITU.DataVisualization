@@ -17,6 +17,18 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             context.SaveChanges();    
         }
 
+        public static Visualization GetVisualizationByName(string name)
+        {
+            var vs = context.Visualizations.Where(x=>x.name == name).FirstOrDefault();
+            return vs;
+        }
+
+        public static List<string> GetListVisualizations()
+        {
+            var vsNames = context.Visualizations.Select(x => x.name).ToList();
+            return vsNames;
+        }
+
         public static void SaveVisualization(Visualization vs)
         {
             context.Visualizations.Add(vs);

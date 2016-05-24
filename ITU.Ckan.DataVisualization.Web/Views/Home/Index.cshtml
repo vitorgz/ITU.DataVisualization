@@ -1,20 +1,63 @@
 ﻿@model Visualization
 
+<script>
+    $(document).ready(function () {
+        $("#Visualization").change(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SelectVisualization")',
+                dataType: 'json',
+                data: { vs: $("#Visualization").val() },
+                success: function (value) {
+                    //alert('done');
+                },
+                error: function (ex) {
+                    //alert('Failed get charts.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+
 <h2>Visualization project</h2>
 
-<div>
+<div class="selector">
     
-    @using (Html.BeginForm())
-    {
-        <fieldset>
-            <legend>Create New Visualization</legend>
-            <div class="editor-label">
-                @Html.TextBoxFor(model => model.name);
+    <div>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <div style="color: Purple;" class="control">
+                    @Html.Label("Create new Visualization")
+                </div>
+                <div class="control">
+                    @Html.TextBoxFor(model => model.name)
+
+                </div>
+                <div class="control">
+                    <input type="submit" value="New Visualization" />
+                </div>
+            </fieldset>
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div class="selector">
+                <br />
+                <div style="color: Purple;" class="control">
+                    @Html.Label("Select previous Visualization")
+                </div>
+                <div class="control">
+                    @if (ViewData.ContainsKey("visualizations"))
+                    {
+                        @Html.DropDownList("Visualization", ViewData["visualizations"] as List<SelectListItem>, "Please select visualization", new { style = "width:250px", @class = "dropdown1" })
+                    }
+                </div>
+                <br />
             </div>
-            <div>
-                <input type="submit" value="New Visualization" />
-            </div>
-        </fieldset>
-    }
+        }
+    </div>
 
 </div>

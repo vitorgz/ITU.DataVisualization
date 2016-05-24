@@ -12,14 +12,24 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {            
+        {
+            var vsList = DBClient.GetListVisualizations();
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            foreach (var item in vsList)
+            {
+                items.Add(new SelectListItem { Text = item, Value = item });
+            }
+
+            ViewData["visualizations"] = items;
+
             return View();
         }
 
         [HttpPost]
         public ActionResult Index(Visualization visual)
         {
-            var visualInstance = new Visualization() { name = visual.name };    
+            var visualInstance = new Visualization() { name = visual.name };
 
             if (visualInstance.sources == null)
             {
@@ -39,5 +49,15 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             return RedirectToAction("Index", "DataSource");
         }
+
+        [HttpPost]
+        public ActionResult SelectVisualization(string vs)
+        {
+            if (string.IsNullOrEmpty(vs)) return null;
+            RootInstance.CurrentVisualization = DBClient.GetVisualizationByName(vs);
+
+            return RedirectToAction("Index", "Draw");
+        }
+
     }
 }
