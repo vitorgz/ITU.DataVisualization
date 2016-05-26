@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ckan\CkanController.cs" />
+    <Compile Include="Ckan\DbController.cs" />
     <Compile Include="Deserialize\DataSetDeserialize.cs" />
     <Compile Include="Deserialize\ListDeserialize.cs" />
     <Compile Include="Deserialize\PackageDeserialize.cs" />
