@@ -34,6 +34,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (data == null)
                 return View();
 
+            //visual.AddTable(data);
             RootInstance.CurrentVisualization.table = data;
 
             string[] xAxisDAta = null;

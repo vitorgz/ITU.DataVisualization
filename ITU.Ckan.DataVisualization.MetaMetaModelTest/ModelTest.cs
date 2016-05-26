@@ -163,9 +163,9 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void CheckVisualizationDSLMethods()
         {
             var sdf = new Visualization();
-            sdf = sdf.AddIn(x => {
-                x.AddSource(new List<Source>() { new Source() { name = "test" } });
-            });
+            //sdf = sdf.AddInX(x => {
+            //    x.AddSource(new List<Source>() { new Source() { name = "test" } });
+            //});
 
             Assert.IsNotNull(sdf);
         }
@@ -183,6 +183,28 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
                ).Create();
 
             Assert.IsNotNull(mySource);
+        }
+
+        [TestMethod]
+        public void TestAddInDSL3()
+        {
+            var visual = new Visualization();
+
+            //option 1 - standard
+            visual.table = new Table();
+
+            //option 2 - Literal extensions (extension method)
+            visual.AddTable(new Table());                      
+
+            //option 3 - Closures && Nested Closures
+            visual.AddIn(
+               x =>
+               {
+                   x.AddIn(y => y.table, new Table());
+                   x.AddIn(y => y.name, "test");
+               });
+                        
+            Assert.IsNotNull(visual.table);
         }
 
         //[TestMethod]

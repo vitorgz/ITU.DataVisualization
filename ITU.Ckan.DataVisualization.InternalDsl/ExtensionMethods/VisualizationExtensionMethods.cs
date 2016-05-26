@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             var s = root.visualizations.Where(x => x.name == name).FirstOrDefault();
             return s;
         }
-
+        
         public static Visualization GetVisualizationById(this Root root, Expression<Func<Visualization, bool>> property)
         {
             Func<Visualization, bool> funcWhere = property.Compile();
@@ -31,6 +32,11 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             var data = await InternalClient.Get<Table>(filters);
             
             return data;
+        }
+
+        public static void AddTable(this Visualization visual, Table tab)
+        {
+            visual.table = tab;
         }
 
         public static async Task<Table> GetPieChartData(this Visualization visual, VisualDTO filters)
@@ -65,13 +71,26 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return filters;
         }
 
-        //TODO it creates a new instance!!
-        public static Visualization AddIn(this Visualization visual, Action<IVisualizationFactory> action)
+        public static Visualization AddIn(this Visualization visual, Action<Visualization> action)
         {
-            var expression = VisualizationFactory.Initialize;
-            action.Invoke(expression);
+            action.Invoke(visual);
+            
+            return visual;
+        }
 
-            visual = expression.Create();
+        public static Visualization AddIn(this Visualization visual, Expression<Func<Visualization, object>> property, object value)
+        {
+            PropertyInfo propertyInfo = null;
+            if (property.Body is MemberExpression)
+            {
+                propertyInfo = (property.Body as MemberExpression).Member as PropertyInfo;
+            }
+            else
+            {
+                propertyInfo = (((UnaryExpression)property.Body).Operand as MemberExpression).Member as PropertyInfo;
+            }
+            propertyInfo.SetValue(visual, value, null);
+
             return visual;
         }
     }
