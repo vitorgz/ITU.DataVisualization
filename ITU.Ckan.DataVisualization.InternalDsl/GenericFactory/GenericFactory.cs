@@ -17,6 +17,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
             this.entity = entity;
         }
 
+        public IGenericFactory<T> AddIn(Action<T> action)
+        {
+            action.Invoke(entity);
+
+            return this;
+        }
+
         public IGenericFactory<T> AddPropertyValue(Expression<Func<T, object>> property, object value)
         {
             PropertyInfo propertyInfo = null;

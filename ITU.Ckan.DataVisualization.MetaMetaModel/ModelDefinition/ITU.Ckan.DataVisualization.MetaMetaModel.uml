@@ -513,7 +513,7 @@
                   isReadOnly="false"
                   isDerived="false"
                   isDerivedUnion="false"
-                  aggregation="Composite"
+                  aggregation="Shared"
                   isComposite="false"
                   isNavigableOwned="false" />
               </associationHasOwnedEnds>
@@ -527,7 +527,7 @@
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
-                  isComposite="true">
+                  isComposite="false">
                   <lowerValueInternal>
                     <literalString
                       Id="a6be9f4d-139d-4c5c-a47c-045c87ad29d6"

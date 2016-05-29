@@ -323,12 +323,12 @@
             <classMoniker Id="c961df1f-a3b3-409b-8c75-8f9bccfd1714" LastKnownName="Organization" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
-                <memberEnd Id="1df428b2-1e44-44cc-9cfe-1830cffe2efe" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                <memberEnd Id="1df428b2-1e44-44cc-9cfe-1830cffe2efe" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                   <elementDefinition Id="1808a34f-f1c6-41f9-9bff-9059942028d6" />
                 </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
-                <memberEnd Id="5ade0bfc-730a-4047-8d62-3427fe6d7fcb" name="organizations" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                <memberEnd Id="5ade0bfc-730a-4047-8d62-3427fe6d7fcb" name="organizations" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <lowerValueInternal>
                     <literalString Id="6fe59a5b-81ee-4ed1-a07c-f45734687384" name="Lower" value="*">
                       <elementDefinition Id="a6be9f4d-139d-4c5c-a47c-045c87ad29d6" />

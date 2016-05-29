@@ -30,6 +30,20 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         }
 
         [TestMethod]
+        public void AddTableToVisualization()
+        {
+            var visual = GenericFluentFactory<Visualization>
+            .Init(new Visualization()).AddIn(x=> {
+
+                x.GetSource("http://data.kk.dk");
+                x.AddTable(new Table());
+                x.name = "test";
+            }).Create();
+
+            Assert.IsNotNull(visual.table);
+        }
+
+        [TestMethod]
         public void AddNameAndGroupToSource()
         {
             var source = GenericFluentFactory<Source>
@@ -118,9 +132,9 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void TestDataSetFactory()
         {
             var ds = new DataSetFactory().Initialize()
-                .AddField(null)
-                .AddGroup(null)
-                .AddOrganization(null)
+                .AddField(new List<Field>())
+                .AddGroup(new List<Group>())
+                .AddOrganization(new Organization())
                 .Create();
 
         }

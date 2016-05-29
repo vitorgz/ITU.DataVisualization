@@ -143,9 +143,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         public async Task<HttpResponseMessage> GetData(VisualDTO visual)
         {
             try
-            {
-                //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702
-                
+            {                
                 foreach (var item in visual.sources)
                 {
                     var flds = item.fields.Select(x => x.id.ToString()).ToList();
@@ -155,18 +153,13 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                     var response = await GenericApi.GenericRestfulClient.
                         Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
 
-                    //TODO convert fileds.Types to our types???
                     item.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
                     CloudApiHelpers.ProcessJsonResponse(response, item.fields);
                 }
 
                 //Merge all Data in one DAtaTable
                 var table = CloudApiHelpers.CreateDataTable(visual);
-
-
-                //create RowData
-                //CloudApiHelpers.MergeData(visual);
-
+                
                 return Request.CreateResponse(HttpStatusCode.OK, table);
             }
             catch (HttpRequestException ex)
