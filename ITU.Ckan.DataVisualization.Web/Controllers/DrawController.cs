@@ -75,11 +75,12 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             return View(chart);
         }
 
-        public void Save()
+        [HttpPost]
+        public void Save(string id)
         {
             DBClient.SaveVisualization(RootInstance.CurrentVisualization);
         }
-
+        
         private DotNet.Highcharts.Enums.ChartTypes getChartType(Graph graph)
         {
             if(graph == null) return DotNet.Highcharts.Enums.ChartTypes.Line;
