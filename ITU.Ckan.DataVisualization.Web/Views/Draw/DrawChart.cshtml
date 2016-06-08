@@ -1,0 +1,35 @@
+﻿
+@model DotNet.Highcharts.Highcharts
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSaveVisualization").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Save")',
+                dataType: 'json',
+                data: { id: $("#btnSaveVisualization").val() },
+                success: function (states) {
+                    alert('Visualization Saved');
+                },
+                error: function (ex) {
+                    //alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        })
+    });
+</script>
+
+<h2>Visulization</h2>
+
+@(Model)
+
+<input id="btnSaveVisualization" type="button" value="Save Visualization" width="200" height="40" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/HighChart")
+}
+
+

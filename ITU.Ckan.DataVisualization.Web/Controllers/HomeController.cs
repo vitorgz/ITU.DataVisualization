@@ -4,8 +4,10 @@ using ITU.Ckan.DataVisualization.InternalDslApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ITU.Ckan.DataVisualization.Web.Controllers
 {
@@ -56,7 +58,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (string.IsNullOrEmpty(vs)) return null;
             RootInstance.CurrentVisualization = DBClient.GetVisualizationByName(vs);
 
-            return RedirectToAction("Index", "Draw");
+            //return RedirectToAction("DrawChart", "Draw");
+            return Json(Url.Action("DrawChart", "Draw"));
         }
 
     }

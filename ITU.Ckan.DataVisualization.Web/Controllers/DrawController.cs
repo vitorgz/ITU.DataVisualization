@@ -24,15 +24,28 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var filters = visual.GetFilters();
             Table data;
-            if(visual.graph==null) throw new Exception("Chart was not selected");
+            if (visual.graph == null) throw new Exception("Chart was not selected");
             if (visual.graph.name != "PieChart")
                 data = await visual.GetData(filters);
             else
-                data = await visual.GetPieChartData(filters);           
+                data = await visual.GetPieChartData(filters);
 
+            return View(this.Draw(data, visual.graph));
+        }
 
+        public ActionResult DrawChart()
+        {
+            var visual = RootInstance.CurrentVisualization;
+
+            var chart = this.Draw(visual.table, visual.graph);
+
+            return View(chart);
+        }
+
+        public DotNet.Highcharts.Highcharts Draw(Table data, Graph graph)
+        {
             if (data == null)
-                return View();
+                return null;
 
             //visual.AddTable(data);
             RootInstance.CurrentVisualization.table = data;
@@ -49,7 +62,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                            //select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
                        select new { data = row.Value, name = row.name };
 
-            var chartType = getChartType(visual.graph);
+            var chartType = getChartType(graph);
         
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                .InitChart(new Chart() { DefaultSeriesType = chartType });
@@ -72,7 +85,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             chart.SetSeries(series);
 
-            return View(chart);
+            return chart;
         }
 
         [HttpPost]

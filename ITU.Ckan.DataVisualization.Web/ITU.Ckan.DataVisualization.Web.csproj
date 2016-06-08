@@ -351,6 +351,7 @@
     <Content Include="Views\DataSource\_xAxisView.cshtml" />
     <Content Include="Views\DataSource\_serie1View.cshtml" />
     <Content Include="Views\DataSource\_serie2View.cshtml" />
+    <Content Include="Views\Draw\DrawChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
