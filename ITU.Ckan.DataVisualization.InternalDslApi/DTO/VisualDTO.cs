@@ -8,9 +8,12 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi.DTO
 {
     public class VisualDTO
     {
+        public string name { get; set; }
+
         public List<SourceDTO> sources { get; set; }
 
         public int limit { get; set; }
+
         public int offset { get; set; }
     }
 

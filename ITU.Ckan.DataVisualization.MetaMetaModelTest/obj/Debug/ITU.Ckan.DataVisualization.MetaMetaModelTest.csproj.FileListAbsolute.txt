@@ -20,8 +20,6 @@ C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\b
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ScriptCs.Contracts.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ScriptCs.Core.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.InternalDslApi.dll
-C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.EFDataBase.dll
-C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\EntityFramework.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\System.Net.Http.Formatting.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\Newtonsoft.Json.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.InternalDsl.pdb
@@ -32,8 +30,6 @@ C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\b
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\Roslyn.Compilers.CSharp.xml
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.InternalDslApi.pdb
-C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\ITU.Ckan.DataVisualization.EFDataBase.pdb
-C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\bin\Debug\EntityFramework.xml
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.csprojResolveAssemblyReference.cache
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelTest\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelTest.pdb

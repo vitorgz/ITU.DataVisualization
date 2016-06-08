@@ -1,4 +1,5 @@
 ﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +13,34 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 {
     public class DbController : ApiController
     {
+        [Route("api/SaveVisualization")]
+        [HttpPost]
+        public HttpResponseMessage SaveVisualization(Visualization name)
+        {
+            Startup.context.Visualizations.Add(name);
+            Startup.context.SaveChanges();
+
+            return Request.CreateResponse(HttpStatusCode.OK, true);
+        }
+
         [Route("api/GetVisualization")]
         [HttpPost]
-        public HttpResponseMessage GetVisualization(string name)
+        public HttpResponseMessage GetVisualization(VisualDTO dto)
         {
-            var visual = DBClient.GetVisualizationByName(name);
+            var name = dto.name;
 
-            return Request.CreateResponse(HttpStatusCode.OK, visual);
+            var vs = Startup.context.Visualizations.Where(x => x.name == name).FirstOrDefault();
+
+            return Request.CreateResponse(HttpStatusCode.OK, vs);
         }
 
         [Route("api/GetVisualizationList")]
+        [HttpPost]
         public HttpResponseMessage GetVisualizationList()
         {
-            var visuals = DBClient.GetListVisualizations();
+            var vsNames = Startup.context.Visualizations.Select(x => x.name).ToList();
 
-            return Request.CreateResponse(HttpStatusCode.OK, visuals);
+            return Request.CreateResponse(HttpStatusCode.OK, vsNames);
         }
     }
 }

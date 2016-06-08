@@ -13,9 +13,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var vsList = DBClient.GetListVisualizations();
+            var vsList = await DBClient.GetListVisualizations<List<string>>();
 
             List<SelectListItem> items = new List<SelectListItem>();
             foreach (var item in vsList)
@@ -53,10 +53,10 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectVisualization(string vs)
+        public async Task<ActionResult> SelectVisualization(string vs)
         {
             if (string.IsNullOrEmpty(vs)) return null;
-            RootInstance.CurrentVisualization = DBClient.GetVisualizationByName(vs);
+            RootInstance.CurrentVisualization = await DBClient.GetVisualizationByName<Visualization>(vs);
 
             //return RedirectToAction("DrawChart", "Draw");
             return Json(Url.Action("DrawChart", "Draw"));

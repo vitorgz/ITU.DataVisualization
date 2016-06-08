@@ -1,4 +1,5 @@
 ﻿using ITU.Ckan.DataVisualization.CloudApi;
+using ITU.Ckan.DataVisualization.EFDataBase;
 using Microsoft.Owin;
 using Owin;
 using System;
@@ -13,6 +14,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi
 {
     public class Startup
     {
+        public static VisualizationDBContext context;
+
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();
@@ -20,6 +23,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi
             //config.DependencyResolver = new NinjectDependencyResolver(CreateKernel());
 
             config.MapHttpAttributeRoutes();
+
+
+            context = new VisualizationDBContext();
 
             //string connectionString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"];
             //GlobalHost.DependencyResolver.UseServiceBus(connectionString, "Chat");

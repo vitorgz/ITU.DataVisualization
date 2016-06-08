@@ -45,7 +45,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public DotNet.Highcharts.Highcharts Draw(Table data, Graph graph)
         {
             if (data == null)
-                return null;
+                throw new System.InvalidOperationException("No Data Found for this criteria, please try again");
 
             //visual.AddTable(data);
             RootInstance.CurrentVisualization.table = data;
@@ -89,9 +89,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         }
 
         [HttpPost]
-        public void Save(string id)
+        public async void Save(string id)
         {
-            DBClient.SaveVisualization(RootInstance.CurrentVisualization);
+           await DBClient.SaveVisualization<bool>(RootInstance.CurrentVisualization);
         }
         
         private DotNet.Highcharts.Enums.ChartTypes getChartType(Graph graph)
