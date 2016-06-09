@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ITU.Ckan.DataVisualization.InternalDsl.IFactories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,25 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
    public class DataSetFactory : IDataSetFactory
     {
-        private DataSet dataSet;
-        public IDataSetFactory Initialize()
+        private static DataSet dataSet;
+        private static IDataSetFactory dataSetf;
+        public static IDataSetFactory Initialize
         {
-            dataSet = new DataSet();
+            get
+            {
+                if (dataSetf == null)
+                    dataSetf = new DataSetFactory();
+                if (dataSet == null)
+                    dataSet = new DataSet();
+                return dataSetf as IDataSetFactory;
+            }
+        }
+
+        public IDataSetFactory AddIn(Action<IDataSetFactory> action)
+        {
+            var expression = DataSetFactory.Initialize;
+            action.Invoke(expression);
+
             return this;
         }
 

@@ -119,8 +119,11 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         [TestMethod]
         public void TestRootFactory()
         {
-            var r = new RootFactory().Initialize()
-                .AddVisualization("test").Create();
+            //var r = new RootFactory().Initialize()
+            //    .AddVisualization("test").Create();
+
+            var r = new Root();
+            r.visualizations.Add(new Visualization() { name = "test" });
 
             var s = r.GetVisualization("test");
             var ss = r.GetVisualizationById(x => x.name == "test");
@@ -131,11 +134,11 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         [TestMethod]
         public void TestDataSetFactory()
         {
-            var ds = new DataSetFactory().Initialize()
-                .AddField(new List<Field>())
-                .AddGroup(new List<Group>())
-                .AddOrganization(new Organization())
-                .Create();
+            //var ds = new DataSetFactory().Initialize
+            //    .AddField(new List<Field>())
+            //    .AddGroup(new List<Group>())
+            //    .AddOrganization(new Organization())
+            //    .Create();
 
         }
 

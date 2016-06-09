@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
+namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
 {
     public interface IVisualizationFactory
     {
-       //IVisualizationFactory Initialize();
+        //IVisualizationFactory Initialize();
+        IVisualizationFactory AddIn(Action<IVisualizationFactory> action);
         IVisualizationFactory AddSource(List<Source> source);
         IVisualizationFactory addTable(Table data);
         //List<Source> GetSources();

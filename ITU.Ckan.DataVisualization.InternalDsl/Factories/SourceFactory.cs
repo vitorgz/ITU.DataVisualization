@@ -1,4 +1,5 @@
-﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+﻿using ITU.Ckan.DataVisualization.InternalDsl.IFactories;
+using ITU.Ckan.DataVisualization.InternalDslApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,10 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class SourceFactory : ISourceFactory
     {
-        static Source source;
-        //public static Source Initialize
-        //{
-        //    get{
-        //        if(source == null) 
-        //            source = new Source();
-        //        return source;
-        //    }
-        //}
+        private static Source source;
 
-        static SourceFactory sourcef;
+        private static SourceFactory sourcef;
+
         public static ISourceFactory Initialize
         {
             get
@@ -36,7 +30,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         {
             var expression = SourceFactory.Initialize;
             action.Invoke(expression);
-
+            
             return this;
         }
 

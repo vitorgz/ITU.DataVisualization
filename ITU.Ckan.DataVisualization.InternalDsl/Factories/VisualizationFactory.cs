@@ -1,4 +1,5 @@
-﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+﻿using ITU.Ckan.DataVisualization.InternalDsl.IFactories;
+using ITU.Ckan.DataVisualization.InternalDslApi;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,36 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 {
     public class VisualizationFactory : IVisualizationFactory
     {
-        static Visualization visual;
+        private static Visualization visual;
+
+        private static VisualizationFactory visualf;
+
+        public static IVisualizationFactory Initialize
+        {
+            get
+            {
+                if (visual == null)
+                    visual = new Visualization();
+                if (visualf == null)
+                    visualf = new VisualizationFactory();
+
+                return visualf as IVisualizationFactory;
+            }
+        }
+
+        public IVisualizationFactory AddIn(Action<IVisualizationFactory> action)
+        {
+            var expression = VisualizationFactory.Initialize;
+            action.Invoke(expression);
+
+            return this;
+        }
+
+        public Visualization Create()
+        {
+            return visual;
+        }
+
         public IVisualizationFactory AddSource(List<Source> sources)
         {
             visual.sources = new List<Source>(sources);
@@ -21,12 +51,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         {
             visual.table = data;
             return this;
-        }
-
-
-        public Visualization Create()
-        {
-            return visual;
         }
 
         public async Task<IVisualizationFactory> GetData(VisualDTO filters)
@@ -46,22 +70,8 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         public List<Source> GetSources()
         {
             return visual.sources.ToList();
-        }
-
-        static VisualizationFactory visualf;
-
-        public static IVisualizationFactory Initialize
-        {
-            get
-            {
-                if (visual == null)
-                    visual = new Visualization();
-                if (visualf == null)
-                    visualf = new VisualizationFactory();
-
-                return visualf;
-            }
-        }
+        }  
+       
     }
 }
 

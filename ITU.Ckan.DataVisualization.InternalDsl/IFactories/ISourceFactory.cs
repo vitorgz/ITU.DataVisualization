@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
+namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
 {
     public interface ISourceFactory
     {

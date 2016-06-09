@@ -86,9 +86,15 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             if (source.packages == null)
             {
-                var pck = SourceFactory.Initialize.AddIn(x =>
+                //var pck = await SourceFactory.Initialize.AddIn(async x =>
+                //{
+                //    await x.GetPackagesAsync(id).ConfigureAwait(false);
+                //});
+                //var s = pck.Create
+
+                var pck = SourceFactory.Initialize.AddIn( x =>
                             {
-                                x.GetPackages(id);
+                                x.GetPackages(id);                                
                                 //x.GetGroups(id);
                                 //x.GetTag(id);
                             }).Create();
@@ -118,9 +124,10 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             if (pkg.dataSets == null)
             {
-                var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
-                var newPkg = ds.Create();
-                pkg.dataSets = newPkg.dataSets;
+                //var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
+                var ds = PackageFactory.Initialize.AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
+                //var newPkg = ds.Create();
+                pkg.dataSets = ds.dataSets;
             }
 
             List<SelectListItem> items = new List<SelectListItem>();
