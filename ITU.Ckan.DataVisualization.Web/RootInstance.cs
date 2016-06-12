@@ -28,6 +28,6 @@ namespace ITU.Ckan.DataVisualization.Web
             }
         }
 
-        public static Visualization CurrentVisualization {get;set;}
+        public static Visualization CurrentVisualization { get; set; }
     }
 }

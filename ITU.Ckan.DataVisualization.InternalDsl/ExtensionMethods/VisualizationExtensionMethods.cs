@@ -58,12 +58,18 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                     .Where(x => x.dataSets != null)
                     .SelectMany(x => x.dataSets.Where(y => y.format == "CSV")).ToList();
 
-                dts.ForEach(x => sourceDTO.Add(new SourceDTO()
+                dts.ForEach(x =>
                 {
-                    dataSetId = x.id,
-                    fields = x.fields.Where(y => y.selected || y.xAxys).ToList(),
-                    sourceName = source.name
-                }));                
+                    var selcted = x.fields.Where(y => y.selected || y.xAxys).ToList();
+                    if (selcted.Any())
+                        sourceDTO.Add(new SourceDTO()
+                        {
+                            dataSetId = x.id,
+                            fields = selcted,
+                            sourceName = source.name
+                        });
+                }
+                );
             }
 
 

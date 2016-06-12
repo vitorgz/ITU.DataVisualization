@@ -89,7 +89,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         }
 
         [HttpPost]
-        public async void Save(string id)
+        public async Task Save(string id)
         {
            await DBClient.SaveVisualization<bool>(RootInstance.CurrentVisualization);
         }

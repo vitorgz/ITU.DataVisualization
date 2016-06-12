@@ -18,7 +18,10 @@ namespace ITU.Ckan.DataVisualization.EFDataBase
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<VisualizationDBContext, Configuration>());
 
         }
-        
+
+        public DbSet<VisualizationDB> Visualizations { get; set; }
+
+        /* meta-model structure
         public DbSet<Visualization> Visualizations  { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Tag> Tags { get; set; }
@@ -35,6 +38,7 @@ namespace ITU.Ckan.DataVisualization.EFDataBase
         public DbSet<Field> Fields { get; set; }
         public DbSet<DataSet> DataSets { get; set; }
         public DbSet<Column> Columns { get; set; }
+        */
 
         public void Detach(object entity)
         {
@@ -49,10 +53,10 @@ namespace ITU.Ckan.DataVisualization.EFDataBase
             //Disable one-to-many cascade delete.
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
-            modelBuilder.Entity<Visualization>().HasKey(x=>x.VisualizationId)
-                .HasMany<Source>(s => (ICollection<Source>)s.sources);
-            modelBuilder.Entity<DataSet>().HasKey(x => x.DataSetId);
-            modelBuilder.Entity<Field>().HasKey(x => x.FieldId);
+            //modelBuilder.Entity<Visualization>().HasKey(x=>x.VisualizationId)
+            //    .HasMany<Source>(s => (ICollection<Source>)s.sources);
+            //modelBuilder.Entity<DataSet>().HasKey(x => x.DataSetId);
+            //modelBuilder.Entity<Field>().HasKey(x => x.FieldId);
 
 
             base.OnModelCreating(modelBuilder);

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisualizationDB.cs" />
     <Compile Include="VisualizationDBContext.cs" />
   </ItemGroup>
   <ItemGroup>

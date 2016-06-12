@@ -1,5 +1,7 @@
-﻿using ITU.Ckan.DataVisualization.InternalDslApi;
+﻿using ITU.Ckan.DataVisualization.EFDataBase;
+using ITU.Ckan.DataVisualization.InternalDslApi;
 using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,13 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
     {
         [Route("api/SaveVisualization")]
         [HttpPost]
-        public HttpResponseMessage SaveVisualization(Visualization name)
+        public HttpResponseMessage SaveVisualization(Visualization visual)
         {
-            Startup.context.Visualizations.Add(name);
+            var visuaJSON = JsonConvert.SerializeObject(visual);
+
+            var data = new VisualizationDB() { name = visual.name, visualizationAsJson = visuaJSON };
+
+            Startup.context.Visualizations.Add(data);
             Startup.context.SaveChanges();
 
             return Request.CreateResponse(HttpStatusCode.OK, true);
@@ -30,6 +36,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             var name = dto.name;
 
             var vs = Startup.context.Visualizations.Where(x => x.name == name).FirstOrDefault();
+            
+            var deserialize = JsonConvert.DeserializeObject(vs.visualizationAsJson, typeof(Visualization));
 
             return Request.CreateResponse(HttpStatusCode.OK, vs);
         }

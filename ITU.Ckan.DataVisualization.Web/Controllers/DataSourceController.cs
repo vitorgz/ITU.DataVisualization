@@ -94,9 +94,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
                 var pck = SourceFactory.Initialize.AddIn( x =>
                             {
-                                x.GetPackages(id);                                
-                                //x.GetGroups(id);
-                                //x.GetTag(id);
+                                x.GetPackagesAsync(id);                                
+                                x.GetGroupsAsync(id);
+                                x.GetTagAsync(id);
                             }).Create();
 
                 source.packages = pck.packages; //TODO remove "Result" for non async

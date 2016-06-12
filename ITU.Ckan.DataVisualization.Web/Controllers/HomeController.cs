@@ -56,7 +56,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public async Task<ActionResult> SelectVisualization(string vs)
         {
             if (string.IsNullOrEmpty(vs)) return null;
-            RootInstance.CurrentVisualization = await DBClient.GetVisualizationByName<Visualization>(vs);
+            RootInstance.CurrentVisualization = null;
+            var visual = await DBClient.GetVisualizationByName<Visualization>(vs);
+            RootInstance.CurrentVisualization = visual;
 
             //return RedirectToAction("DrawChart", "Draw");
             return Json(Url.Action("DrawChart", "Draw"));
