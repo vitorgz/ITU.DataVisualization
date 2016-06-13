@@ -17,29 +17,31 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
     {
         [Route("api/SaveVisualization")]
         [HttpPost]
-        public HttpResponseMessage SaveVisualization(Visualization visual)
+        public async Task<HttpResponseMessage> SaveVisualization(Visualization visual)
         {
             var visuaJSON = JsonConvert.SerializeObject(visual);
 
             var data = new VisualizationDB() { name = visual.name, visualizationAsJson = visuaJSON };
 
             Startup.context.Visualizations.Add(data);
-            Startup.context.SaveChanges();
+            await Startup.context.SaveChangesAsync();
 
             return Request.CreateResponse(HttpStatusCode.OK, true);
         }
 
         [Route("api/GetVisualization")]
         [HttpPost]
-        public HttpResponseMessage GetVisualization(VisualDTO dto)
+        public async Task<HttpResponseMessage> GetVisualization(VisualDTO dto)
         {
             var name = dto.name;
 
             var vs = Startup.context.Visualizations.Where(x => x.name == name).FirstOrDefault();
             
-            var deserialize = JsonConvert.DeserializeObject(vs.visualizationAsJson, typeof(Visualization));
+            var deserialize = Task.Factory.StartNew( () => JsonConvert.DeserializeObject(vs.visualizationAsJson, typeof(Visualization)));
 
-            return Request.CreateResponse(HttpStatusCode.OK, vs);
+            Visualization visual = deserialize.Result as Visualization;
+
+            return Request.CreateResponse(HttpStatusCode.OK, visual);
         }
 
         [Route("api/GetVisualizationList")]
