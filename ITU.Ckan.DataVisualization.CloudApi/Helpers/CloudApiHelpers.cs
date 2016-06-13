@@ -79,7 +79,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
                 }
 
                 item.record.name = item.id.ToString();
-                item.record.value = jsonValues.ToList();
+                if(jsonValues.Any())
+                   item.record.value = jsonValues.ToList();
             }
 
             //dts.records = json

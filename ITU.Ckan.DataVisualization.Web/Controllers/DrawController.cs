@@ -30,19 +30,19 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             else
                 data = await visual.GetPieChartData(filters);
 
-            return View(this.Draw(data, visual.graph));
+            return View(this.Draw(data, visual.graph, visual.name));
         }
 
         public ActionResult DrawChart()
         {
             var visual = RootInstance.CurrentVisualization;
 
-            var chart = this.Draw(visual.table, visual.graph);
+            var chart = this.Draw(visual.table, visual.graph, visual.name);
 
             return View(chart);
         }
 
-        public DotNet.Highcharts.Highcharts Draw(Table data, Graph graph)
+        public DotNet.Highcharts.Highcharts Draw(Table data, Graph graph, string name)
         {
             if (data == null)
                 throw new System.InvalidOperationException("No Data Found for this criteria, please try again");
@@ -67,9 +67,11 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             DotNet.Highcharts.Highcharts chart = new DotNet.Highcharts.Highcharts("chart")
                .InitChart(new Chart() { DefaultSeriesType = chartType });
 
+            chart.SetTitle(new Title() { Text = name });
             chart.SetXAxis(new XAxis
             {
-                Categories = xAxisDAta
+                Categories = xAxisDAta,
+                Title = new XAxisTitle() { Text = data.column != null ? data.column.name : string.Empty }
             });
 
             var series = new Series[rows.Count()];
@@ -91,7 +93,10 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         [HttpPost]
         public async Task Save(string id)
         {
-           await DBClient.SaveVisualization<bool>(RootInstance.CurrentVisualization);
+            //var visual = RootInstance.CurrentVisualization.sources.Where(x => x.packages != null).
+            //    Where(x => x.packages.Any(y => y.dataSets != null));
+
+            await DBClient.SaveVisualization<bool>(RootInstance.CurrentVisualization);
         }
         
         private DotNet.Highcharts.Enums.ChartTypes getChartType(Graph graph)

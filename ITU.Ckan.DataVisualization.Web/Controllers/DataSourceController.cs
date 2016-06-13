@@ -59,6 +59,11 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
                 .SelectMany(z => z.GetYAxys())));
 
+            var xList = visual.sources.Where(x => x.packages != null)
+                .SelectMany(x => x.packages.Where(e => e != null && e.dataSets != null)
+                .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
+                .Select(z => z.GetXAxys())));
+
             //var yList = new List<Field>();
 
             //foreach (var source in visual.sources)
@@ -75,6 +80,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             //        }
             //}
 
+            xList.Where(x => x != null).ToList().ForEach(x => x.xAxys = false);
             yList.ToList().ForEach(x => x.selected = false);
         }
 
@@ -86,20 +92,14 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             if (source.packages == null)
             {
-                //var pck = await SourceFactory.Initialize.AddIn(async x =>
-                //{
-                //    await x.GetPackagesAsync(id).ConfigureAwait(false);
-                //});
-                //var s = pck.Create
+                var pck = new SourceFactory().AddIn(x =>
+                {
+                    x.GetPackages(id);
+                    x.GetGroups(id);
+                    x.GetTag(id);
+                }).Create();
 
-                var pck = SourceFactory.Initialize.AddIn( x =>
-                            {
-                                x.GetPackagesAsync(id);                                
-                                x.GetGroupsAsync(id);
-                                x.GetTagAsync(id);
-                            }).Create();
-
-                source.packages = pck.packages; //TODO remove "Result" for non async
+                source.packages = pck.packages;
             }
 
             List<SelectListItem> items = new List<SelectListItem>();
