@@ -65,6 +65,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             JObject json = null;
             if (!string.IsNullOrEmpty(response.ToString()))
                 json = JObject.Parse(response.ToString());
+            else
+                return;
 
             foreach (var item in fields)
             {
@@ -113,7 +115,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
                 {
                     name = item.id.ToString(),
                     Type = ResolveType(item.type),
-                    Value = item.record.value //ConvertArrayToSpecificType(item.record.value, ResolveType(item.type))
+                    Value = item.record !=null ? item.record.value : null //ConvertArrayToSpecificType(item.record.value, ResolveType(item.type))
                 };
                 rows.Add(row);
             }

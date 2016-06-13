@@ -93,10 +93,23 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         [HttpPost]
         public async Task Save(string id)
         {
-            //var visual = RootInstance.CurrentVisualization.sources.Where(x => x.packages != null).
-            //    Where(x => x.packages.Any(y => y.dataSets != null));
+            //if "selected" strategy was working, just filter by "selected"
+            var selectedSources = RootInstance.CurrentVisualization.sources.Where(x => x.packages != null).
+                Where(x => x.packages.Any(y => y.dataSets != null)).ToList();
+                //Where(x => x.packages.SelectMany(y => y.dataSets).Any(z => z.fields != null)).
+                //Where(x => x.packages.SelectMany(y => y.dataSets).SelectMany(z => z.fields).Any(d => d.selected || d.xAxys))
+                //.ToList();
 
-            await DBClient.SaveVisualization<bool>(RootInstance.CurrentVisualization);
+            var newVisual = new Visualization()
+            {
+                graph = RootInstance.CurrentVisualization.graph,
+                name = RootInstance.CurrentVisualization.name,
+                table = RootInstance.CurrentVisualization.table,
+                VisualizationId = RootInstance.CurrentVisualization.VisualizationId,
+                sources = selectedSources
+            };
+
+            await DBClient.SaveVisualization<bool>(newVisual);
         }
         
         private DotNet.Highcharts.Enums.ChartTypes getChartType(Graph graph)
