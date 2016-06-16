@@ -36,15 +36,12 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
         [Route("api/GetDataSet")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetDataSet(Source source)
+        public async Task<HttpResponseMessage> GetDataSet(DataSetDTO dto)
         {
-            try {
-                var pkg = new Package();
-                pkg.name = source.packages.FirstOrDefault().name;
-                pkg.dataSets = new List<DataSet>();
+            try {                
 
                 //http://data.kk.dk/api/action/package_show?id=aalegraes
-                var response = await GenericApi.GenericRestfulClient.Get<PackageDeserialize>(source.name, "/api/action/package_show", source.packages.FirstOrDefault().name);
+                var response = await GenericApi.GenericRestfulClient.Get<PackageDeserialize>(dto.source, "/api/action/package_show", dto.packageId);
 
                 //find CSV datasets
                 var csvFiles = response.result.resources.Where(x => x.format == "CSV");
@@ -52,15 +49,15 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 //check if it's a DataStore and if it's, get MetaData
                 foreach (var file in csvFiles)
                 {
-                    var resp = await GenericApi.GenericRestfulClient.Get<DataSetDeserialize>(source.name, "/api/action/datastore_search", file.id, 1);
+                    var resp = await GenericApi.GenericRestfulClient.Get<DataSetDeserialize>(dto.source, "/api/action/datastore_search", file.id, 1);
                     file.fields = resp.result.fields;
 
                 }
 
                 //add data sets to package
-                response.result.resources.ForEach(x => (pkg.dataSets as List<DataSet>).Add(x));
+                var dts = response.result.resources;
 
-                return Request.CreateResponse(HttpStatusCode.OK, pkg);
+                return Request.CreateResponse(HttpStatusCode.OK, dts);
             }
             catch (HttpRequestException ex)
             {

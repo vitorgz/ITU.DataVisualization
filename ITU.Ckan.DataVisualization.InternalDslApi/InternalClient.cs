@@ -47,8 +47,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
         public static async Task<T> GetDataSet<T>(string url, string id)
         {
             var api = "/api/GetDataSet";
-            var content = new Source() { name = url };
-            content.packages = new List<Package>() { new Package() { name = id} };
+            var content = new DataSetDTO() { source = url, packageId = id };
             return await GetCkanAsync<T>(api, content);
         }
 

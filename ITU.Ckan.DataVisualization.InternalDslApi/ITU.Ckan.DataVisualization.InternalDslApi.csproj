@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBClient.cs" />
+    <Compile Include="DTO\DataSetDTO.cs" />
     <Compile Include="DTO\PieChartDTO.cs" />
     <Compile Include="DTO\SourceDTO.cs" />
     <Compile Include="DTO\VisualDTO.cs" />

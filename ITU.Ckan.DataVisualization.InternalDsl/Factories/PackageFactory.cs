@@ -49,9 +49,8 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         {
             var task = Task.Run(async () =>
             {
-                //todo change it to <List<DataSet>> make more sense
-                var pck = await InternalClient.GetDataSet<Package>(dataSetUrl, id);
-            package = pck;
+                var dts = await InternalClient.GetDataSet<List<DataSet>>(dataSetUrl, id);
+            package.dataSets = dts;
             });
             task.Wait();
 
