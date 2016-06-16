@@ -12,6 +12,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
         IPackageFactory AddIn(Action<IPackageFactory> action);
         IPackageFactory AddDataSet(List<DataSet> dataSets);
         Package Create();
-        Task<IPackageFactory> GetDataSetsById(string dataSetUrl, string id);
+        IPackageFactory GetDataSetsById(string dataSetUrl, string id);
     }
 }

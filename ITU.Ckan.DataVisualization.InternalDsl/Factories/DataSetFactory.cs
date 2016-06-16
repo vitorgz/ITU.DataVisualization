@@ -39,25 +39,27 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public IDataSetFactory AddGroup(List<Group> groups)
         {
-            //TODO -> it is a relationship, not new entities, go the (group, organi., tag, records) table 
+            //it is a relationship, not new entities, perhaps better go the (group, organi., tag, records) table 
             //var group = source.GetGroups.Where(x=>x.dataSet = id);
+            dataSet.groups = new List<Group>(groups);
             return this;
         }
 
         public IDataSetFactory AddOrganization(Organization organization)
         {
-            //Todo
+            dataSet.organization = organization;
             return this;
         }
 
         public IDataSetFactory AddTag(List<Tag> tags)
         {
-            //todo
+            dataSet.tags = new List<Tag>(tags);
             return this;
         }
         public IDataSetFactory GetRecords()
         {
-            //todo
+            //todo (not needed right now, because the Fields are getting together with the DAtaSEts)
+            //but it would be nice to implement GetFields()
             return this;
         }
 

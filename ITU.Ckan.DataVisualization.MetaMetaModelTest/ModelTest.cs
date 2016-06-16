@@ -146,7 +146,7 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void TestAddInDSL()
         {
             var mySource =
-              SourceFactory.Initialize.AddIn(
+              new SourceFactory().AddIn(
                x =>
                {
                    x.AddGroup(new List<Group>() { new Group() { name = "test" } }); 
@@ -164,12 +164,12 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void TestAddInGetsDSL()
         {
             var mySource =
-              SourceFactory.Initialize.AddIn(
+             new SourceFactory().AddIn(
                x =>
                {
-                   x.GetGroupsAsync("tets");
-                   x.GetOrganizationsAsync("test");
-                   x.GetPackagesAsync("test");
+                   x.GetGroups("tets");
+                   x.GetOrganizations("test");
+                   x.GetPackages("test");
                  }
                ).Create();
 
@@ -191,7 +191,7 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void TestAddInDSL2()
         {
             var mySource =
-              SourceFactory.Initialize.AddIn(
+              new SourceFactory().AddIn(
                x =>
                {
                    x.GetGroups("http://data.kk.dk");

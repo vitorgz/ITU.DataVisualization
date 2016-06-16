@@ -45,7 +45,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return package;
         }
 
-        public async Task<IPackageFactory> GetDataSetsById(string dataSetUrl, string id)
+        public IPackageFactory GetDataSetsById(string dataSetUrl, string id)
         {
             var task = Task.Run(async () =>
             {

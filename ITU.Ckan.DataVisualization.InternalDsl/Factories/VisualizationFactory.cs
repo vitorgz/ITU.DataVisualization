@@ -53,17 +53,27 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public async Task<IVisualizationFactory> GetData(VisualDTO filters)
+        public IVisualizationFactory GetData(VisualDTO filters)
         {
-            var table = await InternalClient.Get<Table>(filters);
-            visual.table = new Table();
-            visual.table = table;
+            var task = Task.Run(async () =>
+            {
+                var table = await InternalClient.Get<Table>(filters);
+                visual.table = new Table();
+                visual.table = table;
+            });
+            task.Wait();
             return this;
         }
 
-        public async Task<IVisualizationFactory> GetPieChartData(VisualDTO filters)
+        public IVisualizationFactory GetPieChartData(VisualDTO filters)
         {
-            //TODO
+            var task = Task.Run(async () =>
+            {
+                var table = await InternalClient.GetPieChart<Table>(filters);
+                visual.table = new Table();
+                visual.table = table;
+            });
+            task.Wait();
             return this;
         }
 

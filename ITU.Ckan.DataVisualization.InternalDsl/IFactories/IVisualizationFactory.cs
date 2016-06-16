@@ -15,7 +15,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
         IVisualizationFactory addTable(Table data);
         //List<Source> GetSources();
         Visualization Create();
-        Task<IVisualizationFactory> GetData(VisualDTO filters);
-        
+        IVisualizationFactory GetData(VisualDTO filters);
+        IVisualizationFactory GetPieChartData(VisualDTO filters);
+
+
     }
 }

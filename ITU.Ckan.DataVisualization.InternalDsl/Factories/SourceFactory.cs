@@ -66,48 +66,11 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
         }
 
         #endregion
-
-        #region async methods
-
-        public async Task<ISourceFactory> GetPackagesAsync(string src)
-        {
-            var sources = await InternalClient.GetPackages<List<Package>>(src);
-            source.packages = sources;
-
-            return this;
-        }
-
-        public async Task<ISourceFactory> GetGroupsAsync(string scr)
-        {
-            var groups = await InternalClient.GetGroups<List<Group>>(scr);
-            source.groups = groups;
-
-            return this;
-        }
-
-        public async Task<ISourceFactory> GetOrganizationsAsync(string scr)
-        {
-            var orga = await InternalClient.GetOrganizations<List<Organization>>(scr);
-            source.organizations = orga;
-
-            return this;
-        }
-
-        public async Task<ISourceFactory> GetTagAsync(string scr)
-        {
-            var tags = await InternalClient.GetTags<List<Tag>>(scr);
-            source.tags = tags;
-
-            return this;
-        }
-
-        #endregion
-
+        
         #region sync methods
 
         public ISourceFactory GetPackages(string src)
         {
-            //same options, also block!
             var task = Task.Run(async () =>
             {
                 var tas = await InternalClient.GetPackages<List<Package>>(src);
@@ -117,7 +80,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
             return this;
         }
-
+        
         public ISourceFactory GetGroups(string src)
         {
             var task = Task.Run(async () =>

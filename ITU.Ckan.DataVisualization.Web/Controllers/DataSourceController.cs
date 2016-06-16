@@ -96,7 +96,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 {
                     x.GetPackages(id);
                     x.GetGroups(id);
-                    x.GetTag(id);
+                    //x.GetTag(id);
                 }).Create();
 
                 source.packages = pck.packages;
@@ -125,7 +125,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (pkg.dataSets == null)
             {
                 //var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
-                var ds = PackageFactory.Initialize.AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
+                var ds = new PackageFactory().AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
                 //var newPkg = ds.Create();
                 pkg.dataSets = ds.dataSets;
             }
