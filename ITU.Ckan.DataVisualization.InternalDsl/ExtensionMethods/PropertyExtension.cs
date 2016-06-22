@@ -8,10 +8,14 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
 {
     public static class PropertyExtension
     {
-        public static TProperty WithProperties<TProperty>(this TProperty classWithProperties, string name)
+        public static TProperty AddGenericProperties<TProperty>(this TProperty classWithProperties, string name, object value)
             where TProperty : IPropertable
         {
-            classWithProperties.properties = new List<Property>(); //foreach list
+            if (classWithProperties.properties == null)
+                classWithProperties.properties = new List<Property>();
+
+            classWithProperties.properties.Add(new Property() { name = name, value = value });
+
             return classWithProperties;
         }
     }

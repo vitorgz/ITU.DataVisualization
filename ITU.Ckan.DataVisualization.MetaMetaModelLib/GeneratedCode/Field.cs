@@ -9,15 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Field : NamedElement, IEntity
+public class Field : NamedElement, IPropertable
 {
 	public virtual object type
-	{
-		get;
-		set;
-	}
-
-	public virtual int FieldId
 	{
 		get;
 		set;
@@ -47,5 +41,9 @@ public class Field : NamedElement, IEntity
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get; set;
+    }
 }
 

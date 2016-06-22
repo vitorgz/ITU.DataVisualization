@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class DataSet : NamedElement, ICkanBuilder, IEntity
+public class DataSet : NamedElement, IPropertable
 {
 	public virtual int limit
 	{
@@ -30,12 +30,6 @@ public class DataSet : NamedElement, ICkanBuilder, IEntity
 	}
 
 	public virtual ICollection<Property> properties
-	{
-		get;
-		set;
-	}
-
-	public virtual int DataSetId
 	{
 		get;
 		set;

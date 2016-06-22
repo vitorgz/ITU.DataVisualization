@@ -97,7 +97,8 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         public void TestPropertiesInterface()
         {
             //var s = new Organization().WithProperties<Organization>("test");
-            var s = new Tag().WithProperties("test");
+            var s = new Tag().AddGenericProperties("test", 3);
+            s.AddGenericProperties("test2", 4);
 
             var ss = s;
         }
@@ -107,13 +108,13 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             //var s = new Organization().WithProperties<Organization>("test");
 
-            var s = new Source()
-                .addAttributes(new List<Group>())
-                .addAttributes(new List<Package>());
+            //var s = new Source()
+            //    .addAttributes(new List<Group>())
+            //    .addAttributes(new List<Package>());
 
             //var sd = s.Packages.Where(x => x.DataSets.FirstOrDefault().addFields(new List<Field>()));
 
-            Assert.IsNotNull(s);
+            //Assert.IsNotNull(s);
         }
 
         [TestMethod]
@@ -128,7 +129,7 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
             var s = r.GetVisualization("test");
             var ss = r.GetVisualizationById(x => x.name == "test");
 
-            var ta = ss.addAttributes(new List<Group>());
+            // var ta = ss.addAttributes(new List<Group>());
         }
 
         [TestMethod]

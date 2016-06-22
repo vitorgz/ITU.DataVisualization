@@ -45,8 +45,6 @@
     <Compile Include="GeneratedCode\Field.cs" />
     <Compile Include="GeneratedCode\Graph.cs" />
     <Compile Include="GeneratedCode\Group.cs" />
-    <Compile Include="GeneratedCode\ICkanBuilder.cs" />
-    <Compile Include="GeneratedCode\IEntity.cs" />
     <Compile Include="GeneratedCode\IPropertable.cs" />
     <Compile Include="GeneratedCode\NamedElement.cs" />
     <Compile Include="GeneratedCode\Organization.cs" />

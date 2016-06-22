@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Column : NamedElement
+public class Column : NamedElement, IPropertable
 {
 	public virtual object Type
 	{
@@ -29,5 +29,17 @@ public class Column : NamedElement
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+
+        set
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

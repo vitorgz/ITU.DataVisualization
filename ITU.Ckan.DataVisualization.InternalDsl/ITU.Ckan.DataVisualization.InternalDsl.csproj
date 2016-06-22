@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExtensionMethods\CkanBuilderExtension.cs" />
     <Compile Include="ExtensionMethods\DataSetExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\PackageExtensionMethods.cs" />
     <Compile Include="ExtensionMethods\SourceExtensionMethods.cs" />

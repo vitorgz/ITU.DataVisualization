@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Property : NamedElement, IEntity
+public class Property : NamedElement
 {
 	public virtual object value
 	{

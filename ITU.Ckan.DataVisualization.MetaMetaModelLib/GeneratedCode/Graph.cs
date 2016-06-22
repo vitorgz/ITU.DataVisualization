@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Graph : NamedElement
+public class Graph : NamedElement, IPropertable
 {
 	public virtual object type
 	{
@@ -23,5 +23,9 @@ public class Graph : NamedElement
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get; set;
+    }
 }
 

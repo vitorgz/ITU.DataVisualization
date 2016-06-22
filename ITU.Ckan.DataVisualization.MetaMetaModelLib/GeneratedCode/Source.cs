@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Source : NamedElement, ICkanBuilder, IEntity
+public class Source : NamedElement, IPropertable
 {
 	public virtual int SourceId
 	{
@@ -41,5 +41,9 @@ public class Source : NamedElement, ICkanBuilder, IEntity
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get; set;
+    }
 }
 

@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Record : NamedElement, IEntity
+public class Record : NamedElement, IPropertable
 {
 	public virtual object value
 	{
@@ -23,5 +23,9 @@ public class Record : NamedElement, IEntity
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get; set; 
+    }
 }
 

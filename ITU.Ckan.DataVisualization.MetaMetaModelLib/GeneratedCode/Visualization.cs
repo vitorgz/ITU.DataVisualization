@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Visualization : NamedElement, ICkanBuilder
+public class Visualization : NamedElement, IPropertable
 {
 	public virtual int VisualizationId
 	{
@@ -35,5 +35,9 @@ public class Visualization : NamedElement, ICkanBuilder
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get; set;
+    }
 }
 

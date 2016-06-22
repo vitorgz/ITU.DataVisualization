@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Table : NamedElement, ICkanBuilder
+public class Table : NamedElement, IPropertable
 {
 	public virtual int TableId
 	{
@@ -29,5 +29,9 @@ public class Table : NamedElement, ICkanBuilder
 		set;
 	}
 
+    public ICollection<Property> properties
+    {
+        get; set;
+    }
 }
 

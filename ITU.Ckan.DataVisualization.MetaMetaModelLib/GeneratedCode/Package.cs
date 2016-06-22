@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public class Package : NamedElement, ICkanBuilder, IEntity
+public class Package : NamedElement, IPropertable
 {
 	public virtual ICollection<Property> properties
 	{
