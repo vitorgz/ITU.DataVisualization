@@ -95,10 +95,10 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 var pck = new SourceFactory().AddIn(x =>
                 {
                     x.GetPackages(id);
-                    x.GetGroups(id);
+                    //x.GetGroups(id);
                     //x.GetTag(id);
                 }).Create();
-
+                
                 source.packages = pck.packages;
             }
 

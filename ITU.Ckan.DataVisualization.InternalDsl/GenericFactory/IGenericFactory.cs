@@ -9,7 +9,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
 {
     public interface IGenericFactory<T>
     {
-        IGenericFactory<T> AddPropertyValue(Expression<Func<T, object>> property, object value);
+        IGenericFactory<T> AddGenericProperty(Expression<Func<T, object>> property, object value);
 
         IGenericFactory<T> AddIn(Action<T> action);
 

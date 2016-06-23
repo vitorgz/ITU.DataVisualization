@@ -42,5 +42,48 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
         {
             return await InternalClient.GetPackages<List<Package>>(id);
         }
+
+        public static Source GetPackages(this Source source, string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetPackages<List<Package>>(src);
+                source.packages = tas;
+            });
+            task.Wait();
+
+            return source;
+        }
+
+        public static Source GetGroups(this Source source, string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetGroups<List<Group>>(src);
+                source.groups = tas;
+            });
+            task.Wait();
+
+            return source;
+        }
+
+        public static Source GetTags(this Source source, string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetTags<List<Tag>>(src);
+                source.tags = tas;
+            });
+            task.Wait();
+
+            return source;
+        }
+
+        public static Source AddIn(this Source source, Action<Source> action)
+        {
+            action.Invoke(source);
+
+            return source;
+        }
     }
 }

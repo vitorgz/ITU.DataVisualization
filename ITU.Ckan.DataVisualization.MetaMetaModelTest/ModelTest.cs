@@ -17,8 +17,8 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-                .AddPropertyValue(x => x.name, "TestSource")
-                .AddPropertyValue(x => x.groups, new List<Group>() {
+                .AddGenericProperty(x => x.name, "TestSource")
+                .AddGenericProperty(x => x.groups, new List<Group>() {
                     new Group() { properties = 
                     new List<Property>() {
                         new Property() { name = "GroupTest" }
@@ -48,8 +48,8 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.name, "blabla")
-            .AddPropertyValue(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
+                .AddGenericProperty(x => x.name, "blabla")
+                .AddGenericProperty(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
             .Create();
 
             Assert.IsNotNull(source.groups);
@@ -62,8 +62,8 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         {
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.name, "blabla")
-            .AddPropertyValue(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
+                .AddGenericProperty(x => x.name, "blabla")
+                .AddGenericProperty(x => x.groups, new List<Group>() { new Group() { properties = new List<Property>() { new Property() { name = "test" } } } })
             .Create();
 
             var prop = source.groups.Select(x => x.properties);
@@ -85,8 +85,8 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
 
             var source = GenericFluentFactory<Source>
             .Init(new Source())
-            .AddPropertyValue(x => x.name, "blabla")
-            .AddPropertyValue(x => x.packages, new List<Package>() { new Package() { properties = new List<Property>() { prop } } })
+                .AddGenericProperty(x => x.name, "blabla")
+                .AddGenericProperty(x => x.packages, new List<Package>() { new Package() { properties = new List<Property>() { prop } } })
             .Create();
 
             Assert.IsNotNull(source.groups);
@@ -96,11 +96,10 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         [TestMethod]
         public void TestPropertiesInterface()
         {
-            //var s = new Organization().WithProperties<Organization>("test");
-            var s = new Tag().AddGenericProperties("test", 3);
-            s.AddGenericProperties("test2", 4);
+            var tag = new Tag().AddGenericProperties("Author", "Vitor Dominguez");
+            tag.AddGenericProperties("state", "active");
 
-            var ss = s;
+            var ss = tag;
         }
 
         [TestMethod]

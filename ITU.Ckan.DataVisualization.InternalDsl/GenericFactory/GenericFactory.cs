@@ -24,7 +24,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
             return this;
         }
 
-        public IGenericFactory<T> AddPropertyValue(Expression<Func<T, object>> property, object value)
+        public IGenericFactory<T> AddGenericProperty(Expression<Func<T, object>> property, object value)
         {
             PropertyInfo propertyInfo = null;
             if (property.Body is MemberExpression)
