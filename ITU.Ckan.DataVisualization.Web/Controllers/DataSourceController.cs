@@ -64,22 +64,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
                 .Select(z => z.GetXAxys())));
 
-            //var yList = new List<Field>();
-
-            //foreach (var source in visual.sources)
-            //{
-            //    if (source.packages != null)
-            //        foreach (var package in source.packages)
-            //        {
-            //            if (package != null && package.dataSets != null)
-            //                foreach (var dataset in package.dataSets)
-            //                {
-            //                    if (dataset != null)
-            //                        yList.(dataset.GetYAxys());
-            //                }
-            //        }
-            //}
-
             xList.Where(x => x != null).ToList().ForEach(x => x.xAxys = false);
             yList.ToList().ForEach(x => x.selected = false);
         }
@@ -98,7 +82,17 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                     //x.GetGroups(id);
                     //x.GetTag(id);
                 }).Create();
+
+                //valid call after factory
+                //pck.GetTags(id);
+
+                //valid
+                //var sd = new Source();
+                //sd.AddIn(x => { x.GetGroups(id).GetTags(id); });
                 
+                //valid
+                //var pcks = new SourceFactory().Initialize().GetTag(id).GetGroups(id).Create();
+
                 source.packages = pck.packages;
             }
 
@@ -125,7 +119,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (pkg.dataSets == null)
             {
                 //var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
-                var ds = new PackageFactory().AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
+                var ds = new PackageFactory().Initialize().AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
                 //var newPkg = ds.Create();
                 pkg.dataSets = ds.dataSets;
             }

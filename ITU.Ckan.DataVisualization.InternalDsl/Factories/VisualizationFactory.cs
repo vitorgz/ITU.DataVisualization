@@ -15,22 +15,17 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         private static VisualizationFactory visualf;
 
-        public static IVisualizationFactory Initialize
+        public IVisualizationFactory Initialize()
         {
-            get
-            {
-                if (visual == null)
-                    visual = new Visualization();
-                if (visualf == null)
-                    visualf = new VisualizationFactory();
+            visual = new Visualization();
+            visualf = new VisualizationFactory();
 
-                return visualf as IVisualizationFactory;
-            }
+            return visualf as IVisualizationFactory;
         }
 
         public IVisualizationFactory AddIn(Action<IVisualizationFactory> action)
         {
-            var expression = VisualizationFactory.Initialize;
+            var expression = visualf ?? Initialize();
             action.Invoke(expression);
 
             return this;

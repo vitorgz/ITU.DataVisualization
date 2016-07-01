@@ -32,5 +32,25 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return pck.dataSets.Where(x => x.format == "CSV").ToList();
         }
 
+
+        public static Package GetDataSetsById(this Package package, string dataSetUrl, string id)
+        {
+            var task = Task.Run(async () =>
+            {
+                var dts = await InternalClient.GetDataSet<List<DataSet>>(dataSetUrl, id);
+                package.dataSets = dts;
+            });
+            task.Wait();
+
+            return package;
+        }
+
+        public static Package AddIn(this Package pck, Action<Package> action)
+        {
+            action.Invoke(pck);
+
+            return pck;
+        }
+
     }
 }

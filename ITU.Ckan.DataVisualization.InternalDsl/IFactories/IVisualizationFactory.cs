@@ -9,7 +9,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
 {
     public interface IVisualizationFactory
     {
-        //IVisualizationFactory Initialize();
+        IVisualizationFactory Initialize();
         IVisualizationFactory AddIn(Action<IVisualizationFactory> action);
         IVisualizationFactory AddSource(List<Source> source);
         IVisualizationFactory addTable(Table data);

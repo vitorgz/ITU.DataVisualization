@@ -14,22 +14,17 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         private static IPackageFactory packagef;
 
-        public static IPackageFactory Initialize
+        public IPackageFactory Initialize()
         {
-            get
-            {
-                if (packagef == null)
-                    packagef = new PackageFactory();
-                if (package == null)
-                    package = new Package();
-                return packagef as IPackageFactory;
-            }
+            packagef = new PackageFactory();
+            package = new Package();
+            return packagef as IPackageFactory;
         }
 
         public IPackageFactory AddIn(Action<IPackageFactory> action)
         {
-            var expression = PackageFactory.Initialize;
-            action.Invoke(expression);
+            var expression = packagef ?? Initialize();
+            action.Invoke(packagef);
 
             return this;
         }

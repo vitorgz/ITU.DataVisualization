@@ -11,7 +11,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
         Source Create();
         ISourceFactory AddIn(Action<ISourceFactory> action);
 
-        //ISourceFactory Initialize();
+        ISourceFactory Initialize();
         ISourceFactory AddGroup(List<Group> groups);
         ISourceFactory AddOrganization(List<Organization> organizations);
         ISourceFactory AddTag(List<Tag> tags);

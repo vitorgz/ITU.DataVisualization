@@ -8,7 +8,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
 {
     public interface IPackageFactory
     {
-        //IPackageFactory Initialize;
+        IPackageFactory Initialize();
         IPackageFactory AddIn(Action<IPackageFactory> action);
         IPackageFactory AddDataSet(List<DataSet> dataSets);
         Package Create();

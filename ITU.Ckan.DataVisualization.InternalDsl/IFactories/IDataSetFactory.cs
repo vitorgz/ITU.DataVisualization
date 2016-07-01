@@ -9,7 +9,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
     public interface IDataSetFactory
     {
         IDataSetFactory AddIn(Action<IDataSetFactory> action);
-        //IDataSetFactory Initialize();
+        IDataSetFactory Initialize();
         IDataSetFactory AddGroup(List<Group> groups);
         IDataSetFactory AddOrganization(Organization organization);
         IDataSetFactory AddTag(List<Tag> tags);

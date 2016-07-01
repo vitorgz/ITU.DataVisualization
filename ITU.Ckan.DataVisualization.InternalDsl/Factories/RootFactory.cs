@@ -13,22 +13,17 @@ namespace ITU.Ckan.DataVisualization.InternalDsl
 
         private static IRootFactory rootf;
 
-        public static IRootFactory Initialize
+        public IRootFactory Initialize()
         {
-            get
-            {
-                if (rootf == null)
-                    rootf = new RootFactory();
-                if (root == null)
-                    root = new Root();
-                return rootf as IRootFactory;
-            }
+            rootf = new RootFactory();
+            root = new Root();
+            return rootf as IRootFactory;
         }
 
         public IRootFactory AddIn(Action<IRootFactory> action)
         {
-            var expression = RootFactory.Initialize;
-            action.Invoke(expression);
+            var expression = rootf ?? Initialize();
+            action.Invoke(rootf);
 
             return this;
         }

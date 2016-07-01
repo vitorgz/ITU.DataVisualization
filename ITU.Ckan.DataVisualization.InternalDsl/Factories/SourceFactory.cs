@@ -14,21 +14,16 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         private static SourceFactory sourcef;
 
-        public static ISourceFactory Initialize
+        public ISourceFactory Initialize()
         {
-            get
-            {
-                if (sourcef == null)
-                    sourcef = new SourceFactory();
-                if (source == null)
-                    source = new Source();
-                return sourcef as ISourceFactory;
-            }
+            sourcef = new SourceFactory();
+            source = new Source();
+            return sourcef as ISourceFactory;
         }
         
         public ISourceFactory AddIn(Action<ISourceFactory> action)
         {
-            var expression = SourceFactory.Initialize;
+            var expression = sourcef ?? Initialize();
             action.Invoke(expression);
             
             return this;

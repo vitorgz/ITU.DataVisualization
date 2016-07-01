@@ -27,11 +27,6 @@ namespace ITU.Ckan.DataVisualization.CloudApi
 
             context = new VisualizationDBContext();
 
-            //string connectionString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.ConnectionString"];
-            //GlobalHost.DependencyResolver.UseServiceBus(connectionString, "Chat");
-
-            //app.MapSignalR();
-
             app.UseWebApi(config);
         }
     }

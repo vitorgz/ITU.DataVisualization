@@ -11,22 +11,17 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
     {
         private static DataSet dataSet;
         private static IDataSetFactory dataSetf;
-        public static IDataSetFactory Initialize
+        public IDataSetFactory Initialize()
         {
-            get
-            {
-                if (dataSetf == null)
-                    dataSetf = new DataSetFactory();
-                if (dataSet == null)
-                    dataSet = new DataSet();
-                return dataSetf as IDataSetFactory;
-            }
+            dataSetf = new DataSetFactory();
+            dataSet = new DataSet();
+            return dataSetf as IDataSetFactory;
         }
 
         public IDataSetFactory AddIn(Action<IDataSetFactory> action)
         {
-            var expression = DataSetFactory.Initialize;
-            action.Invoke(expression);
+            var expression = dataSetf ?? Initialize();
+            action.Invoke(dataSetf);
 
             return this;
         }
