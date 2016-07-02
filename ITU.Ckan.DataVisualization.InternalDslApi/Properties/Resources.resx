@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CloudURL" xml:space="preserve">
+    <value>http://ituckanservice.cloudapp.net/</value>
+  </data>
+  <data name="CloudURL1" xml:space="preserve">
     <value>http://127.0.0.1:81</value>
   </data>
 </root>

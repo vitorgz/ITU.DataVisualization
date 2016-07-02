@@ -3,7 +3,7 @@
   <Role name="ITU.Ckan.DataVisualization.CloudApi">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=ituckanservice;AccountKey=xWx5zvWR2UR8WSGvk6Gs087/xWjnBCInYNCUEUDkimsl85qbhsnlaqFw64Q8mBVpXuuFJGG3zxvshC+RVrpZmA==" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>

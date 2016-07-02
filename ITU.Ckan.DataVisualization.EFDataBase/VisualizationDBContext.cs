@@ -14,7 +14,8 @@ namespace ITU.Ckan.DataVisualization.EFDataBase
     {
         public VisualizationDBContext() : base("name=VisualizationDBConnection")
         {
-           // Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisualizationDBContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<VisualizationDBContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<VisualizationDBContext>());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<VisualizationDBContext, Configuration>());
 
         }
