@@ -31,3 +31,8 @@
 @section Scripts {
     @Scripts.Render("~/bundles/HighChart")
 }
+
+@if (ViewBag.MyErrorMessage != null)
+{
+    <script> alert('No data for this criteria has been found. Please click on "data" to perform another search');</script>
+}

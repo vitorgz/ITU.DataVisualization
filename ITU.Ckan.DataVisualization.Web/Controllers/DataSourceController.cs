@@ -152,21 +152,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             return Json(items);
         }
+        
 
-        public async Task<JsonResult> VerifyDataStore(string id)
-        {
-            //get package
-            //var pck = await new SourceFactory().Initialize().GetPackages(new Source() { name = "s" });
-
-            //get datasets
-
-            //call for example
-
-
-            return Json(true);
-        }
-
-        //TODO set select flag!
         [HttpPost]
         public void SelectXAxys(string src, string pck, string dts, string fld)
         {
@@ -183,7 +170,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
         [HandleError()]
         [HttpPost]
-        public void SelectField(string src, string pck, string dts, string fld)
+        public ActionResult SelectField(string src, string pck, string dts, string fld)
         {
             var visual = RootInstance.CurrentVisualization;
             var source = visual.GetSourceById(x => x.name == src);
@@ -199,14 +186,26 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 DslConverterHelpers.ResolveType(select.type) != typeof(double) &&
                 DslConverterHelpers.ResolveType(select.type) != typeof(decimal) &&
                 DslConverterHelpers.ResolveType(select.type) != typeof(float) &&
-                DslConverterHelpers.ResolveType(select.type) != typeof(long))
+                DslConverterHelpers.ResolveType(select.type) != typeof(long))           
                 throw new Exception("non numeric type");
+
+            return Json(true);
         }
 
 
+        [HandleError()]
+        [HttpPost]
         public ActionResult ChartRedirect()
         {
-            return RedirectToAction("Index", "Draw");
+            var visual = RootInstance.CurrentVisualization;
+            if (visual.graph == null)
+            {
+                return Json(new { ok = false });
+            }
+
+            return Json(new { ok = true,
+                newurl = new UrlHelper(Request.RequestContext).Action("Index", "Draw") });       
+            //return RedirectToAction("Index", "Draw");
         }
     }
 }

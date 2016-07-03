@@ -18,6 +18,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
     public class DrawController : Controller
     {
         // GET: Draw
+        [HandleError()]
         public async Task<ActionResult> Index()
         {
             var visual = RootInstance.CurrentVisualization;
@@ -29,6 +30,12 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 data = await visual.GetData(filters);
             else
                 data = await visual.GetPieChartData(filters);
+
+            if (data == null)
+            {
+                ViewBag.MyErrorMessage = "error";
+                return View();
+            }
 
             return View(this.Draw(data, visual.graph, visual.name));
         }

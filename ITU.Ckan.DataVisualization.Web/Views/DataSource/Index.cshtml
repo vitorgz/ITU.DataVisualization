@@ -36,6 +36,27 @@
             }
         });
     });
+    $(document).ready(function () {        
+        $("#btn_visualization").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("ChartRedirect")',
+                dataType: 'json',
+                data: {  },
+                success: function (response) {
+                    if (response.ok)
+                        window.location.href = response.newurl;
+                    else
+                        alert('Please, select chart type before continue.');
+                },
+                error: function (ex) {
+                    //alert('Please, select chart type before continue.');
+                }
+            });
+            return false;
+        })
+    });
 </script>
 
 @using (Html.BeginForm())
@@ -73,8 +94,10 @@
         @Html.DisplayText("DataStore")
     </div>
     <div>
-        @Html.ActionLink("To Chart", "ChartRedirect", "DataSource", null, null)
-    </div>
+       @* @Html.ActionLink("To Chart", "ChartRedirect", "DataSource", null, null)*@
+        <input type="button" id="btn_visualization" value="Visualization" />
+        @*<button type="button" onclick="location.href='@Url.Action("ChartRedirect", "DataSource")'">*@
+</div>
 
 
 
