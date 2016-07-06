@@ -31,15 +31,7 @@ public class Column : NamedElement, IPropertable
 
     public ICollection<Property> properties
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
-
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get; set;
     }
 }
 

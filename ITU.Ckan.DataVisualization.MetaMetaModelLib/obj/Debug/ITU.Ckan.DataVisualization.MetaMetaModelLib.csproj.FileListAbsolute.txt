@@ -6,4 +6,3 @@ C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\bi
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\bin\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.pdb
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.dll
 C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.pdb
-C:\TFS\ITU.Ckan.DataVisualization\ITU.Ckan.DataVisualization.MetaMetaModelLib\obj\Debug\ITU.Ckan.DataVisualization.MetaMetaModelLib.csprojResolveAssemblyReference.cache
