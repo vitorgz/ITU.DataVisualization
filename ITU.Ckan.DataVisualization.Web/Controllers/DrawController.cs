@@ -58,7 +58,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             RootInstance.CurrentVisualization.table = data;
 
             string[] xAxisDAta = null;
-            if (data.column != null)
+            if (data.column != null && data.column.Value!=null)
             {
                 xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
                 if (xAxisDAta == null) xAxisDAta = (data.column.Value as object[]).Cast<string>().ToArray();
@@ -88,7 +88,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
                 //series[i].Data = new Data(new object[] { rows.ElementAt(i).data }.ToArray() );
                 object[] dataTo = rows.ElementAt(i).data as object[];
-                series[i].Data = new Data(dataTo.ToArray());                
+                if(dataTo!=null)
+                    series[i].Data = new Data(dataTo.ToArray());                
                 series[i].Name = rows.ElementAt(i).name;
             }
 

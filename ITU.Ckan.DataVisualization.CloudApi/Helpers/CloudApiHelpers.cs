@@ -102,7 +102,8 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             //var data = ConvertArrayToSpecificType(xField.record.value, dataType); //(xField.record.value as object[]).OfType().ToArray(); ;
             
             if (table.column == null) table.column = new Column();
-            table.column.Value = (xField.record.value as IEnumerable).ConvertToEnumerable<string>(); //x axys data
+            if (xField.record != null && xField.record.value != null)
+                table.column.Value = (xField.record.value as IEnumerable).ConvertToEnumerable<string>(); //x axys data
             table.column.Type = dataType;
             table.column.name = xField.name;
 

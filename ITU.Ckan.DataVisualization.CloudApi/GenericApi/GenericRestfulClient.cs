@@ -30,7 +30,11 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             StringBuilder s = new StringBuilder();
             s.Append("SELECT ");
 
-            s.Append(string.Join(",", filters.Item2));
+            for (int i = 0; i < filters.Item2.Count(); i++)
+            {
+                s.Append("\"" + filters.Item2.ElementAt(i) + "\"");
+                if (i < filters.Item2.Count() - 1) s.Append(",");
+            }            
 
             s.Append(" FROM ");
             s.Append("\"" + filters.Item1 + "\"");
@@ -44,10 +48,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             var path = api + s;
 
             var results = await GetCkanAsyncJson(url, path);
-
-            //object schema = GetJsonSchema(filters.Item2);
-            //var results = await GetCkanAsync<T>(url, path);
-
+            
             return results;
         }
 
