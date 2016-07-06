@@ -150,6 +150,11 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                     var response = await GenericApi.GenericRestfulClient.
                         Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
 
+                    if (string.IsNullOrEmpty(response.ToString()))
+                        response = await GenericApi.GenericRestfulClient.Get(item.sourceName, "/api/action/datastore_search",
+                            item.dataSetId, item.limit, item.offset);
+                    
+
                     item.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
                     CloudApiHelpers.ProcessJsonResponse(response, item.fields);
                 }
@@ -179,10 +184,11 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 var response = await GenericApi.GenericRestfulClient.
                             Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
 
-                var fieldsList = new List<Field>() { xAxys };
-                source.fields = fieldsList;
-                source.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
-                CloudApiHelpers.ProcessJsonResponse(response, fieldsList);
+                if (string.IsNullOrEmpty(response.ToString()))
+                  response = await GenericApi.GenericRestfulClient.Get(source.sourceName, "/api/action/datastore_search",
+                        source.dataSetId, source.limit, source.offset);
+                
+                CloudApiHelpers.ProcessPieChartJsonResponse(response, xAxys);
 
                 var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(source.fields.FirstOrDefault().record);
 

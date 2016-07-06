@@ -97,6 +97,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             }
 
             List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "Select Package", Value = "Select Package" });
             foreach (var item in source.packages)
             {
                 items.Add(new SelectListItem { Text = item.name, Value = item.name });
@@ -143,6 +144,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var fields = ds.Where(x=>x.name == dts && x.format == "CSV").FirstOrDefault().fields;
 
             List<SelectListItem> items = new List<SelectListItem>();
+            items.Add(new SelectListItem { Text = "Select Field", Value = "Select Field" });
             foreach (var item in fields)
             {
                 items.Add(new SelectListItem { Text = (item.id + "- (" + item.type + ")"), Value = item.id.ToString() });

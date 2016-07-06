@@ -82,17 +82,38 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
         public static async Task<T> Get<T>(string url, string api, string id, int limit)
         {
-            return await GetCkanAsync<T>(url, api + "?resource_id=" + id + "&limit=" + limit);
+            var path = new StringBuilder();
+            path.Append(api + "?resource_id=" + id);
+
+            if (limit > 0)
+                path.Append("&limit=" + limit);
+            
+            return await GetCkanAsync<T>(url, path.ToString());
         }
 
         public static async Task<object> Get(string url, string api, string id, int limit)
         {
-            return await GetCkanAsyncJson(url, api + "?resource_id=" + id + "&limit=" + limit);            
+            var path = new StringBuilder();
+            path.Append(api + "?resource_id=" + id);
+
+            if (limit > 0)
+                path.Append("&limit=" + limit);
+            
+            return await GetCkanAsyncJson(url, path.ToString());            
         }
 
         public static async Task<object> Get(string url, string api, string id, int offtset, int limit)
         {
-            return await GetCkanAsyncJson(url, api + "?resource_id=" + id + "&offset=" + offtset + "&limit=" + limit);
+            var path = new StringBuilder();
+            path.Append(api + "?resource_id=" + id);
+
+            if (limit > 0)
+                path.Append("&limit=" + limit);
+
+            if(offtset > 0)
+                path.Append("&offset=" + offtset);
+
+            return await GetCkanAsyncJson(url, path.ToString());
         }
 
         public static async Task<T> GetCkanAsync<T>(string url, string api)

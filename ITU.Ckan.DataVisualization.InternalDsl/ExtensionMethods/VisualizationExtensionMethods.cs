@@ -72,7 +72,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                 );
             }
 
-
             filters.sources = sourceDTO;
             return filters;
         }

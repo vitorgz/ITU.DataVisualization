@@ -70,7 +70,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
             foreach (var item in fields)
             {
-                var type =  item.type;
+                var type = item.type;
                 var jsonValues = from p in json["result"]["records"]
                                  select p[item.id.ToString()].Convert(type as Type);
 
@@ -81,11 +81,30 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
                 }
 
                 item.record.name = item.id.ToString();
-                if(jsonValues.Any())
-                   item.record.value = jsonValues.ToList();
+                if (jsonValues.Any())
+                    item.record.value = jsonValues.ToList();
+            }
+        }
+
+        public static void ProcessPieChartJsonResponse(object response, Field item)
+        {
+            JObject json = null;
+            if (!string.IsNullOrEmpty(response.ToString()))
+                json = JObject.Parse(response.ToString());
+            else
+                return;
+
+            var jsonValues = from p in json["result"]["records"]
+                             select p[item.id.ToString()].Convert(typeof(string));
+
+            if (item.record == null)
+            {
+                item.record = new Record();
             }
 
-            //dts.records = json
+            item.record.name = item.id.ToString();
+            if (jsonValues.Any())
+                item.record.value = jsonValues.ToList();
         }
 
         public static Table CreateDataTable(VisualDTO visual)
@@ -146,20 +165,10 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
 
             return list;
         }
-
-        public static void MergeData(VisualDTO visual)
-        {
-
-        }
-
+        
         public static Table PieChartAnalizeAndCreateTable(Record record)
         {
-            //var rec = ConvertToType(record.value, typeof(string)) as List<object>;
-            //var stringRec = rec.OfType<string
-
             var stringRec = ((IList)record.value).Cast<string>().ToList();
-            //if (stringRec == null) stringRec = ((List<int>)(record.value)).Cast<string>().ToList();
-
             var total = stringRec.Count();
             var dist = stringRec.Distinct();
 
