@@ -22,11 +22,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var visual = RootInstance.CurrentVisualization;
-
             var filters = visual.GetFilters();
-
             Table data;
-            if (visual.graph == null) throw new Exception("Chart was not selected");
             if (visual.graph.name != "PieChart")
                 data = await visual.GetData(filters);
             else
@@ -41,11 +38,24 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             return View(this.Draw(data, visual.graph, visual.name));
         }
 
-        public ActionResult DrawChart()
+        public async Task<ActionResult> DrawChart()
         {
+            //recalculation of data
             var visual = RootInstance.CurrentVisualization;
+            var filters = visual.GetFilters();
+            Table data;
+            if (visual.graph.name != "PieChart")
+                data = await visual.GetData(filters);
+            else
+                data = await visual.GetPieChartData(filters);
 
-            var chart = this.Draw(visual.table, visual.graph, visual.name);
+            if (data == null)
+            {
+                ViewBag.MyErrorMessage = "error";
+                return View();
+            }
+
+            var chart = this.Draw(data, visual.graph, visual.name);
 
             return View(chart);
         }
