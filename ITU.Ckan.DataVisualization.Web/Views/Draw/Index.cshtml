@@ -10,8 +10,11 @@
                 url: '@Url.Action("Save")',
                 dataType: 'json',
                 data: { id: $("#btnSaveVisualization").val() },
-                success: function (states) {
-                    alert('Visualization Saved');
+                success: function (response) {
+                    if (response.ok)
+                        alert('Visualization Saved');
+                    else
+                        alert('Visualization save failed');
                 },
                 error: function (ex) {
                     //alert('Failed to retrieve states.' + ex);

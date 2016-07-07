@@ -24,7 +24,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var visual = RootInstance.CurrentVisualization;
 
             var filters = visual.GetFilters();
-            //var filters = RootInstance.GetFilters(); //wont work when retrieve data from DataBase
 
             Table data;
             if (visual.graph == null) throw new Exception("Chart was not selected");
@@ -101,7 +100,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         }
 
         [HttpPost]
-        public async Task Save(string id)
+        public async Task<ActionResult> Save(string id)
         {
             //if "selected" strategy was working, just filter by "selected"
             var selectedSources = RootInstance.CurrentVisualization.sources.Where(x => x.packages != null).
@@ -119,7 +118,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 sources = selectedSources
             };
 
-            await DBClient.SaveVisualization<bool>(newVisual);
+            var save = await DBClient.SaveVisualization<bool>(newVisual);
+            
+            return save ? Json(new { ok = true }): Json(new { ok = false });
         }
         
         private DotNet.Highcharts.Enums.ChartTypes getChartType(Graph graph)
