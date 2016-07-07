@@ -78,32 +78,41 @@ namespace ITU.Ckan.DataVisualization.Web
             if (SerieX.fields != null && SerieX.fields.FirstOrDefault() != null)
             {
                 var source = visual.GetSourceById(x => x.name == SerieX.sourceName);
-                var ds = source.GetPackageByName(x => x.name == SerieX.packageName).dataSets;
-                var fields = ds.Where(x=>x.id == SerieX.dataSetId).FirstOrDefault().fields;
-                var field = fields.Where(x => x.name == SerieX.fields.FirstOrDefault().name);
+                var ds = source.GetPackageByName(x => x.name == SerieX.packageName)?.dataSets;
+                var fields = ds?.Where(x=>x.id == SerieX.dataSetId).FirstOrDefault()?.fields;
 
-                field.FirstOrDefault().xAxys = true;
+                var serieField = SerieX.fields?.FirstOrDefault();
+                Field field = null;
+                if (serieField != null) field = fields.Where(x => x.id == serieField.id).FirstOrDefault();
+
+                if (field != null) field.xAxys = true;                
 
                 if (visual.graph.name == "PieChart") return;
             }
             if (Serie1.fields != null && Serie1.fields.FirstOrDefault() != null)
             {
                 var source = visual.GetSourceById(x => x.name == Serie1.sourceName);
-                var ds = source.GetPackageByName(x => x.name == Serie1.packageName).dataSets;
-                var fields = ds.Where(x => x.id == Serie1.dataSetId).FirstOrDefault().fields;
-                var field = fields.Where(x => x.name == Serie1.fields.FirstOrDefault().name);
+                var ds = source.GetPackageByName(x => x.name == Serie1.packageName)?.dataSets;
+                var fields = ds?.Where(x => x.id == Serie1.dataSetId).FirstOrDefault()?.fields;
 
-                field.FirstOrDefault().selected = true;
+                var serieField = Serie1.fields?.FirstOrDefault();
+                Field field = null;
+                if (serieField != null) field = fields.Where(x => x.id == serieField.id).FirstOrDefault();
+
+                if (field != null) field.selected = true;
 
             }
             if (Serie2.fields != null && Serie2.fields.FirstOrDefault() != null)
             {
                 var source = visual.GetSourceById(x => x.name == Serie2.sourceName);
-                var ds = source.GetPackageByName(x => x.name == Serie2.packageName).dataSets;
-                var fields = ds.Where(x => x.id == Serie2.dataSetId).FirstOrDefault().fields;
-                var field = fields.Where(x => x.name == Serie2.fields.FirstOrDefault().name);
+                var ds = source.GetPackageByName(x => x.name == Serie2.packageName)?.dataSets;
+                var fields = ds?.Where(x => x.id == Serie2.dataSetId).FirstOrDefault()?.fields;
 
-                field.FirstOrDefault().selected = true;
+                var serieField = Serie2.fields?.FirstOrDefault();
+                Field field = null;
+                if (serieField != null) field = fields.Where(x => x.id == serieField.id).FirstOrDefault();
+
+                if (field != null) field.selected = true;
             }
             
         }
