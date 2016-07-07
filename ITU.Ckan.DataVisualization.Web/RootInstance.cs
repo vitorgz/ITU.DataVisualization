@@ -44,6 +44,10 @@ namespace ITU.Ckan.DataVisualization.Web
                     serieX = new SourceDTO();
                 return serieX;
             }
+            set
+            {
+                serieX = value;
+            }
         }
 
         public static SourceDTO Serie1
@@ -53,6 +57,10 @@ namespace ITU.Ckan.DataVisualization.Web
                 if (serie1 == null)
                     serie1 = new SourceDTO();
                 return serie1;
+            }
+            set
+            {
+                serie1 = value;
             }
         }
 
@@ -64,28 +72,29 @@ namespace ITU.Ckan.DataVisualization.Web
                     serie2 = new SourceDTO();
                 return serie2;
             }
+            set
+            {
+                serie2 = value;
+            }
         }
 
         public static void SelectFields()
         {
-            //var filters = new VisualDTO();
-            //var listDtos = new List<SourceDTO>();
-
             var visual = CurrentVisualization;
-            visual.restartSeries(); //CHECK!
+            visual.restartSelected();
 
-            
+
             if (SerieX.fields != null && SerieX.fields.FirstOrDefault() != null)
             {
                 var source = visual.GetSourceById(x => x.name == SerieX.sourceName);
                 var ds = source.GetPackageByName(x => x.name == SerieX.packageName)?.dataSets;
-                var fields = ds?.Where(x=>x.id == SerieX.dataSetId).FirstOrDefault()?.fields;
+                var fields = ds?.Where(x => x.id == SerieX.dataSetId).FirstOrDefault()?.fields;
 
                 var serieField = SerieX.fields?.FirstOrDefault();
                 Field field = null;
                 if (serieField != null) field = fields.Where(x => x.id == serieField.id).FirstOrDefault();
 
-                if (field != null) field.xAxys = true;                
+                if (field != null) field.xAxys = true;
 
                 if (visual.graph.name == "PieChart") return;
             }
@@ -114,7 +123,7 @@ namespace ITU.Ckan.DataVisualization.Web
 
                 if (field != null) field.selected = true;
             }
-            
-        }
+
+        }        
     }
 }

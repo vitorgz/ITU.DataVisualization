@@ -30,20 +30,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             return PartialView();
         }
-
-        [HttpPost]
-        public void SelectChart(string chart)
-        {
-            var visual = RootInstance.CurrentVisualization;
-            if(visual.graph == null)
-                visual.graph = new Graph();
-
-            if (chart == "PieChart")
-                visual.restartSeries();
-
-            visual.graph = RootInstance.Current.graphs.Where(x => x.name == chart).FirstOrDefault();   
-        }
-        
+                
         // POST: DataSource
         public async Task<JsonResult> GetPackages(string id)
         {
@@ -55,20 +42,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 var pck = new SourceFactory().AddIn(x =>
                 {
                     x.GetPackages(id);
-                    //x.GetGroups(id);
-                    //x.GetTag(id);
                 }).Create();
-
-                //valid call after factory
-                //pck.GetTags(id);
-
-                //valid
-                //var sd = new Source();
-                //sd.AddIn(x => { x.GetGroups(id).GetTags(id); });
                 
-                //valid
-                //var pcks = new SourceFactory().Initialize().GetTag(id).GetGroups(id).Create();
-
                 source.packages = pck.packages;
             }
 
@@ -123,9 +98,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             {
                 items.Add(new SelectListItem { Text = (item.id + "- (" + item.type + ")"), Value = item.id.ToString() });
             }
-
-            //ViewData["fields"] = items;
-
+           
             return Json(items);
         }
         
@@ -140,9 +113,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var fields = ds.Where(x => x.format == "CSV" && x.name == dts).FirstOrDefault().fields;
 
             var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
-            //var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
-            //nonSelect.ForEach(x => x.selected = false);
-            //select.selected = true;
 
             if (DslConverterHelpers.ResolveType(select.type) != typeof(int) &&
                 DslConverterHelpers.ResolveType(select.type) != typeof(double) &&
@@ -158,7 +128,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             RootInstance.Serie2.fields = fieldsList;
             RootInstance.Serie2.sourceName = src;
             RootInstance.Serie2.packageName = pck;
-
 
             return Json(true);
         }

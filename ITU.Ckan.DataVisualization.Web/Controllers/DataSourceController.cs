@@ -23,7 +23,11 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             ViewData["chart"] = chartItems;
 
             var visual = RootInstance.CurrentVisualization;
-            visual.restartSeries();
+            visual.restartSelected();
+
+            RootInstance.SerieX = null;
+            RootInstance.Serie1 = null;
+            RootInstance.Serie2 = null;
 
             return View();
         }
@@ -36,7 +40,11 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 visual.graph = new Graph();
 
             if (chart == "PieChart")
+            {
                 visual.restartSeries();
+                RootInstance.Serie1 = null;
+                RootInstance.Serie2 = null;
+            }
 
             visual.graph = RootInstance.Current.graphs.Where(x => x.name == chart).FirstOrDefault();   
         }

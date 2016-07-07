@@ -71,18 +71,36 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             foreach (var item in fields)
             {
                 var type = item.type;
-                var jsonValues = from p in json["result"]["records"]
-                                 select p[item.id.ToString()].Convert(type as Type);
+                var jsonValues = new List<object>();
 
-
+                try
+                {
+                    var res = from p in json["result"]["records"]
+                              select p[item.id.ToString()].Convert(type as Type);
+                    jsonValues = res.ToList();
+                }
+                catch
+                {
+                    if (type == typeof(int))
+                    {
+                        var res = from p in json["result"]["records"]
+                                  select p[item.id.ToString()].Convert(typeof(double));
+                        jsonValues = res.ToList();
+                    }
+                }        
+            
                 if (item.record == null)
                 {
                     item.record = new Record();
                 }
 
                 item.record.name = item.id.ToString();
-                if (jsonValues.Any())
-                    item.record.value = jsonValues.ToList();
+                try
+                {
+                    if (jsonValues.Any())
+                        item.record.value = jsonValues.ToList();
+                }
+                catch { }
             }
         }
 

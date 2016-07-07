@@ -76,7 +76,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return filters;
         }
 
-        public static void restartSeries(this Visualization visual)
+        public static void restartSelected(this Visualization visual)
         {
             var yList = visual.sources.Where(x => x.packages != null)
                 .SelectMany(x => x.packages.Where(e => e != null && e.dataSets != null)
@@ -88,8 +88,31 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                 .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
                 .Select(z => z.GetXAxys())));
 
-            xList.Where(x => x != null).ToList().ForEach(x => x.xAxys = false);
-            yList.ToList().ForEach(x => x.selected = false);
+            //xList.Where(x => x != null).ToList().ForEach(x => x.xAxys = false);
+            //yList.ForEach(x => x.selected = false);
+
+            foreach (var item in yList)
+            {
+                item.selected = false;
+            }
+
+            foreach (var item in xList.Where(x => x != null))
+            {
+                item.xAxys = false;
+            }
+        }
+
+        public static void restartSeries(this Visualization visual)
+        {
+            var yList = visual.sources.Where(x => x.packages != null)
+                .SelectMany(x => x.packages.Where(e => e != null && e.dataSets != null)
+                .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
+                .SelectMany(z => z.GetYAxys())));
+            
+            foreach (var item in yList)
+            {
+                item.selected = false;
+            }
         }
 
         public static Visualization AddIn(this Visualization visual, Action<Visualization> action)
