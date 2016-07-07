@@ -76,6 +76,22 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return filters;
         }
 
+        public static void restartSeries(this Visualization visual)
+        {
+            var yList = visual.sources.Where(x => x.packages != null)
+                .SelectMany(x => x.packages.Where(e => e != null && e.dataSets != null)
+                .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
+                .SelectMany(z => z.GetYAxys())));
+
+            var xList = visual.sources.Where(x => x.packages != null)
+                .SelectMany(x => x.packages.Where(e => e != null && e.dataSets != null)
+                .SelectMany(y => y.dataSets.Where(e => e != null && e.fields != null)
+                .Select(z => z.GetXAxys())));
+
+            xList.Where(x => x != null).ToList().ForEach(x => x.xAxys = false);
+            yList.ToList().ForEach(x => x.selected = false);
+        }
+
         public static Visualization AddIn(this Visualization visual, Action<Visualization> action)
         {
             action.Invoke(visual);

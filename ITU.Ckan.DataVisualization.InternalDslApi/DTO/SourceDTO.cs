@@ -10,6 +10,7 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi.DTO
     {
         public string dataSetId { get; set; }
         public string sourceName { get; set; }
+        public string packageName { get; set; }
         public List<Field> fields { get; set; }
 
         public int limit { get; set; }

@@ -78,15 +78,18 @@
     <div class="selector">
         <div class="control" id="xaxys">
             <h4>Select x Ayxs </h4>
-            @Html.Partial("_xAxisView")
+            @{ Html.RenderAction("_xAxisView", "DataSourceSeriex"); }
+            @*@Html.Partial("_xAxisView")*@
         </div>
         <div class="control" id="serie1">
             <h4>Serie 1</h4>
-            @Html.Partial("_serie1View")
+            @{ Html.RenderAction("_serie1View", "DataSourceSerie1"); }
+            @*@Html.Partial("_serie1View")*@
         </div>
         <div class="control" id="serie2">
             <h4>Serie 2</h4>
-            @Html.Partial("_serie2View")
+            @{ Html.RenderAction("_serie2View", "DataSourceSerie2"); }
+            @*@Html.Partial("_serie2View")*@
         </div>
     </div>
 

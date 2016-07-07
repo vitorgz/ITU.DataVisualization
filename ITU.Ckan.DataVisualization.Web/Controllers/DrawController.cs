@@ -24,6 +24,8 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var visual = RootInstance.CurrentVisualization;
 
             var filters = visual.GetFilters();
+            //var filters = RootInstance.GetFilters(); //wont work when retrieve data from DataBase
+
             Table data;
             if (visual.graph == null) throw new Exception("Chart was not selected");
             if (visual.graph.name != "PieChart")
