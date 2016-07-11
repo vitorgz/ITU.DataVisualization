@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
@@ -40,10 +41,13 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
             s.Append("\"" + filters.Item1 + "\"");
 
             if (limit != 0)
-                s.Append(" LIMIT " + limit);
+                s.Append("&limit=" + limit);
+            else
+                s.Append("&limit=" + Properties.Resources.DefaultAmount);
+
 
             if (offset != 0)
-                s.Append(" OFFSET " + offset);
+                s.Append("&offset=" + offset);
 
             var path = api + s;
 
@@ -87,7 +91,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
             if (limit > 0)
                 path.Append("&limit=" + limit);
-            
+            else
+                path.Append("&limit=" + Properties.Resources.DefaultAmount);
+
             return await GetCkanAsync<T>(url, path.ToString());
         }
 
@@ -98,7 +104,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
             if (limit > 0)
                 path.Append("&limit=" + limit);
-            
+            else
+                path.Append("&limit=" + Properties.Resources.DefaultAmount);
+
             return await GetCkanAsyncJson(url, path.ToString());            
         }
 
@@ -109,8 +117,10 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
 
             if (limit > 0)
                 path.Append("&limit=" + limit);
+            else
+                path.Append("&limit=" + Properties.Resources.DefaultAmount);
 
-            if(offtset > 0)
+            if (offtset > 0)
                 path.Append("&offset=" + offtset);
 
             return await GetCkanAsyncJson(url, path.ToString());
@@ -152,7 +162,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(api).ConfigureAwait(false);
+                    var ct = new CancellationTokenSource();
+                    ct.CancelAfter(10000);
+                    HttpResponseMessage response = await client.GetAsync(api, ct.Token).ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
                         var data = response.Content.ReadAsStringAsync().Result;

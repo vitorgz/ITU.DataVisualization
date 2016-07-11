@@ -290,6 +290,19 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
 
         }
 
+
+        [TestMethod]
+        public void ProcessCheckNullsJson()
+        {
+            string json = "{ help:'', success: true, result: { records: [{ status: 'Vedtaget byfornyelsesbeslutning',  bknr: null}, {status: 'Vedtaget byfornyelsesbeslutning', bknr: 1167}]}}";
+
+            var fields = new List<Field>() { new Field() { id = "status", type = typeof(string) }, new Field() { id = "bknr", type = typeof(int) } };
+            CloudApiHelpers.ProcessJsonResponse(json, fields);
+
+            Assert.IsNotNull(fields);
+
+        }
+
         [TestMethod]
         public void ProcessPointsJson()
         {

@@ -59,5 +59,14 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 200.
+        /// </summary>
+        internal static string DefaultAmount {
+            get {
+                return ResourceManager.GetString("DefaultAmount", resourceCulture);
+            }
+        }
     }
 }

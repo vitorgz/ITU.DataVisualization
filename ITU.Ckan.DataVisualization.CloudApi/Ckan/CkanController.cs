@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -88,7 +89,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         public async Task<HttpResponseMessage> GetDataResourceLimit(SourceDTO source)
         {
            try
-            {
+            {                
                 //TODO
                 //ONly one source
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
@@ -114,7 +115,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         {
             try
             {
-                //TODO it only works with one Source! make it sense?
+                //TODO it only works with one Source! make it sense?                              
 
                 //returns JSON
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
@@ -140,26 +141,43 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
         public async Task<HttpResponseMessage> GetData(VisualDTO visual)
         {
             try
-            {                
+            {
                 foreach (var item in visual.sources)
                 {
                     var flds = item.fields.Select(x => x.id.ToString()).ToList();
                     var values = new Tuple<string, List<string>>(item.dataSetId, flds);
-
-                    //for each data source
-                    var response = await GenericApi.GenericRestfulClient.
-                        Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
-
-                    if (string.IsNullOrEmpty(response.ToString()))
+                    
+                    object response = null;
+                    try
+                    {
+                        //sometimes "limit" does not work in the CKAN, so the entire source comes up
+                        //if query is longer than 10 seconds, we reject the SQL query and continue working with "dataStore"
+                        response = await GenericApi.GenericRestfulClient.
+                       Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
+                    }
+                    catch
+                    {
+                        response = null;
                         response = await GenericApi.GenericRestfulClient.Get(item.sourceName, "/api/action/datastore_search",
                             item.dataSetId, item.limit, item.offset);
-                    
+                    }                    
+
+
+                    //if the SQL query fails (sometimes due to un-authorized permissions)
+                    //query the whole table using the datasore_search command 
+                    if (string.IsNullOrEmpty(response.ToString()))
+                    {
+                        response = null;
+                        response = await GenericApi.GenericRestfulClient.Get(item.sourceName, "/api/action/datastore_search",
+                            item.dataSetId, item.limit, item.offset);
+                    }
 
                     item.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
                     CloudApiHelpers.ProcessJsonResponse(response, item.fields);
+
                 }
 
-                //Merge all Data in one DAtaTable
+                //Merge all Data in one DataTable
                 var table = CloudApiHelpers.CreateDataTable(visual);
                 
                 return Request.CreateResponse(HttpStatusCode.OK, table);
@@ -180,14 +198,24 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 var xAxys = source.fields.FirstOrDefault();
 
                 var values = new Tuple<string, List<string>>(source.dataSetId, new List<string>() { xAxys.id.ToString() });
-
-                var response = await GenericApi.GenericRestfulClient.
-                            Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
+                              
+                object response = null;
+                try
+                {
+                    response = await GenericApi.GenericRestfulClient.
+                          Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
+                }
+                catch
+                {
+                    response = null;
+                    response = await GenericApi.GenericRestfulClient.Get(source.sourceName, "/api/action/datastore_search",
+                         source.dataSetId, source.limit, source.offset);
+                }
 
                 if (string.IsNullOrEmpty(response.ToString()))
-                  response = await GenericApi.GenericRestfulClient.Get(source.sourceName, "/api/action/datastore_search",
-                        source.dataSetId, source.limit, source.offset);
-                
+                    response = await GenericApi.GenericRestfulClient.Get(source.sourceName, "/api/action/datastore_search",
+                          source.dataSetId, source.limit, source.offset);
+
                 CloudApiHelpers.ProcessPieChartJsonResponse(response, xAxys);
 
                 var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(source.fields.FirstOrDefault().record);
