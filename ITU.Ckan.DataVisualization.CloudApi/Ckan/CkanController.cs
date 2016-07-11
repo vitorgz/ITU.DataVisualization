@@ -155,17 +155,11 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                         response = await GenericApi.GenericRestfulClient.
                        Get<object>(item.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
                     }
-                    catch
-                    {
-                        response = null;
-                        response = await GenericApi.GenericRestfulClient.Get(item.sourceName, "/api/action/datastore_search",
-                            item.dataSetId, item.limit, item.offset);
-                    }                    
-
+                    catch { /*handle the exception, but continue the execution*/ }     
 
                     //if the SQL query fails (sometimes due to un-authorized permissions)
                     //query the whole table using the datasore_search command 
-                    if (string.IsNullOrEmpty(response.ToString()))
+                    if (response == null || string.IsNullOrEmpty(response.ToString()))
                     {
                         response = null;
                         response = await GenericApi.GenericRestfulClient.Get(item.sourceName, "/api/action/datastore_search",
@@ -174,7 +168,6 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
                     item.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
                     CloudApiHelpers.ProcessJsonResponse(response, item.fields);
-
                 }
 
                 //Merge all Data in one DataTable
@@ -198,21 +191,16 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                 var xAxys = source.fields.FirstOrDefault();
 
                 var values = new Tuple<string, List<string>>(source.dataSetId, new List<string>() { xAxys.id.ToString() });
-                              
+                       
                 object response = null;
                 try
                 {
                     response = await GenericApi.GenericRestfulClient.
                           Get<object>(source.sourceName, "/api/action/datastore_search_sql?sql=", values, visual.limit, visual.offset);
                 }
-                catch
-                {
-                    response = null;
-                    response = await GenericApi.GenericRestfulClient.Get(source.sourceName, "/api/action/datastore_search",
-                         source.dataSetId, source.limit, source.offset);
-                }
+                catch { /*handle the exception, but continue the execution*/ }
 
-                if (string.IsNullOrEmpty(response.ToString()))
+                if (response == null || string.IsNullOrEmpty(response.ToString()))
                     response = await GenericApi.GenericRestfulClient.Get(source.sourceName, "/api/action/datastore_search",
                           source.dataSetId, source.limit, source.offset);
 
