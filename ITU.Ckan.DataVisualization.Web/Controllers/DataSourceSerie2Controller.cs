@@ -17,12 +17,14 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         {
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "http://data.kk.dk/", Value = "http://data.kk.dk/" });
-            items.Add(new SelectListItem { Text = "http://datahub.io/", Value = "http://datahub.io/" }); 
+            items.Add(new SelectListItem { Text = "http://open.stavanger.kommune.no/", Value = "http://open.stavanger.kommune.no/" });
             items.Add(new SelectListItem { Text = "http://opendatadc.org/", Value = "http://opendatadc.org/" });
-            items.Add(new SelectListItem { Text = "http://data.opendataportal.at/", Value = "http://data.opendataportal.at/" });
-            items.Add(new SelectListItem { Text = "http://dati.openexpo2015.it/", Value = "http://dati.openexpo2015.it/" });
-            items.Add(new SelectListItem { Text = "http://data.london.gov.uk/", Value = "http://data.london.gov.uk/" });
-            items.Add(new SelectListItem { Text = "http://www.civicdata.io/", Value = "http://www.civicdata.io/" });
+            items.Add(new SelectListItem { Text = "http://www.civicdata.com/", Value = "http://www.civicdata.com/" });
+            items.Add(new SelectListItem { Text = "https://edo.ckan.io/", Value = "https://edo.ckan.io/" });
+            items.Add(new SelectListItem { Text = "http://data.gov.sk/", Value = "http://data.gov.sk/" });
+            items.Add(new SelectListItem { Text = "http://data.humdata.org/", Value = "http://data.humdata.org/" });
+            items.Add(new SelectListItem { Text = "http://www.odaa.dk/", Value = "http://www.odaa.dk/" });
+            items.Add(new SelectListItem { Text = "http://catalogue.data.gov.bc.ca/", Value = "http://catalogue.data.gov.bc.ca/" });
 
             ViewData["ckan"] = items;
 

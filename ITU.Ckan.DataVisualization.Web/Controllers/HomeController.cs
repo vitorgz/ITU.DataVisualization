@@ -37,13 +37,15 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             {
                 visualInstance.sources = new List<Source>() {
                 new Source() { name = "http://data.kk.dk/" },
-                new Source() { name = "http://datahub.io/" },
+                new Source() { name = "http://www.odaa.dk/" },
+                new Source() { name = "http://www.civicdata.com/" },
                 new Source() { name = "http://opendatadc.org/" },
-                new Source() { name = "http://data.opendataportal.at/" },
-                new Source() { name = "http://data.london.gov.uk/" },
-                new Source() { name = "http://dati.openexpo2015.it/" },
-                new Source() { name = "http://www.civicdata.io/" },
-               };
+                new Source() { name = "http://open.stavanger.kommune.no/" },
+                new Source() { name = "https://edo.ckan.io/" },
+                new Source() { name = "http://data.humdata.org/" },
+                new Source() { name = "http://data.gov.sk/" },
+                new Source() { name = "http://catalogue.data.gov.bc.ca/" }   
+            };
             }
 
             RootInstance.CurrentVisualization = visualInstance;
