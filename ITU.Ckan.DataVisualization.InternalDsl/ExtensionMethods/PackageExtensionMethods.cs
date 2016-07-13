@@ -10,10 +10,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
 {
     public static class PackageExtensionMethods
     {
-        public static async Task<Package> GetDataSets(this Package pck, string dataSourceId, string packageid)
+        public static async Task<List<DataSet>> GetDataSets(this Package pck, string dataSourceId, string packageid)
         {
-            //todo can be moved to List<DataSet>
-            return await InternalClient.GetDataSet<Package>(dataSourceId, packageid);
+            return await InternalClient.GetDataSet<List<DataSet>>(dataSourceId, packageid);
         }
 
         public static Package GetPackageByName(this Source root, Expression<Func<Package, bool>> property)

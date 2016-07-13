@@ -60,6 +60,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 source.packages = pck.packages;
             }
 
+            //send data to view
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "Select Package", Value = "Select Package" });
             foreach (var item in source.packages)
@@ -82,11 +83,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (pkg.dataSets == null)
             {
                 //var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
-                var ds = new PackageFactory().Initialize().AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
-                //var newPkg = ds.Create();
+                var ds = new PackageFactory().Initialize().AddIn(
+                    x => { x.GetDataSetsById(source.name, pck); }
+                    ).Create();
                 pkg.dataSets = ds.dataSets;
             }
 
+            //send data to view
             List<SelectListItem> items = new List<SelectListItem>();
             if (pkg == null) return Json(items);
             items.Add(new SelectListItem { Text = "Select Data Set", Value = "Select Data Set" });
@@ -105,6 +108,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var ds = source.GetPackageByName(x => x.name == pck).dataSets;
             var fields = ds.Where(x=>x.name == dts && x.format == "CSV").FirstOrDefault().fields;
 
+            //send data to view
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "Select Field", Value = "Select Field" });
             foreach (var item in fields)
@@ -115,7 +119,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             return Json(items);
         }
         
-
         [HttpPost]
         public void SelectXAxys(string src, string pck, string dts, string fld)
         {
@@ -125,10 +128,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var fields = ds.Where(x => x.format == "CSV" && x.name == dts).FirstOrDefault().fields;
 
             var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
-            //var nonSelect = fields.Where(x => x.id.ToString() != fld).ToList();
-            //nonSelect.ForEach(x => x.xAxys = false);
-            //select.xAxys = true;
-
             var dataset = ds.Where(x => x.name == dts).FirstOrDefault();
             var fieldsList = new List<Field>() { select };
 
@@ -136,8 +135,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             RootInstance.SerieX.fields = fieldsList;
             RootInstance.SerieX.sourceName = src;
             RootInstance.SerieX.packageName = pck;
-
-
         }
 
     }

@@ -68,13 +68,13 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
 
         [Route("api/GetMetaData")]
         [HttpPost]
-        public async Task<HttpResponseMessage> GetMetaData(string url, string dataSourceId)
+        public async Task<HttpResponseMessage> GetMetaData(SourceDTO dto)
         {
             try
             {
                 //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-                var response = await GenericApi.GenericRestfulClient.Get<DataSetDeserialize>(url, "/api/action/datastore_search", dataSourceId, 1);
-                var fields = response.result.fields;
+                var response = await GenericApi.GenericRestfulClient.Get<DataSetDeserialize>(dto.sourceName, "/api/action/datastore_search", dto.dataSetId, 1);
+                var fields = response.result.fields.ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, fields);
             }
@@ -84,41 +84,12 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
             }
         }
 
-        [Route("api/GetDataResourceLimit")]
-        [HttpPost]
-        public async Task<HttpResponseMessage> GetDataResourceLimit(SourceDTO source)
-        {
-           try
-            {                
-                //TODO
-                //ONly one source
-                //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
-                var response = await GenericApi.GenericRestfulClient.Get(
-                    source.sourceName,
-                    "/api/action/datastore_search",
-                    source.dataSetId,
-                    source.limit);
-
-                //TODO parse response -> read first Fields, and them map to formatted object
-
-                return Request.CreateResponse(HttpStatusCode.OK, response);
-            }
-            catch (HttpRequestException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-            }
-}
-
         [Route("api/GetDataResourceLimitOffset")]
         [HttpPost]
         public async Task<HttpResponseMessage> GetDataResourceLimitOffset(SourceDTO source)
         {
             try
             {
-                //TODO it only works with one Source! make it sense?                              
-
-                //returns JSON
-                //http://data.kk.dk/api/action/datastore_search?resource_id=123014980123948702&limit=1
                 var response = await GenericApi.GenericRestfulClient.Get(
                     source.sourceName,
                     "/api/action/datastore_search",
@@ -126,9 +97,11 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Ckan
                     source.limit,
                     source.offset);
 
-                //TODO parse response -> read first Fields, and them map to formatted object (not easy)
+                source.fields.ForEach(x => x.type = CloudApiHelpers.ResolveType(x.type));
+                CloudApiHelpers.ProcessJsonResponse(response, source.fields);
+                var table = CloudApiHelpers.CreateDataTable(source);
 
-                return Request.CreateResponse(HttpStatusCode.OK, response);
+                return Request.CreateResponse(HttpStatusCode.OK, table);
             }
             catch (HttpRequestException ex)
             {

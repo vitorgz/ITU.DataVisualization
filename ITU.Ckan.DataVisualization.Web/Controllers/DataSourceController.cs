@@ -62,8 +62,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             RootInstance.SelectFields();
 
             return Json(new { ok = true,
-                newurl = new UrlHelper(Request.RequestContext).Action("Index", "Draw") });       
-            //return RedirectToAction("Index", "Draw");
+                newurl = new UrlHelper(Request.RequestContext).Action("Index", "Draw") });
         }
     }
 }

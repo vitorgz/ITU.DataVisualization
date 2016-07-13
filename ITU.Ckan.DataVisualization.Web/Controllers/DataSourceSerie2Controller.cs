@@ -27,9 +27,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             items.Add(new SelectListItem { Text = "http://catalogue.data.gov.bc.ca/", Value = "http://catalogue.data.gov.bc.ca/" });
 
             ViewData["ckan"] = items;
-
-            //restartSeries(RootInstance.CurrentVisualization);
-
+            
             return PartialView();
         }
                 
@@ -49,6 +47,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
                 source.packages = pck.packages;
             }
 
+            //send data to view
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "Select Package", Value = "Select Package" });
             foreach (var item in source.packages)
@@ -71,11 +70,13 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (pkg.dataSets == null)
             {
                 //var ds = await new PackageFactory().Initialize().GetDataSetsById(source.name, pck);
-                var ds = new PackageFactory().Initialize().AddIn(x=> { x.GetDataSetsById(source.name, pck); }).Create();
-                //var newPkg = ds.Create();
+                var ds = new PackageFactory().Initialize().AddIn(
+                    x => { x.GetDataSetsById(source.name, pck); }
+                    ).Create();
                 pkg.dataSets = ds.dataSets;
             }
 
+            //send data to view
             List<SelectListItem> items = new List<SelectListItem>();
             if (pkg == null) return Json(items);
             items.Add(new SelectListItem { Text = "Select Data Set", Value = "Select Data Set" });
@@ -94,6 +95,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             var ds = source.GetPackageByName(x => x.name == pck).dataSets;
             var fields = ds.Where(x=>x.name == dts && x.format == "CSV").FirstOrDefault().fields;
 
+            //send data to view
             List<SelectListItem> items = new List<SelectListItem>();
             items.Add(new SelectListItem { Text = "Select Field", Value = "Select Field" });
             foreach (var item in fields)
@@ -116,6 +118,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
             var select = fields.Where(x => x.id.ToString() == fld).FirstOrDefault();
 
+            //handle exception is serie value is not of numeric type
             if (DslConverterHelpers.ResolveType(select.type) != typeof(int) &&
                 DslConverterHelpers.ResolveType(select.type) != typeof(double) &&
                 DslConverterHelpers.ResolveType(select.type) != typeof(decimal) &&

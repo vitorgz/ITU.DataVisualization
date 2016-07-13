@@ -61,8 +61,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             RootInstance.CurrentVisualization = null;
             var visual = await DBClient.GetVisualizationByName<Visualization>(vs);
             RootInstance.CurrentVisualization = visual;
-
-            //return RedirectToAction("DrawChart", "Draw");
+            
             return Json(Url.Action("DrawChart", "Draw"));
         }
 

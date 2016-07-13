@@ -40,7 +40,7 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
 
         public async Task<ActionResult> DrawChart()
         {
-            //recalculation of data
+            //recalculation of data from the parameters saved on the DB
             var visual = RootInstance.CurrentVisualization;
             var filters = visual.GetFilters();
             Table data;
@@ -65,7 +65,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             if (data == null)
                 throw new System.InvalidOperationException("No Data Found for this criteria, please try again");
 
-            //visual.AddTable(data);
             RootInstance.CurrentVisualization.table = data;
 
             string[] xAxisDAta = null;
@@ -73,11 +72,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             {
                 xAxisDAta = (data.column.Value as object[]).OfType<string>().ToArray();
                 if (xAxisDAta == null) xAxisDAta = (data.column.Value as object[]).Cast<string>().ToArray();
-                //var xAxisDAta = DslConverterHelpers.ConvertToStringArray(data.column.Value);
             }
 
             var rows = from row in data.rows
-                           //select new { data = DslConverterHelpers.ConvertToSpecificType(row.Value, row.Type.GetType()) };
                        select new { data = row.Value, name = row.name };
 
             var chartType = getChartType(graph);
@@ -112,12 +109,9 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> Save(string id)
         {
-            //if "selected" strategy was working, just filter by "selected"
             var selectedSources = RootInstance.CurrentVisualization.sources.Where(x => x.packages != null).
                 Where(x => x.packages.Any(y => y.dataSets != null)).ToList();
-                //Where(x => x.packages.SelectMany(y => y.dataSets).Any(z => z.fields != null)).
-                //Where(x => x.packages.SelectMany(y => y.dataSets).SelectMany(z => z.fields).Any(d => d.selected || d.xAxys))
-                //.ToList();
+            //there is the possibility of using the "selected" strategy, so only saving the information selected
 
             var newVisual = new Visualization()
             {

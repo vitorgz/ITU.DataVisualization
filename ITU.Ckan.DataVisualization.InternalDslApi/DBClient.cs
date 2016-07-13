@@ -12,12 +12,12 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
 {
     public static class DBClient
     {
-
-        public static void CreateVisualization(string name)
-        {
-               
-        }
-
+        /// <summary>
+        /// Get a Visualization by its name
+        /// </summary>
+        /// <typeparam name="T">Visualization</typeparam>
+        /// <param name="name"></param>
+        /// <returns>Visualization object</returns>
         public static async Task<T> GetVisualizationByName<T>(string name)
         {
             var dto = new VisualDTO() { name = name };
@@ -25,12 +25,23 @@ namespace ITU.Ckan.DataVisualization.InternalDslApi
             return await GetCkanAsync<T>(api, dto);
         }
 
+        /// <summary>
+        /// List of Visualization names
+        /// </summary>
+        /// <typeparam name="T">List<String></typeparam>
+        /// <returns>List<String></returns>
         public static async Task<T> GetListVisualizations<T>()
         {
             var api = "/api/GetVisualizationList";
             return await GetCkanAsync<T>(api, true);
         }
 
+        /// <summary>
+        /// Save a visualization Object in the cloud Data Base
+        /// </summary>
+        /// <typeparam name="T">boolean</typeparam>
+        /// <param name="vs"></param>
+        /// <returns>boolean</returns>
         public static async Task<T> SaveVisualization<T>(Visualization vs)
         {
             var api = "/api/SaveVisualization";
