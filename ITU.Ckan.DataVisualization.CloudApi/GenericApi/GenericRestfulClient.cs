@@ -136,7 +136,9 @@ namespace ITU.Ckan.DataVisualization.CloudApi.GenericApi
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(api).ConfigureAwait(false);
+                    var ct = new CancellationTokenSource();
+                    ct.CancelAfter(10000);
+                    HttpResponseMessage response = await client.GetAsync(api, ct.Token).ConfigureAwait(false);
                     if (response.IsSuccessStatusCode)
                     {
                         var data = response.Content.ReadAsStreamAsync().Result;

@@ -24,7 +24,6 @@ namespace ITU.Ckan.DataVisualization.Web.Controllers
             items.Add(new SelectListItem { Text = "http://data.gov.sk/", Value = "http://data.gov.sk/" });
             items.Add(new SelectListItem { Text = "http://data.humdata.org/", Value = "http://data.humdata.org/" });
             items.Add(new SelectListItem { Text = "http://www.odaa.dk/", Value = "http://www.odaa.dk/" });
-            items.Add(new SelectListItem { Text = "http://catalogue.data.gov.bc.ca/", Value = "http://catalogue.data.gov.bc.ca/" });
 
             ViewData["ckan"] = items;
             
