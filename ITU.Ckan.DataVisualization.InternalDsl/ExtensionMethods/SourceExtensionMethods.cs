@@ -23,28 +23,28 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             return s;
         }
 
-        public async static Task<List<Group>> GetGroupsAsync(this Source root, string source)
+        public async static Task<List<Group>> GetGroups(this Source root, string source)
         {
             return await InternalClient.GetGroups<List<Group>>(source);
         }
 
-        public async static Task<List<Tag>> GetTagsAsync(this Source root, string source)
+        public async static Task<List<Tag>> GetTags(this Source root, string source)
         {
             return await InternalClient.GetTags<List<Tag>>(source);
         }
 
-        public async static Task<List<Organization>> GetOrganizationsAsync(this Source root, string source)
+        public async static Task<List<Organization>> GetOrganizations(this Source root, string source)
         {
             return await InternalClient.GetOrganizations<List<Organization>>(source);
         }
 
-        public static async Task<List<Package>> GetPackagesAsync(this Source root, string id)
+        public static async Task<List<Package>> GetPackages(this Source root, string id)
         {
             return await InternalClient.GetPackages<List<Package>>(id);
         }
         
 
-        public static Source GetPackages(this Source source, string src)
+        public static void GetPackagesToSource(this Source source, string src)
         {
             var task = Task.Run(async () =>
             {
@@ -52,11 +52,9 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                 source.packages = tas;
             });
             task.Wait();
-
-            return source;
         }
 
-        public static Source GetGroups(this Source source, string src)
+        public static void GetGroupsToSource(this Source source, string src)
         {
             var task = Task.Run(async () =>
             {
@@ -64,11 +62,19 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                 source.groups = tas;
             });
             task.Wait();
-
-            return source;
         }
 
-        public static Source GetTags(this Source source, string src)
+        public static void GetOrganizationsToSource(this Source source, string src)
+        {
+            var task = Task.Run(async () =>
+            {
+                var tas = await InternalClient.GetOrganizations<List<Organization>>(src);
+                source.organizations = tas;
+            });
+            task.Wait();
+        }
+
+        public static void GetTagsToSource(this Source source, string src)
         {
             var task = Task.Run(async () =>
             {
@@ -76,8 +82,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                 source.tags = tas;
             });
             task.Wait();
-
-            return source;
         }
 
         public static Source AddIn(this Source source, Action<Source> action)

@@ -13,13 +13,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
             dataSet.fields = fieldsList;
             return dataSet;
         }
-
-        public static DataSet AddRecods(this DataSet dataSet, ICollection<Field> fieldsList)
-        {
-            dataSet.fields = fieldsList;
-            return dataSet;
-        }
-
+        
         public static Field GetXAxys(this DataSet dataSet)
         {
             return dataSet?.fields?.Where(x => x.xAxys).FirstOrDefault();

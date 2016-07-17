@@ -26,13 +26,13 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
         {
             return pck.dataSets.Where(x => x.selected).ToList();
         }
+
         public static List<DataSet> GetCVCFormatDataSets(this Package pck)
         {
             return pck.dataSets.Where(x => x.format == "CSV").ToList();
         }
 
-
-        public static Package GetDataSetsById(this Package package, string dataSetUrl, string id)
+        public static void GetDataSetsById(this Package package, string dataSetUrl, string id)
         {
             var task = Task.Run(async () =>
             {
@@ -40,8 +40,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.ExtensionMethods
                 package.dataSets = dts;
             });
             task.Wait();
-
-            return package;
         }
 
         public static Package AddIn(this Package pck, Action<Package> action)

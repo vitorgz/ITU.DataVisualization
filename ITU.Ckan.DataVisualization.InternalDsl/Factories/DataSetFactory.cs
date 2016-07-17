@@ -1,4 +1,6 @@
 ﻿using ITU.Ckan.DataVisualization.InternalDsl.IFactories;
+using ITU.Ckan.DataVisualization.InternalDslApi;
+using ITU.Ckan.DataVisualization.InternalDslApi.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,10 +53,22 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             dataSet.tags = new List<Tag>(tags);
             return this;
         }
-        public IDataSetFactory GetRecords()
+
+        public IDataSetFactory GetMetaData(string sourceName, string dataSetId)
         {
             //todo (not needed right now, because the Fields are getting together with the DAtaSEts)
             //but it would be nice to implement GetFields()
+
+            var dto = new SourceDTO();
+            dto.sourceName = sourceName;
+            dto.dataSetId = dataSetId;
+
+            var task = Task.Run(async () =>
+            {
+                var fields = await InternalClient.GetMetaData(dto);
+                dataSet.fields = fields;
+            });
+            task.Wait();
             return this;
         }
 

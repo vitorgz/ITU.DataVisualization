@@ -70,13 +70,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             });
             task.Wait();
             return this;
-        }
-
-        public List<Source> GetSources()
-        {
-            return visual.sources.ToList();
-        }  
-       
+        }       
     }
 }
 

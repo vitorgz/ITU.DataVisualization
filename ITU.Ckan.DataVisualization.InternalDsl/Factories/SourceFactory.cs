@@ -112,11 +112,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
             return this;
         }
 
-        public Source getSource
-        {
-            get { return source; }
-        }
-
         #endregion
     }
 

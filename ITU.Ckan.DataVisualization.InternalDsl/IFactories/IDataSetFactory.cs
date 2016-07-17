@@ -14,7 +14,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.IFactories
         IDataSetFactory AddOrganization(Organization organization);
         IDataSetFactory AddTag(List<Tag> tags);
         IDataSetFactory AddField(List<Field> field);
-        IDataSetFactory GetRecords();
+        IDataSetFactory GetMetaData(string sourceName, string dataSetId);
         DataSet Create();
     }
 }

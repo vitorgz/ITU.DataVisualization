@@ -224,13 +224,28 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
             Assert.IsNotNull(visual.table);
         }
 
-        //[TestMethod]
-        //public void TestExpressionTree()
-        //{
-        //    Action<string, string> combine = (a, b) => sou + b.ToUpper();
-        //    var one = "One";
-        //    var two = "Two";
-        //    var combined = combine(one, two);
-        //}
-    }
+        [TestMethod]
+        public void TestExtensionMethodSource()
+        {
+            var source = new Source();
+
+            source.AddIn(
+               x =>
+               {
+                   x.GetTagsToSource("test");
+               });
+
+            Assert.IsNotNull(source);
+
+        }
+
+            //[TestMethod]
+            //public void TestExpressionTree()
+            //{
+            //    Action<string, string> combine = (a, b) => sou + b.ToUpper();
+            //    var one = "One";
+            //    var two = "Two";
+            //    var combined = combine(one, two);
+            //}
+        }
 }
