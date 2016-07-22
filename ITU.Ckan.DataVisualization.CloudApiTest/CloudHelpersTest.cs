@@ -11,10 +11,18 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
     public class CloudHelpersTest
     {
         [TestMethod]
-        public void ConcertionTests()
+        public void ConvertionTests()
         {
-            //var data = new[] { "12", "13", null };
             var data = new[] { 12, 13, 14 };
+            var arr = CloudApiHelpers.ConvertArrayToSpecificType(data, typeof(int));
+
+            Assert.IsNotNull(arr);
+        }
+
+        [TestMethod]
+        public void ConvertionTestsNullable()
+        {
+            var data = new[] { "12", "13", null };
             var arr = CloudApiHelpers.ConvertArrayToSpecificType(data, typeof(int));
 
             Assert.IsNotNull(arr);
@@ -46,8 +54,20 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
         public void PieChartPercentageDataTest()
         {
             var rec = new Record();
-            //var data = new List<string>() { "test", "test1", "test", "test", "test", "test", "test", "test1", "test", "test" };
             var data = new List<int>() { 0,0,0,0,0,0,0,0,1,1 };
+            rec.value = data;
+
+            var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(rec);
+
+            Assert.IsNotNull(table);
+        }
+
+        [TestMethod]
+        public void PieChartPercentageDataTestStrings()
+        {
+            var rec = new Record();
+            var data = new List<string>() { "test", "test1", "test", "test", "test", "test", "test", "test1", "test", "test" };
+
             rec.value = data;
 
             var table = CloudApiHelpers.PieChartAnalizeAndCreateTable(rec);

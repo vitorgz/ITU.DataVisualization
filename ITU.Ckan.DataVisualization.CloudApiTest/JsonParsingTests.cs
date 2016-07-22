@@ -20,26 +20,6 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
     [TestClass]
     public class JsonParsingTests
     {
-        [TestMethod]
-        public void JsonParting()
-        {
-            //var TestClass = new { EmployeeID = 108, EmployeeName = "John Doe" };
-
-            var records = new Object();
-            var dummyObject = new
-            {
-                help = "",
-                sucess = true,
-                result = new { records = new Object[10] },
-            };
-
-            var rec = dummyObject.result.records;
-
-            //rec = new ExpandoObject();
-            //((IDictionary<string, object>)rec)["test"] = new object[10];
-
-            //JsonConvert.DeserializeAnonymousType(data, dummyObject);
-        }
 
         [TestMethod]
         public void DinamicallyCreateClass()
@@ -55,7 +35,6 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
 
             Assert.IsNotNull(s);
 
-            //JsonConvert.DeserializeAnonymousType(data, dummyObject);
         }
 
         [TestMethod]
@@ -70,14 +49,6 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
             {
                 ((IDictionary<string, object>)newClass)[item] = item.GetType().TypeInitializer;
             }
-            /*
-            dynamic dinamycFilters = new RecordDeserialize();
-            dinamycFilters = new ExpandoObject();
-            dinamycFilters.Status = "";
-            dinamycFilters.bknr = "";
-            */
-
-            //var sdf = (newClass as ExpandoObject).ToList();
 
             dynamic employee = new ExpandoObject();
             employee.Name = "John Smith";
@@ -151,11 +122,7 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
 
             var syntaxRoot = tree.GetRoot();
 
-            //var sd = new RecordDTO();
-
-            //var MyClass = syntaxRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.ClassDeclarationSyntax>().First();
-            //var MyMethod = syntaxRoot.DescendantNodes().OfType<Microsoft.CodeAnalysis.CSharp.Syntax.MethodDeclarationSyntax>().First();
-            //var type = tree.GetType();
+            Assert.IsNotNull(syntaxRoot);
         }
 
         [TestMethod]
@@ -209,73 +176,11 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
                 }
             }
 
-            //Type typeResult = assembly.GetType("ITU.Ckan.DataVisualization.CloudApi.DTO.ResultsDTO");
-            //Type typeRecords = assembly.GetType("ITU.Ckan.DataVisualization.CloudApi.DTO.RecordsDTO");
             Type typeRecord = assembly.GetType("ITU.Ckan.DataVisualization.CloudApi.DTO.RecordDTO");
-            //object objResult = Activator.CreateInstance(typeResult);
-            //object objRecords = Activator.CreateInstance(typeRecords);
             dynamic objRecord = Activator.CreateInstance(typeRecord);
 
+            Assert.IsNotNull(objRecord);
 
-            //var DyObjectsList = new List<RecordDTO>();
-            //dynamic DyObj = new ExpandoObject();
-            //DyObj._id = 0;
-            //DyObj.beslutnings_pjece = "";
-
-            /*
-            dynamic dinamycFilters = new RecordDTO();
-            dinamycFilters = new ExpandoObject();
-            dinamycFilters._id = 0;
-            dinamycFilters.beslutnings_pjece = "";
-            */
-
-            //Type d1 = typeof(List<>);
-            //Type[] typeArgs = { typeof(RecordDTO) };
-            //Type makeme = d1.MakeGenericType(typeArgs);
-            //object o = Activator.CreateInstance(makeme);
-
-            /*
-            var element = new ResultsDTO();
-            element.result = new RecordsDTO();
-            element.result.records = null;
-            */
-            
-            
-            //var rest =  GenericRestfulClient.GetCkan
-            //    ("http://data.kk.dk", "/api/action/datastore_search_sql?sql=SELECT _id,beslutnings_pjece FROM" + @" ""2401bae1-b4c7-4c8a-9bcc-6b5fb9c1dcbc"" ", element);
-
-            /*
-            var executionResult = type.InvokeMember("Write",
-                BindingFlags.Default | BindingFlags.InvokeMethod,
-                null,
-                obj,
-                new object[] { "Hello World" });
-                
-            var sdfs = executionResult.ToString();
-            */
-        }
-
-        [TestMethod]
-        public void TestExtendObject()
-        {
-            /*
-            dynamic TestClass = new RecordDTO();
-            TestClass = new ExpandoObject();
-            ((IDictionary<string, object>)TestClass)["_id"] = 0;
-            ((IDictionary<string, object>)TestClass)["beslutnings_pjece"] = "";
-
-            Type listType = typeof(List<>).MakeGenericType(TestClass.GetType());
-            IList myList = (IList)Activator.CreateInstance(listType);
-
-            var element = new ResultsDTO();
-            element.result = new RecordsDTO();
-            //element.result.records = myList;
-
-            //var rest = GenericRestfulClient.GetCkan
-            //    ("http://data.kk.dk", 
-            //    "/api/action/datastore_search_sql?sql=SELECT _id,beslutnings_pjece FROM" + @" ""2401bae1-b4c7-4c8a-9bcc-6b5fb9c1dcbc"" ", 
-            //    element);
-            */
         }
 
         [TestMethod]
@@ -289,7 +194,6 @@ namespace ITU.Ckan.DataVisualization.CloudApiTest
             Assert.IsNotNull(fields);
 
         }
-
 
         [TestMethod]
         public void ProcessCheckNullsJson()

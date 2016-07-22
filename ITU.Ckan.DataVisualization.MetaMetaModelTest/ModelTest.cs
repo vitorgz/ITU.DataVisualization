@@ -75,12 +75,6 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         [TestMethod]
         public void AddNameAndpToASource()
         {
-            //var prop = GenericFluentFactory<Property>
-            //    .Init(new Property())
-            //    .AddPropertyValue(x => x.Name, "test")
-            //    .AddPropertyValue(x => x.Value, 123)
-            //    .Create();
-
             var prop = new Property() { name = "TET", value = 12 };
 
             var source = GenericFluentFactory<Source>
@@ -103,43 +97,25 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         }
 
         [TestMethod]
-        public void TestAttributesInterface()
-        {
-            //var s = new Organization().WithProperties<Organization>("test");
-
-            //var s = new Source()
-            //    .addAttributes(new List<Group>())
-            //    .addAttributes(new List<Package>());
-
-            //var sd = s.Packages.Where(x => x.DataSets.FirstOrDefault().addFields(new List<Field>()));
-
-            //Assert.IsNotNull(s);
-        }
-
-        [TestMethod]
         public void TestRootFactory()
         {
-            //var r = new RootFactory().Initialize()
-            //    .AddVisualization("test").Create();
-
             var r = new Root();
             r.visualizations.Add(new Visualization() { name = "test" });
 
             var s = r.GetVisualization("test");
             var ss = r.GetVisualizationById(x => x.name == "test");
-
-            // var ta = ss.addAttributes(new List<Group>());
         }
 
         [TestMethod]
         public void TestDataSetFactory()
         {
-            //var ds = new DataSetFactory().Initialize
-            //    .AddField(new List<Field>())
-            //    .AddGroup(new List<Group>())
-            //    .AddOrganization(new Organization())
-            //    .Create();
+            var ds = new DataSetFactory()
+                .AddField(new List<Field>())
+                .AddGroup(new List<Group>())
+                .AddOrganization(new Organization())
+                .Create();
 
+            Assert.IsNotNull(ds);
         }
 
         [TestMethod]
@@ -179,12 +155,13 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
         [TestMethod]
         public void CheckVisualizationDSLMethods()
         {
-            var sdf = new Visualization();
-            //sdf = sdf.AddInX(x => {
-            //    x.AddSource(new List<Source>() { new Source() { name = "test" } });
-            //});
+            var visual = new Visualization();
+            visual = visual.AddIn(x =>
+            {
+                x.AddTable(new Table() { name = "test"});
+            });
 
-            Assert.IsNotNull(sdf);
+            Assert.IsNotNull(visual);
         }
 
         [TestMethod]
@@ -238,14 +215,5 @@ namespace ITU.Ckan.DataVisualization.MetaMetaModelTest
             Assert.IsNotNull(source);
 
         }
-
-            //[TestMethod]
-            //public void TestExpressionTree()
-            //{
-            //    Action<string, string> combine = (a, b) => sou + b.ToUpper();
-            //    var one = "One";
-            //    var two = "Two";
-            //    var combined = combine(one, two);
-            //}
-        }
+    }
 }
