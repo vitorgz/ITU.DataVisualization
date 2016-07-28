@@ -20,7 +20,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             var objArr = (data as string[]);
             var arr = Array.CreateInstance(dataType, objArr.Length);
 
-            if (dataType == typeof(int)) //TODO change by 0, not remove values
+            if (dataType == typeof(int)) 
                 objArr = objArr.Where(x => x != null).ToArray();
 
             arr = Array.ConvertAll(objArr, elem => Convert.ChangeType(elem, dataType));
@@ -141,7 +141,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             //select X-Axys
             var table = new Table();
 
-            //map xAxys //TODO move to the fluent
+            //map xAxys 
             var fields = source.fields;
             var xField = fields.Where(y => y.xAxys).FirstOrDefault();
             var dataType = ResolveType(xField.type);
@@ -176,7 +176,7 @@ namespace ITU.Ckan.DataVisualization.CloudApi.Helpers
             //select X-Axys
             var table = new Table();
 
-            //map xAxys //TODO move to the fluent
+            //map xAxys
             var fields = visual.sources.SelectMany(x => x.fields);
             var xField = fields.Where(y => y.xAxys).FirstOrDefault();
             var dataType = ResolveType(xField.type);

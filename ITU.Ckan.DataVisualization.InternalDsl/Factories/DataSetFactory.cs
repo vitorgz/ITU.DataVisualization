@@ -36,7 +36,7 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public IDataSetFactory AddGroup(List<Group> groups)
         {
-            //it is a relationship, not new entities, perhaps better go the (group, organi., tag, records) table 
+            //it is a relationship, ideally it would be better: 
             //var group = source.GetGroups.Where(x=>x.dataSet = id);
             dataSet.groups = new List<Group>(groups);
             return this;
@@ -56,9 +56,6 @@ namespace ITU.Ckan.DataVisualization.InternalDsl.Factories
 
         public IDataSetFactory GetMetaData(string sourceName, string dataSetId)
         {
-            //todo (not needed right now, because the Fields are getting together with the DAtaSEts)
-            //but it would be nice to implement GetFields()
-
             var dto = new SourceDTO();
             dto.sourceName = sourceName;
             dto.dataSetId = dataSetId;
